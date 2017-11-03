@@ -46,17 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameEngineEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GameEngineEditor.Designer.cs">
-      <DependentUpon>GameEngineEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="GameEngine\GameEngine.cs" />
+    <Compile Include="GameEngine\Game.cs" />
+    <Compile Include="GameEngine\TestComponent.cs" />
+    <Compile Include="GameEngine\Entity.cs" />
+    <Compile Include="GameEngine\IComponent.cs" />
+    <Compile Include="GameEngine\Program.cs" />
+    <Compile Include="GameEngine\ISystem.cs" />
+    <Compile Include="Platformer2D\Platformer2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="GameEngineEditor.resx">
-      <DependentUpon>GameEngineEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -77,8 +75,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
