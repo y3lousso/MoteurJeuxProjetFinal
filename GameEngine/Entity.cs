@@ -15,7 +15,7 @@ namespace MoteurJeuxProjetFinal
             _components.Add(component);
         }
 
-        public List<IComponent> GetComponent()
+        public List<IComponent> GetComponents()
         {
             return _components;
         }

@@ -46,14 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameEngine\Components\RigidbodyComponent.cs" />
     <Compile Include="GameEngine\GameEngine.cs" />
-    <Compile Include="GameEngine\Game.cs" />
     <Compile Include="GameEngine\TestComponent.cs" />
     <Compile Include="GameEngine\Entity.cs" />
     <Compile Include="GameEngine\IComponent.cs" />
-    <Compile Include="GameEngine\Program.cs" />
+    <Compile Include="GameEngine\Game.cs" />
     <Compile Include="GameEngine\ISystem.cs" />
-    <Compile Include="Platformer2D\Platformer2D.cs" />
+    <Compile Include="GameEngine\XML_Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

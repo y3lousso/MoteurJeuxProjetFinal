@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoteurJeuxProjetFinal.Platformer2D
+namespace MoteurJeuxProjetFinal.Components
 {
-    class Platformer2D : Game
+    class RigidbodyComponent
     {
-
     }
 }
