@@ -8,6 +8,9 @@ namespace MoteurJeuxProjetFinal
 {
     class Entity
     {
+        // All entities need a transform
+        // If an entity has a player component, it needs a rigidbody component too
+
         private string name = "Unknown";
 
         private List<IComponent> _components = new List<IComponent>();
@@ -20,6 +23,19 @@ namespace MoteurJeuxProjetFinal
         public List<IComponent> GetComponents()
         {
             return _components;
+        }
+
+        public IComponent GetComponentOfType(Type type)
+        {
+            foreach(IComponent component in _components)
+            {
+                if (component.GetType() == type)
+                {
+                    return component;
+                }
+            }
+            // Component of this type not found
+            throw new Exception();
         }
 
         public void RemoveComponent(IComponent component)

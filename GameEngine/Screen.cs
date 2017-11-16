@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Drawing;
+using System.Numerics;
+
 
 namespace MoteurJeuxProjetFinal
 {
@@ -13,6 +15,13 @@ namespace MoteurJeuxProjetFinal
     {
         private GameEngine gameEngine;
         private Form form = new Form();
+
+
+
+        // TEST : Instantiate 2 new panels
+        Panel blackPanel = new Panel();
+        Panel whitePanel = new Panel();
+        int xPos = 5;
 
         public Form GetForm() { return form; }
 
@@ -32,17 +41,16 @@ namespace MoteurJeuxProjetFinal
         public void InitForm(string gameName, int width, int height)
         {
             form.KeyDown += OnKeyDown;
+            form.KeyUp += OnKeyUp;
             form.FormClosed += OnFormClosed;
             form.KeyPreview = true;
 
-            // Set the caption bar text of the form.   
+            // Set screen properties
             form.Text = gameName;
-            // Set screen size
             SetScreenProperties(width, height);
 
-            
             // Display a help button on the form.
-            form.HelpButton = true;
+            form.HelpButton = false;
             // Define the border style of the form to a dialog box.
             form.FormBorderStyle = FormBorderStyle.FixedDialog;
             // Set the MaximizeBox to false to remove the maximize box.
@@ -51,18 +59,22 @@ namespace MoteurJeuxProjetFinal
             form.MinimizeBox = false;
 
             // Set the start position of the form to the center of the screen.
-            form.StartPosition = FormStartPosition.CenterScreen;        
+            form.StartPosition = FormStartPosition.CenterScreen;
 
             // Display the form as a modal dialog box.
             form.Visible = true;
             form.Focus();
             form.Activate();
-           // Application.Run(form);
         }
 
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
-            gameEngine.GetInputManager().CheckKeyboardInputs(e);
+            gameEngine.GetInputManager().ManageKeyPress(e);
+        }
+
+        public void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            gameEngine.GetInputManager().ManageKeyRelease(e);
         }
 
         public void OnFormClosed(object sender, FormClosedEventArgs e)
@@ -71,6 +83,27 @@ namespace MoteurJeuxProjetFinal
                 form.Hide();
                 gameEngine.CloseGame();
             }
+        }
+        public void UpdateTest()
+        {
+            xPos++;
+            blackPanel.Location = new Point(xPos, 10);
+        }
+
+        public void ClearScreen()
+        {
+            form.Controls.Clear();
+        }
+
+        public void AddImage(Panel panel, Vector2 position)
+        {
+            // Same here with the white one
+            panel.BackColor = Color.Red;
+            panel.Location = new Point((int)position.X, (int)position.Y);
+            panel.Size = new Size(90, 90);
+            // That's the point, container controls exposes the Controls
+            // collection that you could use to add controls programatically
+            form.Controls.Add(panel);
         }
     }
 }

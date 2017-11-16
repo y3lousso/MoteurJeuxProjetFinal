@@ -10,8 +10,13 @@ namespace MoteurJeuxProjetFinal
 {
     class XML_Manager
     {
-
+        GameEngine gameEngine;
         public XDocument doc;
+
+        public void Init(GameEngine _gameEngine)
+        {
+            gameEngine = _gameEngine;
+        }
 
         /// <summary>
         /// Create xml file (allow us to create game without editor, you can go directly inside the xml file if you want)
@@ -68,7 +73,9 @@ namespace MoteurJeuxProjetFinal
                                 currentEntity.AddComponent(new RigidbodyComponent());
                                 break;
                             case "Renderer":
-                                currentEntity.AddComponent(new RendererComponent());
+                                RendererComponent rendererComponent = new RendererComponent();
+                                currentEntity.AddComponent(rendererComponent);
+                                rendererComponent.SetProperties(gameEngine.GetScreen());
                                 break;
                             default:
                                 throw new Exception("Undefined Component");

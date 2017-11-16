@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -32,10 +32,11 @@ namespace MoteurJeuxProjetFinal
         /// Init game engine
         /// </summary>
         public void Init(string gameName)
-        {            
+        {
             is_running = true;
 
             // Init inputs manager
+            xmlManager.Init(this);
             inputManager.Init(this);
             gameScreen.Init(this);
 
@@ -46,10 +47,10 @@ namespace MoteurJeuxProjetFinal
             gameScreen.InitForm(gameProperties.gameName, gameProperties.screenWidth, gameProperties.screenHeight);
 
             //Load all entities from xml file
-            xmlManager.LoadGameContent( ref _scenes);
+            xmlManager.LoadGameContent(ref _scenes);
 
             currentScene = _scenes[0];
-            if(currentScene.GetName() == "Scene1")
+            if (currentScene.GetName() == "Scene1")
             {
                 Console.WriteLine("P'tite bière maintenant :)");
             }
@@ -60,23 +61,91 @@ namespace MoteurJeuxProjetFinal
         /// </summary>
         public void RunGameLoop()
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            float deltaTime;
+
             // Game loop
             while (is_running)
             {
-                // Check inputs
-                // inputManager.Check
+                // Get deltaTime
+                stopwatch.Stop();
+                deltaTime = stopwatch.ElapsedMilliseconds;
+                stopwatch.Reset();
+                stopwatch.Start();
 
-                // Simulate game logic
-                /*foreach (Entity entity in currentScene.GetEntities())
+                // Check inputs
+                System.Windows.Forms.Application.DoEvents();
+
+                // Add force via inputs to player 
+                foreach (Entity entity in currentScene.GetEntities())
                 {
                     foreach (IComponent component in entity.GetComponents())
                     {
-                        component.Update();
+                        if (component.GetType() == typeof(PlayerComponent))
+                        {
+                            ((PlayerComponent)component).SetInputForce(inputManager.inputs.inputXY);
+                            ((RigidbodyComponent)entity.GetComponentOfType(typeof(RigidbodyComponent))).AddForce(((PlayerComponent)component).GetInputForce());
+                        }
                     }
-                }*/
+                }
+
+                // Calculate all rigidbodies + Next frame position
+                foreach (Entity entity in currentScene.GetEntities())
+                {
+                    foreach (IComponent component in entity.GetComponents())
+                    {
+                        if (component.GetType() == typeof(RigidbodyComponent))
+                        {
+                            component.Update(deltaTime);
+                            ((TransformComponent)entity.GetComponentOfType(typeof(TransformComponent))).CalculateNextFramePosition(((RigidbodyComponent)component).velocity, deltaTime);
+                        }
+                    }
+                }
+
+                //Calculate Collision
+                foreach (Entity entity in currentScene.GetEntities())
+                {
+                    foreach (IComponent component in entity.GetComponents())
+                    {
+                        if (component.GetType() == typeof(CubeColliderComponent))
+                        {
+                            // algo de collision -> add force -> recalculate their rigidbodies -> calculate Next frame position 
+                        }
+                    }
+                }
+
+                // Apply Next Frame Transform + 
+                foreach (Entity entity in currentScene.GetEntities())
+                {
+                    foreach (IComponent component in entity.GetComponents())
+                    {
+                        if (component.GetType() == typeof(TransformComponent))
+                        {
+                            ((TransformComponent)component).ApplyNextFramePosition();
+                        }
+                    }
+                }
+
+                // Apply Renderer to screen
+                gameScreen.ClearScreen();
+                foreach (Entity entity in currentScene.GetEntities())
+                {
+                    foreach (IComponent component in entity.GetComponents())
+                    {
+                        if (component.GetType() == typeof(RendererComponent))
+                        {
+                            ((RendererComponent)component).UpdateRenderer(((TransformComponent)entity.GetComponentOfType(typeof(TransformComponent))).GetCurrentPosition());
+                        }
+                    }
+                }
+
+                // 
                 // Apply outputs
                 // form.UpdateSprites ...
-                
+                Thread.Sleep(20);
+                gameScreen.UpdateTest();
+
             }
 
             // Unload ressources
@@ -86,9 +155,12 @@ namespace MoteurJeuxProjetFinal
             Debug.WriteLine("Game engine exited correctly.");
         }
 
-        
-        public void CloseGame() {
-            is_running = false;          
+
+
+
+        public void CloseGame()
+        {
+            is_running = false;
         }
 
 

@@ -8,6 +8,6 @@ namespace MoteurJeuxProjetFinal
 {
     interface IComponent
     {
-        void Update();   
+        void Update(float deltaTime);   
     }
 }
