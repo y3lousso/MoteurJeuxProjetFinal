@@ -16,7 +16,8 @@ namespace MoteurJeuxProjetFinal
         {
             // Create instance of game engine
             GameEngine gameEngine = new GameEngine();
-            gameEngine.Init("Platformer2D.xml");
+            string path = Environment.CurrentDirectory + "\\Plateformer2D" +  "\\Platformer2D.xml";
+            gameEngine.Init(path);
 
             // Start the game engine loop with the xml content loaded
             gameEngine.RunGameLoop();        

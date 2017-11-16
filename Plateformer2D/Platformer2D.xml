@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Game.xml>
+  <GameProperties>
+    <Name>Plateformer 2D</Name>
+    <Width>1280</Width>
+    <Height>720</Height>
+  </GameProperties>
+  <GameContent>
+    <Scenes>
+      <Scene Name ="Scene1">
+        <Entities>
+          <Entity Name ="Player">
+            <Components>
+              <Component Type ="Transform"></Component>
+              <Component Type ="Rigidbody"></Component>
+              <Component Type ="Player"></Component>
+              <Component Type ="Renderer"></Component>
+            </Components>
+          </Entity>
+        </Entities>
+      </Scene>
+    </Scenes>
+  </GameContent>
+</Game.xml>
