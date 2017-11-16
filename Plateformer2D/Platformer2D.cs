@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace MoteurJeuxProjetFinal
 {
-    class Game
+    class Platformer2D
     {
         /// <summary>
         /// The main entry point for the application.
@@ -16,18 +16,7 @@ namespace MoteurJeuxProjetFinal
         {
             // Create instance of game engine
             GameEngine gameEngine = new GameEngine();
-            gameEngine.Init();
-
-            // Create game content
-
-
-            // Load content from xml file to game engine
-
-            // for test
-            gameEngine.GetXmlManager().CreateGameContentFromXMLFile("game1.xml");
-
-            // for the while, we load one specific file, afterward we'll need to load a file specified within the editor
-            gameEngine.GetXmlManager().LoadGameContentFromXMLFile("game1.xml");
+            gameEngine.Init("Platformer2D.xml");
 
             // Start the game engine loop with the xml content loaded
             gameEngine.RunGameLoop();        

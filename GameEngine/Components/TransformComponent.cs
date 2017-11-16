@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace MoteurJeuxProjetFinal
 {
-    class TestComponent : IComponent
+    class TransformComponent : IComponent
     {
         public void Update()
         {
-            Debug.WriteLine("Test validated");
+
         }
     }
 }

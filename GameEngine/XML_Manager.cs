@@ -1,70 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Xml.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using System.IO;
+
 
 namespace MoteurJeuxProjetFinal
 {
     class XML_Manager
     {
 
+        public XDocument doc;
+
         /// <summary>
         /// Create xml file (allow us to create game without editor, you can go directly inside the xml file if you want)
         /// </summary>
-        public void CreateGameContentFromXMLFile(string GameName)
+        public void LoadGameFile(string fileName)
         {
-            XmlTextWriter writer = new XmlTextWriter(GameName, System.Text.Encoding.UTF8);
-            writer.WriteStartDocument(true);
-            writer.Formatting = Formatting.Indented;
-            writer.Indentation = 2;
-            writer.WriteStartElement(GameName);
-            AddScene("Scene 1", writer);
-            AddScene("Scene 2", writer);
-            writer.WriteEndElement();
-            writer.WriteEndDocument();
-            writer.Close();
-            //MessageBox.Show("XML File created ! ");
+            doc = XDocument.Load(fileName);           
         }
 
+        /// <summary>
+        /// Load game properties from xml file
+        /// </summary>
+        public GameProperties LoadGameProperties()
+        {            
+            GameProperties gameProperties = new GameProperties();
+            XElement gamePropertyElement = doc.Element("Game.xml").Element("GameProperties");
+
+            gameProperties.gameName = gamePropertyElement.Element("Name").Value;
+            gameProperties.screenWidth = Int32.Parse(gamePropertyElement.Element("Width").Value);
+            gameProperties.screenHeight = Int32.Parse(gamePropertyElement.Element("Height").Value);
+
+            return gameProperties;
+        }
 
         /// <summary>
         /// Load xml file (allow us to create game without editor, you can go directly inside the xml file if you want)
-        ///xml parsing
-        ///for each entities
-        ///create entities
-        ///for each components in entities
-        ///add components to entities
-        ///for each components
-        ///set component values
-        ///end for
-        ///end for
-        ///end for
         /// </summary>
-        public void LoadGameContentFromXMLFile(string GameName)
+        public void LoadGameContent(ref List<Scene> scenes)
         {
-            XmlDataDocument xmldoc = new XmlDataDocument();
-            XmlNodeList xmlnode;
-            int i = 0;
-            string str = null;
-            FileStream fs = new FileStream(GameName, FileMode.Open, FileAccess.Read);
-            xmldoc.Load(fs);
-            xmlnode = xmldoc.GetElementsByTagName("Scene");
-            for (i = 0; i <= xmlnode.Count - 1; i++)
+            XElement sceneElements = doc.Element("Game.xml").Element("GameContent").Element("Scenes");
+            foreach (XElement sceneElement in sceneElements.Descendants())
             {
-                xmlnode[i].ChildNodes.Item(0).InnerText.Trim();
-                str = xmlnode[i].ChildNodes.Item(0).InnerText.Trim() + "  " + xmlnode[i].ChildNodes.Item(1).InnerText.Trim() + "  " + xmlnode[i].ChildNodes.Item(2).InnerText.Trim();
-                //MessageBox.Show(str);
+                Scene currentScene = new Scene();
+                currentScene.SetName(sceneElement.Value);
+                scenes.Add(currentScene);
+                XElement entityElements = sceneElements.Element("Scene").Element("Entities");
+                foreach (XElement entityElement in entityElements.Descendants())
+                {
+                    Entity currentEntity = new Entity();
+                    currentEntity.SetName(entityElement.Value);
+                    currentScene.GetEntities().Add(currentEntity);
+                    XElement componentElements = entityElements.Element("Entity").Element("Components");
+                    foreach (XElement componentElement in componentElements.Descendants())
+                    {
+                        switch (componentElement.FirstAttribute.Value)
+                        {
+                            case "Player":
+                                currentEntity.AddComponent(new PlayerComponent());
+                                break;
+                            case "Transform":
+                                currentEntity.AddComponent(new TransformComponent());
+                                break;
+                            case "Rigidbody":
+                                currentEntity.AddComponent(new RigidbodyComponent());
+                                break;
+                            case "Renderer":
+                                currentEntity.AddComponent(new RendererComponent());
+                                break;
+                            default:
+                                throw new Exception("Undefined Component");
+                        }
+                    }
+                }
             }
         }
 
-        private void AddScene(string sceneName, XmlTextWriter writer)
+        private void AddScene(string sceneName)
         {
-            writer.WriteStartElement("Scene");
-            writer.WriteString(sceneName);
-            writer.WriteEndElement();
+
         }
 
         /*private void AddEntityToScene(string entity, string sceneName, XmlTextWriter writer)
@@ -73,5 +89,12 @@ namespace MoteurJeuxProjetFinal
             writer.WriteString(entity);
             writer.WriteEndElement();
         }*/
+    }
+
+    public struct GameProperties
+    {
+        public string gameName;
+        public int screenWidth;
+        public int screenHeight;
     }
 }

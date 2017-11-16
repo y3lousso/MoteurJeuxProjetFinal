@@ -46,12 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameEngine\Components\PlayerComponent.cs" />
+    <Compile Include="GameEngine\Components\RendererComponent.cs" />
     <Compile Include="GameEngine\Components\RigidbodyComponent.cs" />
+    <Compile Include="GameEngine\Components\TransformComponent.cs" />
     <Compile Include="GameEngine\GameEngine.cs" />
-    <Compile Include="GameEngine\TestComponent.cs" />
+    <Compile Include="GameEngine\InputManager.cs" />
+    <Compile Include="GameEngine\Scene.cs" />
+    <Compile Include="GameEngine\Screen.cs" />
     <Compile Include="GameEngine\Entity.cs" />
     <Compile Include="GameEngine\IComponent.cs" />
-    <Compile Include="GameEngine\Game.cs" />
+    <Compile Include="Plateformer2D\Platformer2D.cs" />
     <Compile Include="GameEngine\ISystem.cs" />
     <Compile Include="GameEngine\XML_Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

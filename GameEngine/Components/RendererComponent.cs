@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoteurJeuxProjetFinal
 {
-    class RigidbodyComponent : IComponent
+    class RendererComponent : IComponent
     {
         public void Update()
         {
