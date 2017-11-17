@@ -40,7 +40,7 @@ namespace MoteurJeuxProjetFinal
 
             return gameProperties;
         }
-
+/*
         /// <summary>
         /// Load xml file (allow us to create game without editor, you can go directly inside the xml file if you want)
         /// </summary>
@@ -51,6 +51,8 @@ namespace MoteurJeuxProjetFinal
             {
                 Scene currentScene = new Scene();
                 currentScene.SetName(sceneElement.Value);
+                //XElement background = sceneElement.Element("Background");
+                //currentScene.backgroundImagePath = sceneElement.Element("Background").FirstAttribute.Value;           
                 scenes.Add(currentScene);
                 XElement entityElements = sceneElements.Element("Scene").Element("Entities");
                 foreach (XElement entityElement in entityElements.Descendants())
@@ -89,7 +91,7 @@ namespace MoteurJeuxProjetFinal
         {
 
         }
-
+*/
         /*private void AddEntityToScene(string entity, string sceneName, XmlTextWriter writer)
         {
             writer.WriteStartAttribute(sceneName, entity, writer);

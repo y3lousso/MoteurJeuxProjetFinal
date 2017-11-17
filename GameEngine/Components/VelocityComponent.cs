@@ -5,17 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
 
-
 namespace MoteurJeuxProjetFinal
 {
-    class CubeColliderComponent : IComponent
+    class VelocityComponent : IComponent
     {
-        Vector2 size = new Vector2(0, 0);
-
-        public void Update(float deltaTime)
-        {
-
-        }
-
+        public Vector2 velocity = new Vector2(0, 0);
+        public float angularVelocity = 0f;
     }
 }

@@ -51,21 +51,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameEngine\Components\CubeColliderComponent.cs" />
-    <Compile Include="GameEngine\Components\PlayerComponent.cs" />
-    <Compile Include="GameEngine\Components\RendererComponent.cs" />
-    <Compile Include="GameEngine\Components\RigidbodyComponent.cs" />
-    <Compile Include="GameEngine\Components\TransformComponent.cs" />
+    <Compile Include="GameEngine\Components\BoxCollisionComponent.cs" />
+    <Compile Include="GameEngine\Components\InputComponent.cs" />
+    <Compile Include="GameEngine\Components\PhysicsComponent.cs" />
+    <Compile Include="GameEngine\Components\PositionComponent.cs" />
+    <Compile Include="GameEngine\Components\RenderComponent.cs" />
+    <Compile Include="GameEngine\Components\VelocityComponent.cs" />
+    <Compile Include="GameEngine\Nodes\CollisionNode.cs" />
+    <Compile Include="GameEngine\Nodes\InputNode.cs" />
+    <Compile Include="GameEngine\Nodes\PhysicsNode.cs" />
     <Compile Include="GameEngine\GameEngine.cs" />
     <Compile Include="GameEngine\InputManager.cs" />
+    <Compile Include="GameEngine\Nodes\MoveNode.cs" />
+    <Compile Include="GameEngine\Nodes\RenderNode.cs" />
     <Compile Include="GameEngine\Scene.cs" />
     <Compile Include="GameEngine\Screen.cs" />
     <Compile Include="GameEngine\Entity.cs" />
     <Compile Include="GameEngine\IComponent.cs" />
+    <Compile Include="GameEngine\SystemManager.cs" />
+    <Compile Include="GameEngine\Systems\CollisionSystem.cs" />
+    <Compile Include="GameEngine\Systems\InputSystem.cs" />
+    <Compile Include="GameEngine\Systems\MoveSystem.cs" />
+    <Compile Include="GameEngine\Systems\PhysicsSystem.cs" />
+    <Compile Include="GameEngine\Systems\RenderSystem.cs" />
     <Compile Include="Plateformer2D\Platformer2D.cs" />
     <Compile Include="GameEngine\ISystem.cs" />
     <Compile Include="GameEngine\XML_Manager.cs" />
+    <Compile Include="Plateformer2D\Ressource_Img.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ressource_Img.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Plateformer2D\Ressource_Img.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ressource_Img.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -92,10 +113,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Plateformer2D\img\background.png" />
+    <None Include="Plateformer2D\img\mario.png" />
     <Content Include="Plateformer2D\Platformer2D.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

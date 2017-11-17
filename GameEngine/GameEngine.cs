@@ -17,21 +17,25 @@ namespace MoteurJeuxProjetFinal
 
         // Xml file management
         private XML_Manager xmlManager = new XML_Manager();
-
         // Screen
         private Screen gameScreen = new Screen();
-
         // InputManager
         private InputManager inputManager = new InputManager();
+
+        // List of systems
+        private SystemManager systemManager = new SystemManager();
 
         // GameEngine content
         private List<Scene> _scenes = new List<Scene>();
         Scene currentScene;
 
-        /// <summary>
+        // Framerate wanted (ms)
+        float invFramerate = 1000f/60;
+
+ /*       /// <summary>
         /// Init game engine
         /// </summary>
-        public void Init(string gameName)
+        public void InitForXML(string gameName)
         {
             is_running = true;
 
@@ -50,10 +54,32 @@ namespace MoteurJeuxProjetFinal
             xmlManager.LoadGameContent(ref _scenes);
 
             currentScene = _scenes[0];
-            if (currentScene.GetName() == "Scene1")
-            {
-                Console.WriteLine("P'tite bière maintenant :)");
-            }
+            gameScreen.DisplayScene(currentScene);
+        }
+*/
+        /// <summary>
+        /// Init game engine
+        /// </summary>
+        public void InitForCode(Scene scene)
+        {
+            is_running = true;
+
+            // Init inputs manager
+            inputManager.Init(this);
+            gameScreen.Init(this);
+            gameScreen.InitForm("Plateformer2D", 1280, 720);
+            currentScene = scene;
+
+            systemManager.Init(this);
+
+            // Need to add them in the order they will be executed
+            systemManager.AddSystem(new InputSystem());
+            systemManager.AddSystem(new PhysicsSystem());
+            systemManager.AddSystem(new CollisionSystem());
+            systemManager.AddSystem(new MoveSystem());
+            systemManager.AddSystem(new RenderSystem());
+
+            gameScreen.DisplayScene(scene);
         }
 
         /// <summary>
@@ -61,96 +87,33 @@ namespace MoteurJeuxProjetFinal
         /// </summary>
         public void RunGameLoop()
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+            // Init Timer
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             float deltaTime;
 
             // Game loop
             while (is_running)
             {
-                // Get deltaTime
-                stopwatch.Stop();
-                deltaTime = stopwatch.ElapsedMilliseconds;
-                stopwatch.Reset();
-                stopwatch.Start();
+                stopWatch.Stop();
+                deltaTime = stopWatch.ElapsedMilliseconds;
+                stopWatch.Reset();
+                stopWatch.Start();
 
                 // Check inputs
                 System.Windows.Forms.Application.DoEvents();
 
-                // Add force via inputs to player 
-                foreach (Entity entity in currentScene.GetEntities())
+                // Update all system (following list prioritized order)
+                if (deltaTime <= invFramerate)
                 {
-                    foreach (IComponent component in entity.GetComponents())
-                    {
-                        if (component.GetType() == typeof(PlayerComponent))
-                        {
-                            ((PlayerComponent)component).SetInputForce(inputManager.inputs.inputXY);
-                            ((RigidbodyComponent)entity.GetComponentOfType(typeof(RigidbodyComponent))).AddForce(((PlayerComponent)component).GetInputForce());
-                        }
-                    }
+                    systemManager.Update(invFramerate); // allow us to avoid multithreading if game engine doesn't lag
+                    Thread.Sleep((int)(invFramerate - deltaTime));
                 }
-
-                // Calculate all rigidbodies + Next frame position
-                foreach (Entity entity in currentScene.GetEntities())
-                {
-                    foreach (IComponent component in entity.GetComponents())
-                    {
-                        if (component.GetType() == typeof(RigidbodyComponent))
-                        {
-                            component.Update(deltaTime);
-                            ((TransformComponent)entity.GetComponentOfType(typeof(TransformComponent))).CalculateNextFramePosition(((RigidbodyComponent)component).velocity, deltaTime);
-                        }
-                    }
-                }
-
-                //Calculate Collision
-                foreach (Entity entity in currentScene.GetEntities())
-                {
-                    foreach (IComponent component in entity.GetComponents())
-                    {
-                        if (component.GetType() == typeof(CubeColliderComponent))
-                        {
-                            // algo de collision -> add force -> recalculate their rigidbodies -> calculate Next frame position 
-                        }
-                    }
-                }
-
-                // Apply Next Frame Transform + 
-                foreach (Entity entity in currentScene.GetEntities())
-                {
-                    foreach (IComponent component in entity.GetComponents())
-                    {
-                        if (component.GetType() == typeof(TransformComponent))
-                        {
-                            ((TransformComponent)component).ApplyNextFramePosition();
-                        }
-                    }
-                }
-
-                // Apply Renderer to screen
-                gameScreen.ClearScreen();
-                foreach (Entity entity in currentScene.GetEntities())
-                {
-                    foreach (IComponent component in entity.GetComponents())
-                    {
-                        if (component.GetType() == typeof(RendererComponent))
-                        {
-                            ((RendererComponent)component).UpdateRenderer(((TransformComponent)entity.GetComponentOfType(typeof(TransformComponent))).GetCurrentPosition());
-                        }
-                    }
-                }
-
-                // 
-                // Apply outputs
-                // form.UpdateSprites ...
-                Thread.Sleep(20);
-                gameScreen.UpdateTest();
-
+                /*else // just in case the game engine is laging
+                { 
+                    systemManager.Update(deltaTime);
+                }  */            
             }
-
-            // Unload ressources
-            // ...
-
             // Game engine exit
             Debug.WriteLine("Game engine exited correctly.");
         }
@@ -163,9 +126,9 @@ namespace MoteurJeuxProjetFinal
             is_running = false;
         }
 
-
         public XML_Manager GetXmlManager() { return xmlManager; }
         public Screen GetScreen() { return gameScreen; }
         public InputManager GetInputManager() { return inputManager; }
+        public Scene GetCurrentScene() { return currentScene; }
     }
 }

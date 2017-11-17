@@ -35,7 +35,7 @@ namespace MoteurJeuxProjetFinal
                 }
             }
             // Component of this type not found
-            throw new Exception();
+            return null;
         }
 
         public void RemoveComponent(IComponent component)

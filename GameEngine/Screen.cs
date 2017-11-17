@@ -16,16 +16,8 @@ namespace MoteurJeuxProjetFinal
         private GameEngine gameEngine;
         private Form form = new Form();
 
-
-
-        // TEST : Instantiate 2 new panels
-        Panel blackPanel = new Panel();
-        Panel whitePanel = new Panel();
-        int xPos = 5;
-
-        public Form GetForm() { return form; }
-
-        
+        public Panel dynamicPanel= new Panel();
+        public Panel staticPanel = new Panel();
 
         public void Init(GameEngine _gameEngine)
         {
@@ -49,6 +41,18 @@ namespace MoteurJeuxProjetFinal
             form.Text = gameName;
             SetScreenProperties(width, height);
 
+            // Dynamic display for entities 
+            dynamicPanel.BackColor = Color.FromArgb(0,0,0,0);
+            dynamicPanel.Location = new Point(0, 0);
+            dynamicPanel.Size = new Size(width, height/2);
+            dynamicPanel.BackColor = Color.FromArgb(25, Color.Red);
+            form.Controls.Add(dynamicPanel);
+
+            // Static display for background layers
+            staticPanel.Location = new Point(0, 0);
+            staticPanel.Size = new Size(width, height);
+            form.Controls.Add(staticPanel);           
+       
             // Display a help button on the form.
             form.HelpButton = false;
             // Define the border style of the form to a dialog box.
@@ -62,6 +66,7 @@ namespace MoteurJeuxProjetFinal
             form.StartPosition = FormStartPosition.CenterScreen;
 
             // Display the form as a modal dialog box.
+
             form.Visible = true;
             form.Focus();
             form.Activate();
@@ -84,26 +89,38 @@ namespace MoteurJeuxProjetFinal
                 gameEngine.CloseGame();
             }
         }
-        public void UpdateTest()
+
+        public void ClearStaticPanel()
         {
-            xPos++;
-            blackPanel.Location = new Point(xPos, 10);
+            staticPanel.Controls.Clear();
         }
 
-        public void ClearScreen()
+        public void ClearDynamicPanel()
         {
-            form.Controls.Clear();
+            dynamicPanel.Controls.Clear();
         }
 
-        public void AddImage(Panel panel, Vector2 position)
+        public void DisplayScene(Scene scene)
+        {
+            ClearDynamicPanel();
+            ClearStaticPanel();
+
+            AddImageToPanel(staticPanel, new Vector2(0, 0), new Vector2(staticPanel.Width, staticPanel.Height), scene.backgroundImage);
+        }
+
+        public void AddImageToPanel(Panel panel, Vector2 position, Vector2 size, Image image)
         {
             // Same here with the white one
-            panel.BackColor = Color.Red;
-            panel.Location = new Point((int)position.X, (int)position.Y);
-            panel.Size = new Size(90, 90);
-            // That's the point, container controls exposes the Controls
-            // collection that you could use to add controls programatically
-            form.Controls.Add(panel);
+            Panel panelToAdd = new Panel();
+            panelToAdd.BackgroundImage = image;
+            //panelToAdd.BackColor = Color.Black;
+            panelToAdd.Location = new Point((int)position.X, (int)position.Y);
+            panelToAdd.Size = new Size((int)size.X, (int)size.Y);
+            panelToAdd.BringToFront();
+            panel.Controls.Add(panelToAdd);
+
         }
+
+        public Form GetForm() { return form; }
     }
 }

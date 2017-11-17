@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
+using System.Drawing;
 
 namespace MoteurJeuxProjetFinal
 {
-    interface ISystem
+    class RenderComponent : IComponent
     {
-        void Start(GameEngine _gameEngine);
-
-        void Update(float deltaTime);
-
-        void End();
+        public Image image;
+        public Vector2 size = new Vector2(500, 500);
     }
 }

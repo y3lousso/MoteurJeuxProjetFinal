@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace MoteurJeuxProjetFinal
 {
-    interface ISystem
+    class PhysicsNode
     {
-        void Start(GameEngine _gameEngine);
-
-        void Update(float deltaTime);
-
-        void End();
+        public PhysicsComponent physicsComponent;
+        public VelocityComponent velocityComponent;
     }
 }

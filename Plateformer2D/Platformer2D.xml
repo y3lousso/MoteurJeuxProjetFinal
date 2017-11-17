@@ -2,7 +2,7 @@
 <Game.xml>
   <GameProperties>
     <Name>Plateformer 2D</Name>
-    <Width>1280</Width>
+    <Width>1920</Width>
     <Height>720</Height>
   </GameProperties>
   <GameContent>

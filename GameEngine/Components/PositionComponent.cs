@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace MoteurJeuxProjetFinal
 {
-    interface ISystem
+    class PositionComponent : IComponent
     {
-        void Start(GameEngine _gameEngine);
-
-        void Update(float deltaTime);
-
-        void End();
+        public Vector2 position = new Vector2(50, 50);
+        public float orientation = 0f;
     }
 }

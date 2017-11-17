@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace MoteurJeuxProjetFinal
 {
-    interface ISystem
+    class BoxCollisionComponent : IComponent
     {
-        void Start(GameEngine _gameEngine);
-
-        void Update(float deltaTime);
-
-        void End();
+        Vector2 size = new Vector2(0, 0);
     }
 }
