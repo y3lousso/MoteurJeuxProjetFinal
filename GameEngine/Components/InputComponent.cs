@@ -10,6 +10,7 @@ namespace MoteurJeuxProjetFinal
     class InputComponent : IComponent
     {
         public Vector2 inputXY = new Vector2(0, 0);
+        public float inputTweaker = 1000f;
         public bool space = false;
     }
 }

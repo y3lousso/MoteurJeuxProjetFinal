@@ -36,5 +36,13 @@ namespace MoteurJeuxProjetFinal
             system.End();
             _systems.Remove(system);
         }
+
+        public void End()
+        {
+            foreach (ISystem system in _systems)
+            {
+                system.End();
+            }
+        }
     }
 }

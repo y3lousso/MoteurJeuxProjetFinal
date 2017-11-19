@@ -9,7 +9,7 @@ namespace MoteurJeuxProjetFinal
 {
     class PositionComponent : IComponent
     {
-        public Vector2 position = new Vector2(50, 50);
+        public Vector2 position = new Vector2(600, 100);
         public float orientation = 0f;
     }
 }

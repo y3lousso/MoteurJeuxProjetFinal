@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace MoteurJeuxProjetFinal
 {
@@ -10,6 +12,9 @@ namespace MoteurJeuxProjetFinal
     {        
         GameEngine gameEngine;
         public List<RenderNode> _renderNodes = new List<RenderNode>();
+
+        private Thread renderingThread;
+        public bool renderProcessOn = false;
 
         public void Start(GameEngine _gameEngine)
         {
@@ -25,19 +30,47 @@ namespace MoteurJeuxProjetFinal
                     _renderNodes.Add(newRenderNode);
                 }
             }
+            renderProcessOn = true;
+            renderingThread = new Thread(RenderingProcess);
+            renderingThread.Start();
         }
 
         public void Update(float deltaTime)
         {
-            foreach(RenderNode renderNode in _renderNodes)
+           /* gameEngine.GetDisplayWindow().displayLayer.SuspendLayout();
+            gameEngine.GetDisplayWindow().SuspendLayout();
+            gameEngine.GetDisplayWindow().ClearDisplayLayer();
+            foreach (RenderNode renderNode in _renderNodes)
             {
-                gameEngine.GetScreen().ClearDynamicPanel();
-                gameEngine.GetScreen().AddImageToPanel(gameEngine.GetScreen().dynamicPanel, renderNode.positionComponent.position, renderNode.renderComponent.size, renderNode.renderComponent.image);
-            }           
+                gameEngine.GetDisplayWindow().AddImageToDisplayLayer(gameEngine.GetDisplayWindow().displayLayer, renderNode.positionComponent.position, renderNode.renderComponent.size, renderNode.renderComponent.image);
+
+            }
+            gameEngine.GetDisplayWindow().displayLayer.ResumeLayout(true);
+            gameEngine.GetDisplayWindow().ResumeLayout(true);*/
         }
 
         public void End()
         {
+            renderProcessOn = false;
+        }
+
+        private void RenderingProcess()
+        {
+            while (renderProcessOn)
+            {
+                gameEngine.GetDisplayWindow().displayLayer.SuspendLayout();
+                gameEngine.GetDisplayWindow().SuspendLayout();
+                gameEngine.GetDisplayWindow().ClearDisplayLayer();
+                foreach (RenderNode renderNode in _renderNodes)
+                {
+                    gameEngine.GetDisplayWindow().AddImageToDisplayLayer(gameEngine.GetDisplayWindow().displayLayer, renderNode.positionComponent.position, renderNode.renderComponent.size, renderNode.renderComponent.image);
+                }               
+                gameEngine.GetDisplayWindow().displayLayer.ResumeLayout(true);
+                gameEngine.GetDisplayWindow().ResumeLayout(true);
+
+                // 100 images per sec
+                Thread.Sleep(10);
+            }
 
         }
     }

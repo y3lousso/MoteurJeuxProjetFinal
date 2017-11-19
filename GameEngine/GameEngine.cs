@@ -18,7 +18,7 @@ namespace MoteurJeuxProjetFinal
         // Xml file management
         private XML_Manager xmlManager = new XML_Manager();
         // Screen
-        private Screen gameScreen = new Screen();
+        private DisplayWindow displayWindow = new DisplayWindow();
         // InputManager
         private InputManager inputManager = new InputManager();
 
@@ -28,9 +28,6 @@ namespace MoteurJeuxProjetFinal
         // GameEngine content
         private List<Scene> _scenes = new List<Scene>();
         Scene currentScene;
-
-        // Framerate wanted (ms)
-        float invFramerate = 1000f/60;
 
  /*       /// <summary>
         /// Init game engine
@@ -63,12 +60,13 @@ namespace MoteurJeuxProjetFinal
         public void InitForCode(Scene scene)
         {
             is_running = true;
+            currentScene = scene;
 
             // Init inputs manager
             inputManager.Init(this);
-            gameScreen.Init(this);
-            gameScreen.InitForm("Plateformer2D", 1280, 720);
-            currentScene = scene;
+            displayWindow.Init(this);
+            displayWindow.InitForm("Plateformer2D", 1280, 720);
+            
 
             systemManager.Init(this);
 
@@ -78,8 +76,6 @@ namespace MoteurJeuxProjetFinal
             systemManager.AddSystem(new CollisionSystem());
             systemManager.AddSystem(new MoveSystem());
             systemManager.AddSystem(new RenderSystem());
-
-            gameScreen.DisplayScene(scene);
         }
 
         /// <summary>
@@ -96,23 +92,14 @@ namespace MoteurJeuxProjetFinal
             while (is_running)
             {
                 stopWatch.Stop();
-                deltaTime = stopWatch.ElapsedMilliseconds;
+                deltaTime = stopWatch.ElapsedMilliseconds/1000f;
                 stopWatch.Reset();
                 stopWatch.Start();
 
                 // Check inputs
                 System.Windows.Forms.Application.DoEvents();
 
-                // Update all system (following list prioritized order)
-                if (deltaTime <= invFramerate)
-                {
-                    systemManager.Update(invFramerate); // allow us to avoid multithreading if game engine doesn't lag
-                    Thread.Sleep((int)(invFramerate - deltaTime));
-                }
-                /*else // just in case the game engine is laging
-                { 
-                    systemManager.Update(deltaTime);
-                }  */            
+                systemManager.Update(deltaTime);          
             }
             // Game engine exit
             Debug.WriteLine("Game engine exited correctly.");
@@ -122,12 +109,13 @@ namespace MoteurJeuxProjetFinal
 
 
         public void CloseGame()
-        {
-            is_running = false;
+        { 
+            systemManager.End();
+            is_running = false;           
         }
 
         public XML_Manager GetXmlManager() { return xmlManager; }
-        public Screen GetScreen() { return gameScreen; }
+        public DisplayWindow GetDisplayWindow() { return displayWindow; }
         public InputManager GetInputManager() { return inputManager; }
         public Scene GetCurrentScene() { return currentScene; }
     }

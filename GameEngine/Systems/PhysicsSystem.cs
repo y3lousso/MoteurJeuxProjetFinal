@@ -36,10 +36,7 @@ namespace MoteurJeuxProjetFinal
                 {
                     physicsNode.physicsComponent._forces.Add(new Vector2(0, 9.81f * physicsNode.physicsComponent.masse));
                 }
-                if (physicsNode.physicsComponent.useAirFriction == true)
-                {
-                    physicsNode.physicsComponent._forces.Add(-physicsNode.physicsComponent.airFrictionTweaker * physicsNode.velocityComponent.velocity);
-                }
+                
 
                 // CalculateSumForces
                 Vector2 sumForces = new Vector2(0, 0);
@@ -50,6 +47,22 @@ namespace MoteurJeuxProjetFinal
 
                 // Calculate velocity : v = a*t + v0 
                 physicsNode.velocityComponent.velocity += (sumForces / physicsNode.physicsComponent.masse) * deltaTime;
+
+                if (physicsNode.physicsComponent.useAirFriction == true)
+                {
+                    // each second remove "airFrictionTweaker" % of the max speed
+                    physicsNode.velocityComponent.velocity -= physicsNode.physicsComponent.airFrictionTweaker* deltaTime* physicsNode.velocityComponent.velocity;
+                }
+
+                // Limit Max velocity
+                if(physicsNode.velocityComponent.velocity.X > physicsNode.velocityComponent.maxVelocity)
+                    physicsNode.velocityComponent.velocity.X  = physicsNode.velocityComponent.maxVelocity;
+                else if (physicsNode.velocityComponent.velocity.X < -physicsNode.velocityComponent.maxVelocity)
+                    physicsNode.velocityComponent.velocity.X = -physicsNode.velocityComponent.maxVelocity;
+                if (physicsNode.velocityComponent.velocity.Y > physicsNode.velocityComponent.maxVelocity)               
+                    physicsNode.velocityComponent.velocity.Y = physicsNode.velocityComponent.maxVelocity;
+                else if (physicsNode.velocityComponent.velocity.Y < -physicsNode.velocityComponent.maxVelocity)
+                    physicsNode.velocityComponent.velocity.Y = -physicsNode.velocityComponent.maxVelocity;
 
                 // Clear forces vector for next frame
                 physicsNode.physicsComponent._forces.Clear();

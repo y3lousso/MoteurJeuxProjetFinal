@@ -57,6 +57,9 @@
     <Compile Include="GameEngine\Components\PositionComponent.cs" />
     <Compile Include="GameEngine\Components\RenderComponent.cs" />
     <Compile Include="GameEngine\Components\VelocityComponent.cs" />
+    <Compile Include="GameEngine\DisplayLayer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GameEngine\Nodes\CollisionNode.cs" />
     <Compile Include="GameEngine\Nodes\InputNode.cs" />
     <Compile Include="GameEngine\Nodes\PhysicsNode.cs" />
@@ -65,7 +68,9 @@
     <Compile Include="GameEngine\Nodes\MoveNode.cs" />
     <Compile Include="GameEngine\Nodes\RenderNode.cs" />
     <Compile Include="GameEngine\Scene.cs" />
-    <Compile Include="GameEngine\Screen.cs" />
+    <Compile Include="GameEngine\DisplayWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GameEngine\Entity.cs" />
     <Compile Include="GameEngine\IComponent.cs" />
     <Compile Include="GameEngine\SystemManager.cs" />
@@ -83,6 +88,9 @@
       <DependentUpon>Ressource_Img.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GameEngine\DisplayWindow.resx">
+      <DependentUpon>DisplayWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Plateformer2D\Ressource_Img.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Ressource_Img.Designer.cs</LastGenOutput>
@@ -95,6 +103,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

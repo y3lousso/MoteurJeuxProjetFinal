@@ -9,7 +9,9 @@ namespace MoteurJeuxProjetFinal
 {
     class VelocityComponent : IComponent
     {
+        public float maxVelocity = 500f;
         public Vector2 velocity = new Vector2(0, 0);
         public float angularVelocity = 0f;
+
     }
 }

@@ -30,6 +30,7 @@ namespace MoteurJeuxProjetFinal
             Scene scene = new Scene();
             scene.SetName("Platformer2D");
             scene.backgroundImage = Plateformer2D.Ressource_Img.background;
+
             Entity entity1 = new Entity();
 
             InputComponent input = new InputComponent();

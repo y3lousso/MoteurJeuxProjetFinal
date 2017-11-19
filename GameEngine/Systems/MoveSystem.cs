@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace MoteurJeuxProjetFinal
 {
@@ -32,6 +33,18 @@ namespace MoteurJeuxProjetFinal
             foreach(MoveNode moveNode in _moveNodes)
             {
                 moveNode.positionComponent.position += moveNode.velocityComponent.velocity * deltaTime;
+                Debug.WriteLine("Velocity : " + moveNode.velocityComponent.velocity);
+
+                // Windows collision tweak
+                if (moveNode.positionComponent.position.X < 0)
+                     moveNode.positionComponent.position.X = 0;
+                if (moveNode.positionComponent.position.Y < 0)
+                     moveNode.positionComponent.position.Y = 0;
+                if (moveNode.positionComponent.position.X > gameEngine.GetDisplayWindow().GetForm().Width-50)
+                     moveNode.positionComponent.position.X = gameEngine.GetDisplayWindow().GetForm().Width-50;
+                if (moveNode.positionComponent.position.Y > gameEngine.GetDisplayWindow().GetForm().Height-50)
+                     moveNode.positionComponent.position.Y = gameEngine.GetDisplayWindow().GetForm().Height-50;
+
                 moveNode.positionComponent.orientation += moveNode.velocityComponent.angularVelocity * deltaTime;
             }
         }
