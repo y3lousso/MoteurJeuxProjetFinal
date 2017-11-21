@@ -9,6 +9,9 @@ namespace MoteurJeuxProjetFinal
 {
     class BoxCollisionComponent : IComponent
     {
-        Vector2 size = new Vector2(0, 0);
+        // Data comming from XML
+        public Vector2 size = new Vector2(0, 0);
+
+        // Others
     }
 }

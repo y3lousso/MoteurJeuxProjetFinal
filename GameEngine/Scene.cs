@@ -13,7 +13,7 @@ namespace MoteurJeuxProjetFinal
         private string name = "Unknown";
 
         // background image
-        public Image backgroundImage;
+        public string backgroundImage;
 
         private List<Entity> _entities = new List<Entity>();
 

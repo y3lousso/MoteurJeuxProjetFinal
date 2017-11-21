@@ -29,7 +29,9 @@ namespace MoteurJeuxProjetFinal
         private List<Scene> _scenes = new List<Scene>();
         Scene currentScene;
 
- /*       /// <summary>
+        public string imagePath;
+
+        /// <summary>
         /// Init game engine
         /// </summary>
         public void InitForXML(string gameName)
@@ -39,34 +41,21 @@ namespace MoteurJeuxProjetFinal
             // Init inputs manager
             xmlManager.Init(this);
             inputManager.Init(this);
-            gameScreen.Init(this);
+            displayWindow.Init(this);
 
             // Load game file
             xmlManager.LoadGameFile(gameName);
+
             // Get properties from game data file.
             GameProperties gameProperties = xmlManager.LoadGameProperties();
-            gameScreen.InitForm(gameProperties.gameName, gameProperties.screenWidth, gameProperties.screenHeight);
+            displayWindow.InitFormProperties(gameProperties.gameName, gameProperties.screenWidth, gameProperties.screenHeight);
 
             //Load all entities from xml file
             xmlManager.LoadGameContent(ref _scenes);
 
+            // Starting at the 1st scene
             currentScene = _scenes[0];
-            gameScreen.DisplayScene(currentScene);
-        }
-*/
-        /// <summary>
-        /// Init game engine
-        /// </summary>
-        public void InitForCode(Scene scene)
-        {
-            is_running = true;
-            currentScene = scene;
-
-            // Init inputs manager
-            inputManager.Init(this);
-            displayWindow.Init(this);
-            displayWindow.InitForm("Plateformer2D", 1280, 720);
-            
+            displayWindow.DisplayScene(currentScene);
 
             systemManager.Init(this);
 
@@ -77,6 +66,29 @@ namespace MoteurJeuxProjetFinal
             systemManager.AddSystem(new MoveSystem());
             systemManager.AddSystem(new RenderSystem());
         }
+
+        /// <summary>
+        /// Init game engine
+        /// </summary>
+       /* public void InitForCode(Scene scene)
+        {
+            is_running = true;
+            currentScene = scene;
+
+            // Init inputs manager
+            inputManager.Init(this);
+            displayWindow.Init(this);
+            displayWindow.InitForm("Plateformer2D", 1280, 720);
+            
+            systemManager.Init(this);
+
+            // Need to add them in the order they will be executed
+            systemManager.AddSystem(new InputSystem());
+            systemManager.AddSystem(new PhysicsSystem());
+            systemManager.AddSystem(new CollisionSystem());
+            systemManager.AddSystem(new MoveSystem());
+            systemManager.AddSystem(new RenderSystem());
+        }*/
 
         /// <summary>
         /// Game engine loop

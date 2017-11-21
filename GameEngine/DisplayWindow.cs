@@ -16,7 +16,7 @@ namespace MoteurJeuxProjetFinal
     {
         private GameEngine gameEngine;
 
-        public DisplayLayer displayLayer;
+        public DisplayLayer displayLayer = new DisplayLayer();
 
         public delegate void AddPanelDelegate(Panel mainPanel, Panel panelToAdd);
         public AddPanelDelegate addPanelDelegate;
@@ -29,45 +29,26 @@ namespace MoteurJeuxProjetFinal
             gameEngine = _gameEngine;
         }
 
-        public void SetScreenProperties(int width, int height)
+        public void InitFormProperties(string gameName, int width, int height)
         {
-            Width = width;
-            Height = height;
-
-            // Display a help button on the form.
-            HelpButton = false;
-            // Define the border style of the form to a dialog box.
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            // Set the MaximizeBox to false to remove the maximize box.
-            MaximizeBox = false;
-            // Set the MinimizeBox to false to remove the minimize box.
-            MinimizeBox = false;
-        }
-
-        public void InitForm(string gameName, int width, int height)
-        {
+            // Preparing events
             KeyDown += OnKeyDown;
             KeyUp += OnKeyUp;
             KeyPreview = true;
-
             FormClosed += OnFormClosed;            
             
-
             // Set screen properties
             Text = gameName;
-            SetScreenProperties(width, height);
-
-            // Init Components
-            InitializeComponent(width, height);
-
-            // Set the start position of the form to the center of the screen.
+            Width = width;
+            Height = height;
+            HelpButton = false;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-
-            //this.AddImageToDisplayLayer(staticDisplayLayer, new Vector2(0, 0), new Vector2(500, 500), Plateformer2D.Ressource_Img.background);
 
             // Display the form as a modal dialog box.
             Visible = true;
-            Focus();
             Activate();
             Show();
         }
@@ -91,11 +72,11 @@ namespace MoteurJeuxProjetFinal
             }
         }
 
-        public void AddImageToDisplayLayer(DisplayLayer displayLayer, Vector2 position, Vector2 size, Image image)
+        public void AddImageToDisplayLayer(DisplayLayer displayLayer, Vector2 position, Vector2 size, string image)
         {
             // Same here with the white one
             Panel panelToAdd = new Panel();
-            panelToAdd.BackgroundImage = image;
+            panelToAdd.BackgroundImage = Image.FromFile(gameEngine.imagePath + image);
             panelToAdd.BackgroundImageLayout = ImageLayout.Stretch;
             panelToAdd.BackColor = Color.Transparent;
             panelToAdd.Location = new Point((int)position.X, (int)position.Y);
@@ -138,34 +119,19 @@ namespace MoteurJeuxProjetFinal
 
         public Form GetForm() { return this; }
 
-        private void InitializeComponent(int width, int height)
+        public void DisplayScene(Scene scene)
         {
-            // Static and dynamic layers
-            displayLayer = new DisplayLayer();
-            DoubleBuffered = true;
-            DoubleBuffered = true;
-            SetStyle(ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.UserPaint |
-            ControlStyles.OptimizedDoubleBuffer, true);
-            UpdateStyles();
+            // Clear old scene if needed
+            displayLayer.Controls.Clear();
 
-            displayLayer.SuspendLayout();
-            SuspendLayout();
-
-            // staticDisplayLayer
-            displayLayer.BackgroundImage = gameEngine.GetCurrentScene().backgroundImage;
+            // Draw Background Image
+            displayLayer.BackgroundImage = Image.FromFile(gameEngine.imagePath + gameEngine.GetCurrentScene().backgroundImage);
             displayLayer.BackgroundImageLayout = ImageLayout.Stretch;
             displayLayer.Location = new Point(0, 0);
-            displayLayer.Name = "staticDisplayLayer";
-            displayLayer.Size = new Size(width, height);
-            displayLayer.TabIndex = 0;
+            displayLayer.Size = new Size(Width, Height);
             Controls.Add(displayLayer);
 
-            // DisplayWindow
-            Size = new System.Drawing.Size(width, height);
-            displayLayer.ResumeLayout(true);
-            ResumeLayout(true);
-
+            Refresh();
         }
     }
 }

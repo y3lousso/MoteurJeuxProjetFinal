@@ -79,10 +79,10 @@
     <Compile Include="GameEngine\Systems\MoveSystem.cs" />
     <Compile Include="GameEngine\Systems\PhysicsSystem.cs" />
     <Compile Include="GameEngine\Systems\RenderSystem.cs" />
-    <Compile Include="Plateformer2D\Platformer2D.cs" />
+    <Compile Include="Platformer2D\Platformer2D.cs" />
     <Compile Include="GameEngine\ISystem.cs" />
     <Compile Include="GameEngine\XML_Manager.cs" />
-    <Compile Include="Plateformer2D\Ressource_Img.Designer.cs">
+    <Compile Include="Platformer2D\Ressource_Img.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Ressource_Img.resx</DependentUpon>
@@ -91,7 +91,7 @@
     <EmbeddedResource Include="GameEngine\DisplayWindow.resx">
       <DependentUpon>DisplayWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Plateformer2D\Ressource_Img.resx">
+    <EmbeddedResource Include="Platformer2D\Ressource_Img.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Ressource_Img.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -122,9 +122,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Plateformer2D\img\background.png" />
-    <None Include="Plateformer2D\img\mario.png" />
-    <Content Include="Plateformer2D\Platformer2D.xml">
+    <None Include="Platformer2D\img\background.png" />
+    <None Include="Platformer2D\img\mario.png" />
+    <None Include="Platformer2D\img\tile.png" />
+    <None Include="Platformer2D\img\floorTile.png" />
+    <Content Include="Platformer2D\data.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

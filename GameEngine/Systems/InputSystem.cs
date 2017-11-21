@@ -35,7 +35,6 @@ namespace MoteurJeuxProjetFinal
             {
                 // get inputs from input manager then ...               
                 inputNode.inputComponent.inputXY = gameEngine.GetInputManager().inputs.inputXY;
-                Debug.WriteLine("inputs : " + inputNode.inputComponent.inputXY);
                 // apply them as a force to the physic component
                 inputNode.physicsComponent._forces.Add(inputNode.inputComponent.inputXY * inputNode.inputComponent.inputTweaker);
             }

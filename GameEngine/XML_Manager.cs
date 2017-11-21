@@ -37,61 +37,109 @@ namespace MoteurJeuxProjetFinal
             gameProperties.gameName = gamePropertyElement.Element("Name").Value;
             gameProperties.screenWidth = Int32.Parse(gamePropertyElement.Element("Width").Value);
             gameProperties.screenHeight = Int32.Parse(gamePropertyElement.Element("Height").Value);
-
             return gameProperties;
         }
-/*
+
         /// <summary>
         /// Load xml file (allow us to create game without editor, you can go directly inside the xml file if you want)
         /// </summary>
-        public void LoadGameContent(ref List<Scene> scenes)
+        public void LoadGameContent(ref List<Scene> _scenes)
         {
-            XElement sceneElements = doc.Element("Game.xml").Element("GameContent").Element("Scenes");
-            foreach (XElement sceneElement in sceneElements.Descendants())
+            // Scenes
+            XElement scenes = doc.Element("Game.xml").Element("GameContent").Element("Scenes");
+            foreach (XElement scene in scenes.Elements())
             {
-                Scene currentScene = new Scene();
-                currentScene.SetName(sceneElement.Value);
-                //XElement background = sceneElement.Element("Background");
-                //currentScene.backgroundImagePath = sceneElement.Element("Background").FirstAttribute.Value;           
-                scenes.Add(currentScene);
-                XElement entityElements = sceneElements.Element("Scene").Element("Entities");
-                foreach (XElement entityElement in entityElements.Descendants())
-                {
-                    Entity currentEntity = new Entity();
-                    currentEntity.SetName(entityElement.Value);
-                    currentScene.GetEntities().Add(currentEntity);
-                    XElement componentElements = entityElements.Element("Entity").Element("Components");
-                    foreach (XElement componentElement in componentElements.Descendants())
-                    {
-                        switch (componentElement.FirstAttribute.Value)
-                        {
-                            case "Player":
-                                currentEntity.AddComponent(new PlayerComponent());
-                                break;
-                            case "Transform":
-                                currentEntity.AddComponent(new TransformComponent());
-                                break;
-                            case "Rigidbody":
-                                currentEntity.AddComponent(new RigidbodyComponent());
-                                break;
-                            case "Renderer":
-                                RendererComponent rendererComponent = new RendererComponent();
-                                currentEntity.AddComponent(rendererComponent);
-                                rendererComponent.SetProperties(gameEngine.GetScreen());
-                                break;
-                            default:
-                                throw new Exception("Undefined Component");
-                        }
-                    }
-                }
+                LoadScene(ref _scenes, scene);                
             }
         }
+
+        public void LoadScene(ref List<Scene> _scenes, XElement scene)
+        {
+            // Scene
+            Scene currentScene = new Scene();
+            currentScene.SetName(scene.Attribute("Name").ToString());
+            currentScene.backgroundImage = scene.Element("BackgroundImage").Value;
+            _scenes.Add(currentScene);
+
+            // Elements
+            XElement entityElements = scene.Element("Entities");
+            foreach (XElement entityElement in entityElements.Elements())
+            {
+                LoadEntity(currentScene, entityElement);               
+            }
+        }
+
+        public void LoadEntity(Scene currentScene, XElement entity)
+        {
+            // Element
+            Entity currentEntity = new Entity();
+            currentEntity.SetName(entity.FirstAttribute.ToString());
+            currentScene.GetEntities().Add(currentEntity);
+
+            // Components
+            XElement components = entity.Element("Components");
+            foreach (XElement component in components.Elements())
+            {
+                LoadComponent(currentEntity,  component);               
+            }
+        }
+
+        public void LoadComponent(Entity currentEntity, XElement component)
+        {
+            //Component
+            switch (component.Attribute("Type").Value)
+            {
+                case "Input":
+                    InputComponent inputComponent = new InputComponent();
+                    inputComponent.inputTweaker = float.Parse(component.Element("inputTweaker").Value);
+                    currentEntity.AddComponent(inputComponent);
+                    break;
+                case "Physics":
+                    PhysicsComponent physicsComponent = new PhysicsComponent();
+                    physicsComponent.masse = int.Parse(component.Element("masse").Value);
+                    physicsComponent.useGravity = bool.Parse(component.Element("useGravity").Value);
+                    physicsComponent.useAirFriction = bool.Parse(component.Element("useAirFriction").Value);
+                    physicsComponent.airFrictionTweaker = float.Parse(component.Element("airFrictionTweaker").Value);
+                    currentEntity.AddComponent(physicsComponent);
+                    break;
+                case "BoxCollision":
+                    BoxCollisionComponent boxCollisionComponent = new BoxCollisionComponent();
+                    boxCollisionComponent.size.X = float.Parse(component.Element("sizeX").Value);
+                    boxCollisionComponent.size.Y = float.Parse(component.Element("sizeY").Value);
+                    currentEntity.AddComponent(boxCollisionComponent);
+                    break;
+                case "Position":
+                    PositionComponent positionComponent = new PositionComponent();
+                    positionComponent.position.X = float.Parse(component.Element("posX").Value);
+                    positionComponent.position.Y = float.Parse(component.Element("posY").Value);
+                    positionComponent.orientation = float.Parse(component.Element("orientation").Value);
+                    currentEntity.AddComponent(positionComponent);
+                    break;
+                case "Velocity":
+                    VelocityComponent velocityComponent = new VelocityComponent();
+                    velocityComponent.maxVelocity = float.Parse(component.Element("maxVelocity").Value);
+                    currentEntity.AddComponent(velocityComponent);
+                    break;
+                case "Render":
+                    RenderComponent renderComponent = new RenderComponent();
+                    renderComponent.image = component.Element("image").Value;
+                    renderComponent.size.X = int.Parse(component.Element("sizeX").Value);
+                    renderComponent.size.Y = int.Parse(component.Element("sizeY").Value);
+                    currentEntity.AddComponent(renderComponent);
+                    break;
+                default:
+                    throw new Exception("Undefined Component");
+            }
+        }
+
+
+
 
         private void AddScene(string sceneName)
         {
 
         }
-*/
+
         /*private void AddEntityToScene(string entity, string sceneName, XmlTextWriter writer)
         {
             writer.WriteStartAttribute(sceneName, entity, writer);

@@ -33,7 +33,6 @@ namespace MoteurJeuxProjetFinal
             foreach(MoveNode moveNode in _moveNodes)
             {
                 moveNode.positionComponent.position += moveNode.velocityComponent.velocity * deltaTime;
-                Debug.WriteLine("Velocity : " + moveNode.velocityComponent.velocity);
 
                 // Windows collision tweak
                 if (moveNode.positionComponent.position.X < 0)
