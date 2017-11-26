@@ -1,57 +1,57 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Game.xml>
   <GameProperties>
     <Name>Plateformer 2D</Name>
-    <Width>1920</Width>
-    <Height>1080</Height>
+    <Width>1280</Width>
+    <Height>720</Height>
   </GameProperties>
   <GameContent>
     <Scenes>
-      <Scene Name="Scene1">
+      <Scene Name ="Scene1">
         <BackgroundImage>background.png</BackgroundImage>
         <Entities>
-          <Entity Name="Player2">
+          <Entity Name ="Player">
             <Components>
-              <Component Type="Input">
+              <Component Type ="Input">
                 <inputTweaker>1000</inputTweaker>
               </Component>
-              <Component Type="Physics">
+              <Component Type ="Physics">
                 <masse>1</masse>
                 <useGravity>false</useGravity>
                 <useAirFriction>true</useAirFriction>
-                <airFrictionTweaker>0.9</airFrictionTweaker>
+                <airFrictionTweaker>9</airFrictionTweaker>
               </Component>
-              <Component Type="BoxCollision">
+              <Component Type ="BoxCollision">
                 <sizeX>5</sizeX>
                 <sizeY>5</sizeY>
               </Component>
-              <Component Type="Position">
+              <Component Type ="Position">
                 <posX>600</posX>
                 <posY>100</posY>
                 <orientation>0</orientation>
               </Component>
-              <Component Type="Velocity">
-                <maxVelocity>200</maxVelocity>
-              </Component>
-              <Component Type="Render">
+              <Component Type ="Velocity">
+                <maxVelocity>500</maxVelocity>
+              </Component>                            
+              <Component Type ="Render">
                 <image>mario.png</image>
-                <sizeX>50</sizeX>
-                <sizeY>50</sizeY>
+                <sizeX>82</sizeX>
+                <sizeY>115</sizeY>
               </Component>
             </Components>
           </Entity>
-          <Entity Name="FloorTile">
+          <Entity Name ="FloorTile">
             <Components>
-              <Component Type="BoxCollision">
+              <Component Type ="BoxCollision">
                 <sizeX>5</sizeX>
                 <sizeY>5</sizeY>
               </Component>
-              <Component Type="Position">
+              <Component Type ="Position">
                 <posX>600</posX>
                 <posY>100</posY>
                 <orientation>0</orientation>
               </Component>
-              <Component Type="Render">
+              <Component Type ="Render">
                 <image>floorTile.png</image>
                 <sizeX>100</sizeX>
                 <sizeY>100</sizeY>

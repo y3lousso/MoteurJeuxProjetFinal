@@ -10,7 +10,7 @@ namespace MoteurJeuxProjetFinal
     class InputComponent : IComponent
     {
         // Data comming from XML
-        public float inputTweaker = 1000f;
+        public float inputTweaker = 500f;
 
         // Others
         public Vector2 inputXY = new Vector2(0, 0);

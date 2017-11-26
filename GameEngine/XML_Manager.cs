@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Globalization;
 
 
 namespace MoteurJeuxProjetFinal
@@ -99,7 +100,7 @@ namespace MoteurJeuxProjetFinal
                     physicsComponent.masse = int.Parse(component.Element("masse").Value);
                     physicsComponent.useGravity = bool.Parse(component.Element("useGravity").Value);
                     physicsComponent.useAirFriction = bool.Parse(component.Element("useAirFriction").Value);
-                    physicsComponent.airFrictionTweaker = float.Parse(component.Element("airFrictionTweaker").Value);
+                    physicsComponent.airFrictionTweaker = float.Parse(component.Element("airFrictionTweaker").Value, CultureInfo.InvariantCulture);
                     currentEntity.AddComponent(physicsComponent);
                     break;
                 case "BoxCollision":
