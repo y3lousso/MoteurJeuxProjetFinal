@@ -17,7 +17,7 @@ namespace MoteurJeuxProjetFinal
         [DllImport("user32.dll")]
         public static extern bool LockWindowUpdate(IntPtr hWndLock);
 
-        private Thread renderingThread;
+        //private Thread renderingThread;
         public bool renderProcessOn = false;
 
         public void Start(GameEngine _gameEngine)
@@ -34,8 +34,8 @@ namespace MoteurJeuxProjetFinal
                     _renderNodes.Add(newRenderNode);
                 }
             }
-            renderProcessOn = true;
-            renderingThread = new Thread(RenderingProcess);
+            //renderProcessOn = true;
+            //renderingThread = new Thread(RenderingProcess);
             //renderingThread.Start();
         }
 

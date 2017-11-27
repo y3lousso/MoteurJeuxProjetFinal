@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Numerics;
 
 namespace MoteurJeuxProjetFinal
 {
@@ -17,12 +19,12 @@ namespace MoteurJeuxProjetFinal
             foreach (Entity entity in gameEngine.GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(PositionComponent)) != null && 
-                    entity.GetComponentOfType(typeof(VelocityComponent)) != null && 
+                    entity.GetComponentOfType(typeof(PhysicsComponent)) != null && 
                     entity.GetComponentOfType(typeof(BoxCollisionComponent)) != null)
                 {
                     CollisionNode newCollisionNode = new CollisionNode();
                     newCollisionNode.positionComponent = (PositionComponent)(entity.GetComponentOfType(typeof(PositionComponent)));
-                    newCollisionNode.velocityComponent = (VelocityComponent)(entity.GetComponentOfType(typeof(VelocityComponent)));
+                    newCollisionNode.physicsComponent = (PhysicsComponent)(entity.GetComponentOfType(typeof(PhysicsComponent)));
                     newCollisionNode.boxCollisionComponent = (BoxCollisionComponent)(entity.GetComponentOfType(typeof(BoxCollisionComponent)));
                     _collisionNodes.Add(newCollisionNode);
                 }
@@ -31,12 +33,24 @@ namespace MoteurJeuxProjetFinal
 
         public void Update(float deltaTime)
         {
-            foreach(CollisionNode collisionNode in _collisionNodes)
+            for (int i = 0; i < _collisionNodes.Count; i++)
             {
-                /*if (velocity.X > maxVelocity) { velocity.X = maxVelocity; }
-                if (velocity.Y > maxVelocity) { velocity.Y = maxVelocity; }
-                if (velocity.X < -maxVelocity) { velocity.X = -maxVelocity; }
-                if (velocity.Y < -maxVelocity) { velocity.Y = -maxVelocity; }*/
+                PositionComponent positionComponent1 = _collisionNodes[i].positionComponent;
+                BoxCollisionComponent boxCollisionComponent1 = _collisionNodes[i].boxCollisionComponent;
+                for (int j = i+1; j < _collisionNodes.Count; j++)
+                {
+                    PositionComponent positionComponent2 = _collisionNodes[j].positionComponent;
+                    BoxCollisionComponent boxCollisionComponent2 = _collisionNodes[j].boxCollisionComponent;
+                    if (positionComponent1.position.X < positionComponent2.position.X + boxCollisionComponent2.size.X &&
+                       positionComponent1.position.X + boxCollisionComponent1.size.X > positionComponent2.position.X &&
+                       positionComponent1.position.Y < positionComponent2.position.Y + boxCollisionComponent2.size.Y &&
+                       positionComponent1.position.Y + boxCollisionComponent1.size.Y > positionComponent2.position.Y )
+                    {
+                        PhysicsComponent physicsComponent1 = _collisionNodes[i].physicsComponent;
+                        PhysicsComponent physicsComponent2 = _collisionNodes[j].physicsComponent;
+                        physicsComponent1._forces.Add(new Vector2(0, -20000f));
+                    }                      
+                }
             }
         }
 

@@ -10,7 +10,7 @@ namespace MoteurJeuxProjetFinal
     class CollisionNode
     {
         public PositionComponent positionComponent;
-        public VelocityComponent velocityComponent;
+        public PhysicsComponent physicsComponent;
         public BoxCollisionComponent boxCollisionComponent;
     }
 }

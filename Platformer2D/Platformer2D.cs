@@ -27,6 +27,5 @@ namespace MoteurJeuxProjetFinal.Platformer2D
 
             gameEngine.RunGameLoop();        
         }
-
     }
 }

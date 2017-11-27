@@ -34,7 +34,7 @@ namespace MoteurJeuxProjetFinal
             {
                 if (physicsNode.physicsComponent.useGravity == true)
                 {
-                    physicsNode.physicsComponent._forces.Add(new Vector2(0, 9.81f * physicsNode.physicsComponent.masse));
+                    physicsNode.physicsComponent._forces.Add(new Vector2(0, 200 * physicsNode.physicsComponent.masse));
                 }
                 
 

@@ -42,7 +42,7 @@ namespace MoteurJeuxProjetFinal
             Width = width;
             Height = height;
             HelpButton = false;
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.None; 
             MaximizeBox = false;
             MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;

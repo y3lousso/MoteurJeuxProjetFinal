@@ -82,18 +82,9 @@
     <Compile Include="Platformer2D\Platformer2D.cs" />
     <Compile Include="GameEngine\ISystem.cs" />
     <Compile Include="GameEngine\XML_Manager.cs" />
-    <Compile Include="Platformer2D\Ressource_Img.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Ressource_Img.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GameEngine\DisplayWindow.resx">
       <DependentUpon>DisplayWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Platformer2D\Ressource_Img.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Ressource_Img.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -128,6 +119,7 @@
     <None Include="Platformer2D\img\floorTile.png" />
     <Content Include="Platformer2D\data.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup />
