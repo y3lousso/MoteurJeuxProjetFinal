@@ -113,10 +113,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Platformer2D\img\background.png" />
-    <None Include="Platformer2D\img\mario.png" />
-    <None Include="Platformer2D\img\tile.png" />
-    <None Include="Platformer2D\img\floorTile.png" />
+    <None Include="Platformer2D\img\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Platformer2D\img\mario.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Platformer2D\img\tile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Platformer2D\img\floorTile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Platformer2D\data.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
