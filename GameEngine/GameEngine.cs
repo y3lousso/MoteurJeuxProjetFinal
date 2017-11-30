@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using MoteurJeuxProjetFinal.GameEngine.Systems;
 
-namespace MoteurJeuxProjetFinal
+namespace MoteurJeuxProjetFinal.GameEngine
 {
     class GameEngine
     {

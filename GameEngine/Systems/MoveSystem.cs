@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using MoteurJeuxProjetFinal.GameEngine;
+using MoteurJeuxProjetFinal.GameEngine.Components;
+using MoteurJeuxProjetFinal.GameEngine.Nodes;
 
-namespace MoteurJeuxProjetFinal
+namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
     class MoveSystem : ISystem
     {

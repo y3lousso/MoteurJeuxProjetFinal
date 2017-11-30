@@ -1,8 +1,8 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using MoteurJeuxProjetFinal.GameEngine;
 
-namespace MoteurJeuxProjetFinal
+namespace MoteurJeuxProjetFinal.GameEngine
 {
     class SceneManager
     {

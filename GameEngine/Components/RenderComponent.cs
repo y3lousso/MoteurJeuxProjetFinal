@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Numerics;
-using System.Drawing;
+﻿using System.Numerics;
 
-namespace MoteurJeuxProjetFinal
+namespace MoteurJeuxProjetFinal.GameEngine.Components
 {
     class RenderComponent : IComponent
     {

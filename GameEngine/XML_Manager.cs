@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Globalization;
+using MoteurJeuxProjetFinal.GameEngine.Components;
 
 
-namespace MoteurJeuxProjetFinal
+namespace MoteurJeuxProjetFinal.GameEngine
 {
     class XML_Manager
     {

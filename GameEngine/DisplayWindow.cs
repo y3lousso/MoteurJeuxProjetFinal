@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Drawing;
 using System.Numerics;
-using System.Threading;
+using System.Windows.Forms;
 
-
-namespace MoteurJeuxProjetFinal
+namespace MoteurJeuxProjetFinal.GameEngine
 {
     class DisplayWindow : Form
     {
