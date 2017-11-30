@@ -46,18 +46,8 @@ namespace MoteurJeuxProjetFinal.GameEngine
             // Loas all the scenes and set the current scene
             sceneManager.InitScenes(0);
             sceneManager.DisplayCurrentScene();
-            
-            /*
-            // Load all entities from xml file
-            xmlManager.LoadGameContent(ref _scenes);
-            
-            // Starting at the 1st scene
-            currentScene = _scenes[0];
-            displayWindow.DisplayScene(currentScene);
-            */
 
             systemManager.Init(this);
-
             // Need to add them in the order they will be executed
             systemManager.AddSystem(new InputSystem());
             systemManager.AddSystem(new PhysicsSystem());

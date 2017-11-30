@@ -116,6 +116,12 @@
   <ItemGroup>
     <None Include="Platformer2D\img\background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+    <None Include="Platformer2D\img\background2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Platformer2D\img\background3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Platformer2D\img\mario.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

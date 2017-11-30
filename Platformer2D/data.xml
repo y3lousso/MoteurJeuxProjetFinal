@@ -7,6 +7,9 @@
   </GameProperties>
   <GameContent>
     <Scenes>
+      <!--  //////////////////////////////////////////////
+            //////////////    SCENE 1     ////////////////
+            ////////////////////////////////////////////// -->
       <Scene Name="Scene1">
         <BackgroundImage>background.png</BackgroundImage>
         <Entities>
@@ -181,6 +184,44 @@
                 <image>floorTile.png</image>
                 <sizeX>200</sizeX>
                 <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+        </Entities>
+      </Scene>
+      <!--  //////////////////////////////////////////////
+            //////////////    SCENE 2     ////////////////
+            ////////////////////////////////////////////// -->
+      <Scene Name="Scene2">
+        <BackgroundImage>background2.png</BackgroundImage>
+        <Entities>
+          <Entity Name="Player3">
+            <Components>
+              <Component Type="Input">
+                <inputTweaker>50000</inputTweaker>
+              </Component>
+              <Component Type="Physics">
+                <masse>60</masse>
+                <useGravity>true</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>1</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>60</sizeX>
+                <sizeY>80</sizeY>
+              </Component>
+              <Component Type="Position">
+                <posX>0</posX>
+                <posY>550</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Velocity">
+                <maxVelocity>500</maxVelocity>
+              </Component>
+              <Component Type="Render">
+                <image>mario.png</image>
+                <sizeX>60</sizeX>
+                <sizeY>80</sizeY>
               </Component>
             </Components>
           </Entity>
