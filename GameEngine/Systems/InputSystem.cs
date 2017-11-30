@@ -10,13 +10,14 @@ namespace MoteurJeuxProjetFinal
 {
     class InputSystem : ISystem
     {
+        
         GameEngine gameEngine;
         public List<InputNode> _inputNodes = new List<InputNode>();
 
         public void Start(GameEngine _gameEngine)
         {
             gameEngine = _gameEngine;
-            foreach (Entity entity in gameEngine.GetCurrentScene().GetEntities())
+            foreach (Entity entity in gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(InputComponent)) != null &&
                     entity.GetComponentOfType(typeof(PhysicsComponent)) != null)

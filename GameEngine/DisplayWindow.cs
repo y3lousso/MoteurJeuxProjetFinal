@@ -125,7 +125,7 @@ namespace MoteurJeuxProjetFinal
             displayLayer.Controls.Clear();
 
             // Draw Background Image
-            displayLayer.BackgroundImage = Image.FromFile(gameEngine.imagePath + gameEngine.GetCurrentScene().backgroundImage);
+            displayLayer.BackgroundImage = Image.FromFile(gameEngine.imagePath + gameEngine.GetSceneManager().GetCurrentScene().backgroundImage);
             displayLayer.BackgroundImageLayout = ImageLayout.Stretch;
             displayLayer.Location = new Point(0, 0);
             displayLayer.Size = new Size(Width, Height);

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Drawing;
 
 namespace MoteurJeuxProjetFinal
 {
@@ -24,10 +17,9 @@ namespace MoteurJeuxProjetFinal
 
         // List of systems
         private SystemManager systemManager = new SystemManager();
-
-        // GameEngine content
-        private List<Scene> _scenes = new List<Scene>();
-        Scene currentScene;
+        
+        // Scene mananger : to handle the differents scene
+        private SceneManager sceneManager = new SceneManager();
 
         public string imagePath;
 
@@ -42,6 +34,7 @@ namespace MoteurJeuxProjetFinal
             xmlManager.Init(this);
             inputManager.Init(this);
             displayWindow.Init(this);
+            sceneManager.Init(this);
 
             // Load game file
             xmlManager.LoadGameFile(gameName);
@@ -50,12 +43,18 @@ namespace MoteurJeuxProjetFinal
             GameProperties gameProperties = xmlManager.LoadGameProperties();
             displayWindow.InitFormProperties(gameProperties.gameName, gameProperties.screenWidth, gameProperties.screenHeight);
 
-            //Load all entities from xml file
+            // Loas all the scenes and set the current scene
+            sceneManager.InitScenes(0);
+            sceneManager.DisplayCurrentScene();
+            
+            /*
+            // Load all entities from xml file
             xmlManager.LoadGameContent(ref _scenes);
-
+            
             // Starting at the 1st scene
             currentScene = _scenes[0];
             displayWindow.DisplayScene(currentScene);
+            */
 
             systemManager.Init(this);
 
@@ -129,6 +128,6 @@ namespace MoteurJeuxProjetFinal
         public XML_Manager GetXmlManager() { return xmlManager; }
         public DisplayWindow GetDisplayWindow() { return displayWindow; }
         public InputManager GetInputManager() { return inputManager; }
-        public Scene GetCurrentScene() { return currentScene; }
+        public SceneManager GetSceneManager(){ return sceneManager; }
     }
 }

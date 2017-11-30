@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="GameEngine\Entity.cs" />
     <Compile Include="GameEngine\IComponent.cs" />
+    <Compile Include="GameEngine\SceneManager.cs" />
     <Compile Include="GameEngine\SystemManager.cs" />
     <Compile Include="GameEngine\Systems\CollisionSystem.cs" />
     <Compile Include="GameEngine\Systems\InputSystem.cs" />

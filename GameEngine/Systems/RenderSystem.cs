@@ -23,7 +23,7 @@ namespace MoteurJeuxProjetFinal
         public void Start(GameEngine _gameEngine)
         {
             gameEngine = _gameEngine;
-            foreach (Entity entity in gameEngine.GetCurrentScene().GetEntities())
+            foreach (Entity entity in gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(PositionComponent)) != null &&
                     entity.GetComponentOfType(typeof(RenderComponent)) != null)
