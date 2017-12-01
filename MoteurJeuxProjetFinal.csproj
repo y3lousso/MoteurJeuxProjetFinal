@@ -60,6 +60,8 @@
     <Compile Include="GameEngine\DisplayLayer.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GameEngine\Event.cs" />
+    <Compile Include="GameEngine\Listener.cs" />
     <Compile Include="GameEngine\Nodes\CollisionNode.cs" />
     <Compile Include="GameEngine\Nodes\InputNode.cs" />
     <Compile Include="GameEngine\Nodes\PhysicsNode.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="GameEngine\Systems\MoveSystem.cs" />
     <Compile Include="GameEngine\Systems\PhysicsSystem.cs" />
     <Compile Include="GameEngine\Systems\RenderSystem.cs" />
+    <Compile Include="GameEngine\Systems\EventSystem.cs" />
     <Compile Include="Platformer2D\Platformer2D.cs" />
     <Compile Include="GameEngine\ISystem.cs" />
     <Compile Include="GameEngine\XML_Manager.cs" />
@@ -116,7 +119,7 @@
   <ItemGroup>
     <None Include="Platformer2D\img\background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</None>
+    </None>
     <None Include="Platformer2D\img\background2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -137,7 +140,6 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

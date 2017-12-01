@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 using MoteurJeuxProjetFinal.GameEngine.Components;
 using MoteurJeuxProjetFinal.GameEngine.Nodes;
@@ -7,13 +8,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
     class CollisionSystem : ISystem
     {
-        GameEngine gameEngine;
-        public List<CollisionNode> _collisionNodes = new List<CollisionNode>();
+        private GameEngine _gameEngine;
+        private List<CollisionNode> _collisionNodes = new List<CollisionNode>();
 
         public void Start(GameEngine _gameEngine)
         {
-            gameEngine = _gameEngine;
-            foreach (Entity entity in gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
+            this._gameEngine = _gameEngine;
+            foreach (Entity entity in this._gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(PositionComponent)) != null && 
                     entity.GetComponentOfType(typeof(PhysicsComponent)) != null && 

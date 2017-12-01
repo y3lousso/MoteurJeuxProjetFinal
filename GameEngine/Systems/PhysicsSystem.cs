@@ -7,13 +7,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
     class PhysicsSystem : ISystem
     {
-        GameEngine gameEngine;
-        public List<PhysicsNode> _physicsNodes = new List<PhysicsNode>();
+        private GameEngine _gameEngine;
+        private List<PhysicsNode> _physicsNodes = new List<PhysicsNode>();
         
         public void Start(GameEngine _gameEngine)
         {
-            gameEngine = _gameEngine;
-            foreach (Entity entity in gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
+            this._gameEngine = _gameEngine;
+            foreach (Entity entity in this._gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(PhysicsComponent)) != null &&
                     entity.GetComponentOfType(typeof(VelocityComponent)) != null)

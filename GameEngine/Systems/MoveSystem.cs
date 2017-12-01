@@ -12,13 +12,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
     class MoveSystem : ISystem
     {
-        GameEngine gameEngine;
-        public List<MoveNode> _moveNodes = new List<MoveNode>();
+        private GameEngine _gameEngine;
+        private List<MoveNode> _moveNodes = new List<MoveNode>();
         
         public void Start(GameEngine _gameEngine)          
         {
-            gameEngine = _gameEngine;
-            foreach (Entity entity in gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
+            this._gameEngine = _gameEngine;
+            foreach (Entity entity in this._gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(PositionComponent)) != null &&
                     entity.GetComponentOfType(typeof(VelocityComponent)) != null)
@@ -42,10 +42,10 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                      moveNode.positionComponent.position.X = 0;
                 if (moveNode.positionComponent.position.Y < 0)
                      moveNode.positionComponent.position.Y = 0;
-                if (moveNode.positionComponent.position.X > gameEngine.GetDisplayWindow().GetForm().Width-50)
-                     moveNode.positionComponent.position.X = gameEngine.GetDisplayWindow().GetForm().Width-50;
-                if (moveNode.positionComponent.position.Y > gameEngine.GetDisplayWindow().GetForm().Height-50)
-                     moveNode.positionComponent.position.Y = gameEngine.GetDisplayWindow().GetForm().Height-50;
+                if (moveNode.positionComponent.position.X > _gameEngine.GetDisplayWindow().GetForm().Width-50)
+                     moveNode.positionComponent.position.X = _gameEngine.GetDisplayWindow().GetForm().Width-50;
+                if (moveNode.positionComponent.position.Y > _gameEngine.GetDisplayWindow().GetForm().Height-50)
+                     moveNode.positionComponent.position.Y = _gameEngine.GetDisplayWindow().GetForm().Height-50;
 
                 moveNode.positionComponent.orientation += moveNode.velocityComponent.angularVelocity * deltaTime;
             }

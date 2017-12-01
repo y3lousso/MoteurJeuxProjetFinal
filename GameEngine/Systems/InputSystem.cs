@@ -7,13 +7,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
     class InputSystem : ISystem
     {
         
-        GameEngine gameEngine;
-        public List<InputNode> _inputNodes = new List<InputNode>();
+        private GameEngine _gameEngine;
+        private List<InputNode> _inputNodes = new List<InputNode>();
 
         public void Start(GameEngine _gameEngine)
         {
-            gameEngine = _gameEngine;
-            foreach (Entity entity in gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
+            this._gameEngine = _gameEngine;
+            foreach (Entity entity in this._gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(InputComponent)) != null &&
                     entity.GetComponentOfType(typeof(PhysicsComponent)) != null)
@@ -31,7 +31,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             foreach(InputNode inputNode in _inputNodes)
             {
                 // get inputs from input manager then ...               
-                inputNode.inputComponent.inputXY = gameEngine.GetInputManager().inputs.inputXY;
+                inputNode.inputComponent.inputXY = _gameEngine.GetInputManager().inputs.inputXY;
                 // apply them as a force to the physic component
                 inputNode.physicsComponent._forces.Add(inputNode.inputComponent.inputXY * inputNode.inputComponent.inputTweaker);
             }

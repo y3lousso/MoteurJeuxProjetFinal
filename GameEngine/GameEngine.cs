@@ -14,10 +14,8 @@ namespace MoteurJeuxProjetFinal.GameEngine
         private DisplayWindow displayWindow = new DisplayWindow();
         // InputManager
         private InputManager inputManager = new InputManager();
-
         // List of systems
         private SystemManager systemManager = new SystemManager();
-        
         // Scene mananger : to handle the differents scene
         private SceneManager sceneManager = new SceneManager();
 
@@ -54,6 +52,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             systemManager.AddSystem(new CollisionSystem());
             systemManager.AddSystem(new MoveSystem());
             systemManager.AddSystem(new RenderSystem());
+            systemManager.AddSystem(new EventSystem());
         }
 
         /// <summary>
