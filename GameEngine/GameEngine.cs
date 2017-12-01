@@ -9,15 +9,17 @@ namespace MoteurJeuxProjetFinal.GameEngine
         private bool is_running;
 
         // Xml file management
-        private XML_Manager xmlManager = new XML_Manager();
+        private XML_Manager _xmlManager = new XML_Manager();
         // Screen
-        private DisplayWindow displayWindow = new DisplayWindow();
+        private DisplayWindow _displayWindow = new DisplayWindow();
         // InputManager
-        private InputManager inputManager = new InputManager();
+        private InputManager _inputManager = new InputManager();
         // List of systems
-        private SystemManager systemManager = new SystemManager();
+        private SystemManager _systemManager = new SystemManager();
         // Scene mananger : to handle the differents scene
-        private SceneManager sceneManager = new SceneManager();
+        private SceneManager _sceneManager = new SceneManager();
+        // Event manager 
+        private EventManager _eventManager = new EventManager();
 
         public string imagePath;
 
@@ -28,31 +30,32 @@ namespace MoteurJeuxProjetFinal.GameEngine
         {
             is_running = true;
 
-            // Init inputs manager
-            xmlManager.Init(this);
-            inputManager.Init(this);
-            displayWindow.Init(this);
-            sceneManager.Init(this);
+            // Init managers
+            _xmlManager.Init(this);
+            _inputManager.Init(this);
+            _displayWindow.Init(this);
+            _sceneManager.Init(this);
+            _eventManager.Init(this);
 
             // Load game file
-            xmlManager.LoadGameFile(gameName);
+            _xmlManager.LoadGameFile(gameName);
 
             // Get properties from game data file.
-            GameProperties gameProperties = xmlManager.LoadGameProperties();
-            displayWindow.InitFormProperties(gameProperties.gameName, gameProperties.screenWidth, gameProperties.screenHeight);
+            GameProperties gameProperties = _xmlManager.LoadGameProperties();
+            _displayWindow.InitFormProperties(gameProperties.gameName, gameProperties.screenWidth, gameProperties.screenHeight);
 
             // Loas all the scenes and set the current scene
-            sceneManager.InitScenes(0);
-            sceneManager.DisplayCurrentScene();
+            _sceneManager.InitScenes(0);
+            _sceneManager.DisplayCurrentScene();
 
-            systemManager.Init(this);
+            _systemManager.Init(this);
             // Need to add them in the order they will be executed
-            systemManager.AddSystem(new InputSystem());
-            systemManager.AddSystem(new PhysicsSystem());
-            systemManager.AddSystem(new CollisionSystem());
-            systemManager.AddSystem(new MoveSystem());
-            systemManager.AddSystem(new RenderSystem());
-            systemManager.AddSystem(new EventSystem());
+            _systemManager.AddSystem(new InputSystem());
+            _systemManager.AddSystem(new PhysicsSystem());
+            _systemManager.AddSystem(new CollisionSystem());
+            _systemManager.AddSystem(new MoveSystem());
+            _systemManager.AddSystem(new RenderSystem());
+            _systemManager.AddSystem(new EventSystem());
         }
 
         /// <summary>
@@ -99,24 +102,23 @@ namespace MoteurJeuxProjetFinal.GameEngine
                 // Check inputs
                 System.Windows.Forms.Application.DoEvents();
 
-                systemManager.Update(deltaTime);          
+                _systemManager.Update(deltaTime);          
             }
             // Game engine exit
             Debug.WriteLine("Game engine exited correctly.");
         }
 
-
-
-
         public void CloseGame()
         { 
-            systemManager.End();
+            _systemManager.End();
             is_running = false;           
         }
 
-        public XML_Manager GetXmlManager() { return xmlManager; }
-        public DisplayWindow GetDisplayWindow() { return displayWindow; }
-        public InputManager GetInputManager() { return inputManager; }
-        public SceneManager GetSceneManager(){ return sceneManager; }
+        public XML_Manager GetXmlManager() { return _xmlManager; }
+        public DisplayWindow GetDisplayWindow() { return _displayWindow; }
+        public InputManager GetInputManager() { return _inputManager; }
+        public SceneManager GetSceneManager(){ return _sceneManager; }
+        public EventManager GetEventManager(){ return _eventManager; }
+
     }
 }

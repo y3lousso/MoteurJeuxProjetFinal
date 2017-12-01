@@ -6,7 +6,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
     {
         private GameEngine _gameEngine;
 
-        private List<IEvent> _incomingEvents;
         private List<IListener> _listeners;
         private EventDispatcher _dispatcher;
         
@@ -14,18 +13,20 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             _gameEngine = gameEngine;
             _listeners= new List<IListener>();
-            _incomingEvents = new List<IEvent>();
             _dispatcher = new EventDispatcher(_listeners);
         }
 
         public void Update(float deltaTime)
         {
             // Dispatch all the incoming events 
-            foreach (IEvent incomingEvent in _incomingEvents)
+            List<IEvent> incomingEvents = _gameEngine.GetEventManager().GetAllEvents();
+            foreach (IEvent incomingEvent in incomingEvents)
             {
                 incomingEvent.onCall(_dispatcher);
-                _incomingEvents.Remove(incomingEvent);
             }
+            
+            // Consume all the events
+            _gameEngine.GetEventManager().ConsumeAllEvents();
         }
 
         public void End()

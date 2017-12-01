@@ -61,6 +61,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameEngine\Event.cs" />
+    <Compile Include="GameEngine\EventManager.cs" />
     <Compile Include="GameEngine\Listener.cs" />
     <Compile Include="GameEngine\Nodes\CollisionNode.cs" />
     <Compile Include="GameEngine\Nodes\InputNode.cs" />
