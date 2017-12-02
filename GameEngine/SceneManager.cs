@@ -48,6 +48,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
         {
             Scene scene = _scenes.ElementAt(_currentSceneIndex);
             _gameEngine.GetDisplayWindow().DisplayScene(scene);
+            _gameEngine.GetEventManager().AddEvent(new NewSceneDisplayedEvent(scene)); // Event new scene displayed
         }
 
         /// <summary>
@@ -55,6 +56,8 @@ namespace MoteurJeuxProjetFinal.GameEngine
         /// </summary>
         public void ChangeCurrentScene(Scene scene)
         {
+            Scene oldScene = GetCurrentScene();
+            
             // Change the current scene index
             int index = _scenes.IndexOf(scene);
             if (index == -1)
@@ -67,6 +70,8 @@ namespace MoteurJeuxProjetFinal.GameEngine
             {
                 _currentSceneIndex = index;
             }
+            _gameEngine.GetEventManager().AddEvent(new SceneChangeEvent(oldScene, scene)); // Event change changed
+
         }
         
     }

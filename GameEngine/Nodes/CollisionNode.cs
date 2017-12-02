@@ -4,8 +4,8 @@ namespace MoteurJeuxProjetFinal.GameEngine.Nodes
 {
     class CollisionNode
     {
-        public PositionComponent positionComponent;
-        public PhysicsComponent physicsComponent;
-        public BoxCollisionComponent boxCollisionComponent;
+        public PositionComponent PositionComponent;
+        public PhysicsComponent PhysicsComponent;
+        public BoxCollisionComponent BoxCollisionComponent;
     }
 }

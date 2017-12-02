@@ -20,7 +20,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             List<IEvent> incomingEvents = _gameEngine.GetEventManager().GetAllEvents();
             foreach (IEvent incomingEvent in incomingEvents)
             {
-                incomingEvent.onCall(_dispatcher);
+                incomingEvent.OnCall(_dispatcher);
             }
             
             // Consume all the events

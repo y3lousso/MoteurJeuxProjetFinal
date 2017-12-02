@@ -90,6 +90,9 @@ namespace MoteurJeuxProjetFinal.GameEngine
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             float deltaTime;
+            
+            // Throw a GameStartEvent
+            _eventManager.AddEvent(new GameStartEvent());
 
             // Game loop
             while (is_running)
@@ -106,6 +109,9 @@ namespace MoteurJeuxProjetFinal.GameEngine
             }
             // Game engine exit
             Debug.WriteLine("Game engine exited correctly.");
+            
+            // Throw a GameFinishEvent
+            _eventManager.AddEvent(new GameFinishEvent());
         }
 
         public void CloseGame()

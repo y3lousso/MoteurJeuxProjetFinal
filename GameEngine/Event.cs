@@ -1,4 +1,6 @@
-﻿namespace MoteurJeuxProjetFinal.GameEngine
+﻿using MoteurJeuxProjetFinal.GameEngine.Nodes;
+
+namespace MoteurJeuxProjetFinal.GameEngine
 {
     
     /// <summary>
@@ -12,9 +14,8 @@
         void Dispatch(GameFinishEvent gameEvent);
         void Dispatch(CollisionEvent gameEvent);
         void Dispatch(SceneChangeEvent gameEvent);
-
+        void Dispatch(NewSceneDisplayedEvent gameEvent);
     }
-    
     
     ///////////////////
     // LIST OF EVENT //
@@ -22,12 +23,16 @@
     
     internal interface IEvent
     {
-        void onCall(IEventDispatcher dispatcher);
+        void OnCall(IEventDispatcher dispatcher);
     }
 
     class GameStartEvent : IEvent
     {
-        public void onCall(IEventDispatcher dispatcher)
+        public GameStartEvent()
+        {
+        }
+        
+        public void OnCall(IEventDispatcher dispatcher)
         {
             dispatcher.Dispatch(this);
         }
@@ -35,7 +40,11 @@
     
     class GameFinishEvent : IEvent
     {
-        public void onCall(IEventDispatcher dispatcher)
+        public GameFinishEvent()
+        {
+        }
+        
+        public void OnCall(IEventDispatcher dispatcher)
         {
             dispatcher.Dispatch(this);
         }
@@ -43,7 +52,20 @@
 
     class CollisionEvent : IEvent
     {
-        public void onCall(IEventDispatcher dispatcher)
+        public Entity Entity1;
+        public Entity Entity2;
+        public CollisionNode Node1;
+        public CollisionNode Node2;
+        
+        public CollisionEvent(Entity entity1, CollisionNode node1, Entity entity2, CollisionNode node2)
+        {
+            Entity1 = entity1;
+            Entity2 = entity2;
+            Node1 = node1;
+            Node2 = node2;
+        }
+        
+        public void OnCall(IEventDispatcher dispatcher)
         {
             dispatcher.Dispatch(this);
         }
@@ -51,12 +73,35 @@
 
     class SceneChangeEvent : IEvent
     {
-        public void onCall(IEventDispatcher dispatcher)
+        public Scene OldScene;
+        public Scene NewScene;
+        
+        public SceneChangeEvent(Scene oldScene, Scene newScene)
+        {
+            OldScene = oldScene;
+            NewScene = newScene;
+        }
+        
+        public void OnCall(IEventDispatcher dispatcher)
         {
             dispatcher.Dispatch(this);
         }
     }
     
+    class NewSceneDisplayedEvent : IEvent
+    {
+        public Scene NewSceneDisplayed;
+
+        public NewSceneDisplayedEvent(Scene newSceneDisplayed)
+        {
+            NewSceneDisplayed = newSceneDisplayed;
+        }
     
+        
+        public void OnCall(IEventDispatcher dispatcher)
+        {
+            dispatcher.Dispatch(this);
+        }
+    }   
     
 }

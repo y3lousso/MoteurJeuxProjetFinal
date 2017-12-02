@@ -47,9 +47,10 @@ namespace MoteurJeuxProjetFinal.GameEngine
 }
 
 /// <summary>
-/// A class to contains all the listeners and m
+/// A class to contains all the listeners 
+/// Add a new method to handle a new listener
 /// </summary>
-internal class ListenerInfo : ListenerRegister
+internal class ListenerInfo : IListenerRegister
 {
     internal List<OnGameStartListener> OnGameStartListeners = new List<OnGameStartListener>();
     internal List<OnGameFinishListener> OnGameFinishListeners = new List<OnGameFinishListener>();
@@ -64,19 +65,16 @@ internal class ListenerInfo : ListenerRegister
     public void Register(OnGameFinishListener listener)
     {
         OnGameFinishListeners.Add(listener);
-
     }
 
     public void Register(OnCollisionListener listener)
     {
         OnCollisionListeners.Add(listener);
-
     }
 
     public void Register(OnSceneChangeListener listener)
     {
         OnSceneChangeListeners.Add(listener);
-
     }
 }
 
@@ -124,4 +122,11 @@ internal class EventDispatcher : IEventDispatcher
         }
     }
 
+    public void Dispatch(NewSceneDisplayedEvent gameEvent)
+    {
+        foreach (OnSceneChangeListener listener in _listenerInfo.OnSceneChangeListeners)
+        {
+            listener.OnNewSceneDisplayed(gameEvent);
+        }
+    }
 }
