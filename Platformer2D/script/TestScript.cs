@@ -37,9 +37,6 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
                     Debug.WriteLine(collisionEvent.Entity2.GetName() + " Deleted !");
                     collisionEvent.CurrentScene.RemoveEntity(collisionEvent.Entity2);   
                 }
-                
-              
-
             }
         }
     }

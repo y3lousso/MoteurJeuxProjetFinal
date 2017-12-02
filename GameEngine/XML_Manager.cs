@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml.Linq;
 using System.Globalization;
 using MoteurJeuxProjetFinal.GameEngine.Components;
@@ -72,7 +73,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
         {
             // Element
             Entity currentEntity = new Entity();
-            currentEntity.SetName(entity.FirstAttribute.ToString());
+            currentEntity.SetName(entity.FirstAttribute.Value);
             currentScene.GetEntities().Add(currentEntity);
 
             // Components
