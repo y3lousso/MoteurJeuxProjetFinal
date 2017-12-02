@@ -41,7 +41,10 @@ namespace MoteurJeuxProjetFinal.GameEngine
             {
                 foreach (IListener listener in script.GetListenersToRegister())
                 {
-                    _gameEngine.GetEventManager().RegisterListener(listener);
+                    if (listener != null)
+                    {
+                        _gameEngine.GetEventManager().RegisterListener(listener);
+                    }
                 }
             }
         }
