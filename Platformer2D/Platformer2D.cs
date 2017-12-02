@@ -1,4 +1,6 @@
 ﻿using System;
+using MoteurJeuxProjetFinal.GameEngine;
+using MoteurJeuxProjetFinal.Platformer2D.script;
 
 namespace MoteurJeuxProjetFinal.Platformer2D
 {
@@ -11,11 +13,18 @@ namespace MoteurJeuxProjetFinal.Platformer2D
         {
             // Create instance of game engine
             GameEngine.GameEngine gameEngine = new GameEngine.GameEngine();
+            
+            // Add the scripts in the game engine
+            ScriptManager.GetInstance().AddScript(new TestScript());
 
             //FOR XML FILE CONTENT
             string path = Environment.CurrentDirectory + "\\Platformer2D";
             gameEngine.imagePath = path + "\\img\\";
             gameEngine.InitForXML(path+ "\\data.xml");
+            
+            // Load the scripts and register them
+            ScriptManager.GetInstance().LoadAllScript();
+            ScriptManager.GetInstance().RegisterAllScriptListener();
 
             gameEngine.RunGameLoop();        
         }
