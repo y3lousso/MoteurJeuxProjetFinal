@@ -17,7 +17,6 @@ namespace MoteurJeuxProjetFinal.GameEngine
         {
             _listenerInfo = new ListenerInfo();
             _eventDispatcher = new EventDispatcher(_listenerInfo);
-            
         }
 
         public void AddEvent(IEvent gameEvent)
@@ -37,7 +36,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
         public void RegisterListener(IListener listener)
         {
-            //TODO
+            listener.OnRegister(_listenerInfo);
         }
 
         public EventDispatcher GetEventDispatcher()
@@ -47,59 +46,82 @@ namespace MoteurJeuxProjetFinal.GameEngine
     }
 }
 
-    /// <summary>
-    /// A class to contains all the listeners
-    /// </summary>
-    internal class ListenerInfo
+/// <summary>
+/// A class to contains all the listeners and m
+/// </summary>
+internal class ListenerInfo : ListenerRegister
+{
+    internal List<OnGameStartListener> OnGameStartListeners = new List<OnGameStartListener>();
+    internal List<OnGameFinishListener> OnGameFinishListeners = new List<OnGameFinishListener>();
+    internal List<OnCollisionListener> OnCollisionListeners = new List<OnCollisionListener>();
+    internal List<OnSceneChangeListener> OnSceneChangeListeners = new List<OnSceneChangeListener>();
+    
+    public void Register(OnGameStartListener listener)
     {
-        internal List<OnGameStartListener> OnGameStartListeners = new List<OnGameStartListener>();
-        internal List<OnGameFinishListener> OnGameFinishListeners = new List<OnGameFinishListener>();
-        internal List<OnCollisionListener> OnCollisionListeners = new List<OnCollisionListener>();
-        internal List<OnSceneChangeListener> OnSceneChangeListeners = new List<OnSceneChangeListener>();
+        OnGameStartListeners.Add(listener);
     }
 
-    /// <summary>
-    /// EventDispatcher : add a method too handle a new event / listener
-    /// </summary>
-    internal class EventDispatcher : IEventDispatcher
+    public void Register(OnGameFinishListener listener)
     {
-        private ListenerInfo _listenerInfo;
-
-        internal EventDispatcher(ListenerInfo listenerInfo)
-        {
-            _listenerInfo = listenerInfo;
-        }
-        
-        public void Dispatch(GameStartEvent gameEvent)
-        {
-            foreach (OnGameStartListener listener in _listenerInfo.OnGameStartListeners)
-            {
-                listener.OnGameStart(gameEvent);
-            }
-        }
-
-        public void Dispatch(GameFinishEvent gameEvent)
-        {
-            foreach (OnGameFinishListener listener in _listenerInfo.OnGameFinishListeners)
-            {
-                listener.OnGameFinish(gameEvent);
-            }
-        }
-
-        public void Dispatch(CollisionEvent gameEvent)
-        { 
-            foreach (OnCollisionListener listener in _listenerInfo.OnCollisionListeners)
-            {
-                listener.OnCollision(gameEvent);
-            }
-        }
-
-        public void Dispatch(SceneChangeEvent gameEvent)
-        {
-            foreach (OnSceneChangeListener listener in _listenerInfo.OnSceneChangeListeners)
-            {
-                listener.OnSceneChange(gameEvent);
-            }
-        }
+        OnGameFinishListeners.Add(listener);
 
     }
+
+    public void Register(OnCollisionListener listener)
+    {
+        OnCollisionListeners.Add(listener);
+
+    }
+
+    public void Register(OnSceneChangeListener listener)
+    {
+        OnSceneChangeListeners.Add(listener);
+
+    }
+}
+
+/// <summary>
+/// EventDispatcher : add a method too handle a new event / listener
+/// </summary>
+internal class EventDispatcher : IEventDispatcher
+{
+    private ListenerInfo _listenerInfo;
+
+    internal EventDispatcher(ListenerInfo listenerInfo)
+    {
+        _listenerInfo = listenerInfo;
+    }
+    
+    public void Dispatch(GameStartEvent gameEvent)
+    {
+        foreach (OnGameStartListener listener in _listenerInfo.OnGameStartListeners)
+        {
+            listener.OnGameStart(gameEvent);
+        }
+    }
+
+    public void Dispatch(GameFinishEvent gameEvent)
+    {
+        foreach (OnGameFinishListener listener in _listenerInfo.OnGameFinishListeners)
+        {
+            listener.OnGameFinish(gameEvent);
+        }
+    }
+
+    public void Dispatch(CollisionEvent gameEvent)
+    { 
+        foreach (OnCollisionListener listener in _listenerInfo.OnCollisionListeners)
+        {
+            listener.OnCollision(gameEvent);
+        }
+    }
+
+    public void Dispatch(SceneChangeEvent gameEvent)
+    {
+        foreach (OnSceneChangeListener listener in _listenerInfo.OnSceneChangeListeners)
+        {
+            listener.OnSceneChange(gameEvent);
+        }
+    }
+
+}

@@ -1,28 +1,61 @@
 ﻿namespace MoteurJeuxProjetFinal.GameEngine
 {
-    internal interface IListener
+    
+    /// <summary>
+    /// A class to register Listeners (with visitor pattern)
+    /// </summary>
+    interface ListenerRegister
     {
-    }
-
-    interface OnGameStartListener : IListener
-    {
-        void OnGameStart(GameStartEvent gameStartEvent);
+        void Register(OnGameStartListener listener);
+        void Register(OnGameFinishListener listener);
+        void Register(OnCollisionListener listener);
+        void Register(OnSceneChangeListener listener);
     }
     
-    interface OnGameFinishListener : IListener
+    //////////////////////
+    // LIST OF LISTENER //
+    //////////////////////
+    
+    internal interface IListener
     {
-        void OnGameFinish(GameFinishEvent gameFinishEvent);
+        void OnRegister(ListenerRegister register);
     }
 
-    interface OnCollisionListener : IListener
+    abstract class OnGameStartListener : IListener
     {
-        void OnCollision(CollisionEvent collisionEvent);
+        public abstract void OnGameStart(GameStartEvent gameStartEvent);
+        public void OnRegister(ListenerRegister register)
+        {
+            register.Register(this);
+        }
+    }
+    
+    abstract class  OnGameFinishListener : IListener
+    {
+        public abstract void OnGameFinish(GameFinishEvent gameFinishEvent);
+        public void OnRegister(ListenerRegister register)
+        {
+            register.Register(this);
+        }
     }
 
-    interface OnSceneChangeListener : IListener
+    abstract class  OnCollisionListener : IListener
     {
-        void OnSceneChange(SceneChangeEvent sceneChangeEvent);
+        public abstract void OnCollision(CollisionEvent collisionEvent);
+        public void OnRegister(ListenerRegister register)
+        {
+            register.Register(this);
+        }
     }
-        
+
+    abstract class  OnSceneChangeListener : IListener
+    {
+        public abstract void OnSceneChange(SceneChangeEvent sceneChangeEvent);
+        public void OnRegister(ListenerRegister register)
+        {
+            register.Register(this);
+        }
+    }
+       
   
 }

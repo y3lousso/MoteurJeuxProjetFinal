@@ -2,7 +2,7 @@
 {
     
     /// <summary>
-    /// IEventDispatcher is interface which can dispatch an incoming event to the listeners
+    /// IEventDispatcher is interface which can dispatch an incoming event to the listeners (with visitor pattern)
     /// To handle a new event : add a method with the corresponding event in the interface and 
     /// in the implemented class in the EventSystem
     /// </summary>

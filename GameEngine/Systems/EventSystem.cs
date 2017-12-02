@@ -4,8 +4,8 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
     class EventSystem : ISystem
     {
+        
         private GameEngine _gameEngine;
-
         private EventDispatcher _dispatcher;
         
         public void Start(GameEngine gameEngine)
