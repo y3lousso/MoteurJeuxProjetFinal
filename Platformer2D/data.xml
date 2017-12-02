@@ -13,7 +13,7 @@
       <Scene Name="Scene1">
         <BackgroundImage>background.png</BackgroundImage>
         <Entities>
-          <Entity Name="Player2">
+          <Entity Name="Player">
             <Components>
               <Component Type="Input">
                 <inputTweaker>50000</inputTweaker>
@@ -187,6 +187,30 @@
               </Component>
             </Components>
           </Entity>
+          <Entity Name="Door1">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>200</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+              <Component Type="Position">
+                <posX>400</posX>
+                <posY>50</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>door.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
         </Entities>
       </Scene>
       <!--  //////////////////////////////////////////////
@@ -195,7 +219,7 @@
       <Scene Name="Scene2">
         <BackgroundImage>background2.png</BackgroundImage>
         <Entities>
-          <Entity Name="Player3">
+          <Entity Name="Player">
             <Components>
               <Component Type="Input">
                 <inputTweaker>50000</inputTweaker>
