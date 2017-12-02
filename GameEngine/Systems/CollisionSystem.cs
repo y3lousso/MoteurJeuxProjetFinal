@@ -69,6 +69,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                         
                         // Create the collision Event and throw it :
                         CollisionEvent gameEvent = new CollisionEvent(
+                            _gameEngine.GetSceneManager().GetCurrentScene(),
                             _collisionsNodesWithEntities[i].Entity,
                             node1,
                             _collisionsNodesWithEntities[j].Entity,

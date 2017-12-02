@@ -36,6 +36,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _displayWindow.Init(this);
             _sceneManager.Init(this);
             _eventManager.Init(this);
+            ScriptManager.GetInstance().Init(this);
 
             // Load game file
             _xmlManager.LoadGameFile(gameName);
@@ -92,7 +93,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             float deltaTime;
             
             // Throw a GameStartEvent
-            _eventManager.AddEvent(new GameStartEvent());
+            _eventManager.AddEvent(new GameStartEvent(_sceneManager.GetCurrentScene()));
 
             // Game loop
             while (is_running)
@@ -111,7 +112,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             Debug.WriteLine("Game engine exited correctly.");
             
             // Throw a GameFinishEvent
-            _eventManager.AddEvent(new GameFinishEvent());
+            _eventManager.AddEvent(new GameFinishEvent(_sceneManager.GetCurrentScene()));
         }
 
         public void CloseGame()

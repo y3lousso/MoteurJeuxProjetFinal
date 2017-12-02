@@ -11,7 +11,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
         private EventDispatcher _eventDispatcher;
         private ListenerInfo _listenerInfo;
-        private List<IEvent> _events = new List<IEvent>();
+        private List<Event> _events = new List<Event>();
 
         public void Init(GameEngine gameEngine)
         {
@@ -19,19 +19,19 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _eventDispatcher = new EventDispatcher(_listenerInfo);
         }
 
-        public void AddEvent(IEvent gameEvent)
+        public void AddEvent(Event gameEvent)
         {
             _events.Add(gameEvent);
         }
 
-        public List<IEvent> GetAllEvents()
+        public List<Event> GetAllEvents()
         {
             return _events;
         }
 
         public void ConsumeAllEvents()
         {
-            _events = new List<IEvent>();
+            _events = new List<Event>();
         }
 
         public void RegisterListener(IListener listener)

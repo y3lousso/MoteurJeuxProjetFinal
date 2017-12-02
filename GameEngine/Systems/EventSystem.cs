@@ -17,8 +17,8 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void Update(float deltaTime)
         {
             // Dispatch all the incoming events 
-            List<IEvent> incomingEvents = _gameEngine.GetEventManager().GetAllEvents();
-            foreach (IEvent incomingEvent in incomingEvents)
+            List<Event> incomingEvents = _gameEngine.GetEventManager().GetAllEvents();
+            foreach (Event incomingEvent in incomingEvents)
             {
                 incomingEvent.OnCall(_dispatcher);
             }
