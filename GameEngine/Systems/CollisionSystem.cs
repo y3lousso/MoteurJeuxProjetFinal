@@ -51,16 +51,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                             _collisionEntityNodes[j].Entity,
                             node2);
                         _gameEngine.GetEventManager().AddEvent(gameEvent);
-                    }     
-                    
-                    
+                    }    
                 }
             }
         }
 
         public void End()
         {
-
         }
 
         public void AddEntity(Entity entity)

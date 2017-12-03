@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using MoteurJeuxProjetFinal.GameEngine;
 using MoteurJeuxProjetFinal.GameEngine.Managers;
 
@@ -25,23 +24,33 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
         
         private class ChangeSceneListener : OnCollisionListener
         {
+            private int _coins;
+            
             public override void OnCollision(CollisionEvent collisionEvent)
             {
-                Debug.WriteLine("collison : " + collisionEvent.Entity1.GetName() + " & " + collisionEvent.Entity2.GetName());
-                
-                // Remove the door in the current scene
-                if (string.Equals(collisionEvent.Entity1.GetName(), "Door1") && string.Equals(collisionEvent.Entity2.GetName(), "Player"))
+                if (collisionEvent.Entity1.GetName().Equals("Player"))
                 {
-                    Debug.WriteLine(collisionEvent.Entity1.GetName() + " Deleted !");
-                    //_actionManager.ActionChangeCurrentScene(1);
-                    _actionManager.ActionRemoveEntity(collisionEvent.Entity1);
+                    CollisionWithPlayer(collisionEvent.Entity2);
                 }
-                else if (string.Equals(collisionEvent.Entity2.GetName(), "Door1") && string.Equals(collisionEvent.Entity1.GetName(), "Player"))
+                else if (collisionEvent.Entity2.GetName().Equals("Player"))
                 {
-                    Debug.WriteLine(collisionEvent.Entity2.GetName() + " Deleted !");
-                    //_actionManager.ActionChangeCurrentScene(1);
-                    _actionManager.ActionRemoveEntity(collisionEvent.Entity2);
+                    CollisionWithPlayer(collisionEvent.Entity1);
+                }
+            }
 
+            // Processing a collision with the player
+            private void CollisionWithPlayer(Entity entity)
+            {
+                // Collision with coin -> collect him
+                if (entity.GetName().Contains("coin"))
+                {
+                    _coins++;
+                    _actionManager.ActionRemoveEntity(entity);
+                }
+                // Collision with door -> change scene if enought coins
+                else if (_coins == 5 && entity.GetName().Equals("door"))
+                {
+                    _actionManager.ActionChangeCurrentScene(1);
                 }
             }
         }

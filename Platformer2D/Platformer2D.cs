@@ -1,10 +1,9 @@
 ﻿using System;
-using MoteurJeuxProjetFinal.GameEngine;
 using MoteurJeuxProjetFinal.Platformer2D.script;
 
 namespace MoteurJeuxProjetFinal.Platformer2D
 {
-    class Platformer2D
+    static class Platformer2D
     {
         /// <summary>
         /// The main entry point for the application.
