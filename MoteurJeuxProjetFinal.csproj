@@ -61,14 +61,19 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameEngine\Event.cs" />
-    <Compile Include="GameEngine\EventManager.cs" />
     <Compile Include="GameEngine\GameScript.cs" />
     <Compile Include="GameEngine\Listener.cs" />
+    <Compile Include="GameEngine\Managers\ActionManager.cs" />
+    <Compile Include="GameEngine\Managers\EventManager.cs" />
+    <Compile Include="GameEngine\Managers\InputManager.cs" />
+    <Compile Include="GameEngine\Managers\SceneManager.cs" />
+    <Compile Include="GameEngine\Managers\ScriptManager.cs" />
+    <Compile Include="GameEngine\Managers\SystemManager.cs" />
+    <Compile Include="GameEngine\Managers\XmlManager.cs" />
     <Compile Include="GameEngine\Nodes\CollisionNode.cs" />
     <Compile Include="GameEngine\Nodes\InputNode.cs" />
     <Compile Include="GameEngine\Nodes\PhysicsNode.cs" />
     <Compile Include="GameEngine\GameEngine.cs" />
-    <Compile Include="GameEngine\InputManager.cs" />
     <Compile Include="GameEngine\Nodes\MoveNode.cs" />
     <Compile Include="GameEngine\Nodes\RenderNode.cs" />
     <Compile Include="GameEngine\Scene.cs" />
@@ -77,9 +82,6 @@
     </Compile>
     <Compile Include="GameEngine\Entity.cs" />
     <Compile Include="GameEngine\IComponent.cs" />
-    <Compile Include="GameEngine\SceneManager.cs" />
-    <Compile Include="GameEngine\ScriptManager.cs" />
-    <Compile Include="GameEngine\SystemManager.cs" />
     <Compile Include="GameEngine\Systems\CollisionSystem.cs" />
     <Compile Include="GameEngine\Systems\InputSystem.cs" />
     <Compile Include="GameEngine\Systems\MoveSystem.cs" />
@@ -88,7 +90,6 @@
     <Compile Include="GameEngine\Systems\EventSystem.cs" />
     <Compile Include="Platformer2D\Platformer2D.cs" />
     <Compile Include="GameEngine\ISystem.cs" />
-    <Compile Include="GameEngine\XML_Manager.cs" />
     <Compile Include="Platformer2D\script\TestScript.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GameEngine\DisplayWindow.resx">
@@ -139,9 +140,9 @@
     <None Include="Platformer2D\img\floorTile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-      <None Include="Platformer2D\img\door.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>      
+    <None Include="Platformer2D\img\door.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Platformer2D\data.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>

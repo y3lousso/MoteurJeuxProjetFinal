@@ -15,16 +15,16 @@ namespace MoteurJeuxProjetFinal.Platformer2D
             GameEngine.GameEngine gameEngine = new GameEngine.GameEngine();
             
             // Add the scripts in the game engine
-            ScriptManager.GetInstance().AddScript(new TestScript());
+            gameEngine.GetScriptManager().AddScript(new TestScript());
 
             //FOR XML FILE CONTENT
             string path = Environment.CurrentDirectory + "\\Platformer2D";
             gameEngine.imagePath = path + "\\img\\";
-            gameEngine.InitForXML(path+ "\\data.xml");
+            gameEngine.InitForXml(path+ "\\data.xml");
             
             // Load the scripts and register them
-            ScriptManager.GetInstance().LoadAllScript();
-            ScriptManager.GetInstance().RegisterAllScriptListener();
+            gameEngine.GetScriptManager().LoadAllScript();
+            gameEngine.GetScriptManager().RegisterAllScriptListener();
 
             gameEngine.RunGameLoop();        
         }

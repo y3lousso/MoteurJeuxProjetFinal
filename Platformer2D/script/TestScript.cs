@@ -1,19 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using MoteurJeuxProjetFinal.GameEngine;
+using MoteurJeuxProjetFinal.GameEngine.Managers;
 
 namespace MoteurJeuxProjetFinal.Platformer2D.script
 {
     
     class TestScript : GameScript
     {
+        private ActionManager _actionManager;
         private OnCollisionListener _collisionListener = new ChangeSceneListener();
         
-        protected internal override void Load()
+        protected internal override void Load(ActionManager actionManager)
         {
+            _actionManager = actionManager;
         }
 
-        internal override List<IListener> GetListenersToRegister()
+        protected internal override List<IListener> GetListenersToRegister()
         {
             List<IListener> listeners = new List<IListener> {_collisionListener};
             return listeners;
@@ -30,12 +33,10 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
                 if (string.Equals(collisionEvent.Entity1.GetName(), "Door1") && string.Equals(collisionEvent.Entity2.GetName(), "Player"))
                 {
                     Debug.WriteLine(collisionEvent.Entity1.GetName() + " Deleted !");
-                    collisionEvent.CurrentScene.RemoveEntity(collisionEvent.Entity1);   
                 }
                 else if (string.Equals(collisionEvent.Entity2.GetName(), "Door1") && string.Equals(collisionEvent.Entity1.GetName(), "Player"))
                 {
                     Debug.WriteLine(collisionEvent.Entity2.GetName() + " Deleted !");
-                    collisionEvent.CurrentScene.RemoveEntity(collisionEvent.Entity2);   
                 }
             }
         }
