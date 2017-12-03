@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using MoteurJeuxProjetFinal.GameEngine;
+﻿using System.Collections.Generic;
 using MoteurJeuxProjetFinal.GameEngine.Components;
 using MoteurJeuxProjetFinal.GameEngine.Nodes;
 
@@ -13,28 +7,34 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
     class MoveSystem : ISystem
     {
         private GameEngine _gameEngine;
-        private List<MoveNode> _moveNodes = new List<MoveNode>();
+        private List<EntityNode> _moveEntityNodes = new List<EntityNode>();
         
-        public void Start(GameEngine _gameEngine)          
+        public void Start(GameEngine gameEngine)          
         {
-            this._gameEngine = _gameEngine;
-            foreach (Entity entity in this._gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
+            _gameEngine = gameEngine;
+            foreach (Entity entity in _gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(PositionComponent)) != null &&
                     entity.GetComponentOfType(typeof(VelocityComponent)) != null)
                 {
                     MoveNode newMoveNode = new MoveNode();
-                    newMoveNode.positionComponent = (PositionComponent)(entity.GetComponentOfType(typeof(PositionComponent)));
-                    newMoveNode.velocityComponent = (VelocityComponent)(entity.GetComponentOfType(typeof(VelocityComponent)));
-                    _moveNodes.Add(newMoveNode);
+                    newMoveNode.positionComponent = (PositionComponent)entity.GetComponentOfType(typeof(PositionComponent));
+                    newMoveNode.velocityComponent = (VelocityComponent)entity.GetComponentOfType(typeof(VelocityComponent));
+                    EntityNode entityNode = new EntityNode
+                    {
+                        Node = newMoveNode,
+                        Entity = entity
+                    };
+                    _moveEntityNodes.Add(entityNode);
                 }
             }
         }
 
         public void Update(float deltaTime)
         {
-            foreach(MoveNode moveNode in _moveNodes)
+            foreach(EntityNode moveEntityNode in _moveEntityNodes)
             {
+                MoveNode moveNode = (MoveNode) moveEntityNode.Node;
                 moveNode.positionComponent.position += moveNode.velocityComponent.velocity * deltaTime;
 
                 // Windows collision tweak

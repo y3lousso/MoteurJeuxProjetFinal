@@ -8,28 +8,34 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
     {
         
         private GameEngine _gameEngine;
-        private List<InputNode> _inputNodes = new List<InputNode>();
+        private List<EntityNode> _inputEntityNodes = new List<EntityNode>();
 
-        public void Start(GameEngine _gameEngine)
+        public void Start(GameEngine gameEngine)
         {
-            this._gameEngine = _gameEngine;
-            foreach (Entity entity in this._gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
+            _gameEngine = gameEngine;
+            foreach (Entity entity in _gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(InputComponent)) != null &&
                     entity.GetComponentOfType(typeof(PhysicsComponent)) != null)
                 {
                     InputNode newInputNode = new InputNode();
-                    newInputNode.inputComponent = (InputComponent)(entity.GetComponentOfType(typeof(InputComponent)));
-                    newInputNode.physicsComponent = (PhysicsComponent)(entity.GetComponentOfType(typeof(PhysicsComponent)));
-                    _inputNodes.Add(newInputNode);
+                    newInputNode.inputComponent = (InputComponent)entity.GetComponentOfType(typeof(InputComponent));
+                    newInputNode.physicsComponent = (PhysicsComponent)entity.GetComponentOfType(typeof(PhysicsComponent));
+                    EntityNode entityNode = new EntityNode
+                    {
+                        Node = newInputNode,
+                        Entity = entity
+                    };
+                    _inputEntityNodes.Add(entityNode);
                 }
             }
         }
 
         public void Update(float deltaTime)
         {
-            foreach(InputNode inputNode in _inputNodes)
+            foreach(EntityNode inputEntityNode in _inputEntityNodes)
             {
+                InputNode inputNode = (InputNode) inputEntityNode.Node;
                 // get inputs from input manager then ...               
                 inputNode.inputComponent.inputXY = _gameEngine.GetInputManager().GetInputs().InputXY;
                 // apply them as a force to the physic component

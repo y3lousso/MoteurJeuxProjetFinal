@@ -10,7 +10,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
     class RenderSystem : ISystem
     {        
         private GameEngine _gameEngine;
-        private List<RenderNode> _renderNodes = new List<RenderNode>();
+        private List<EntityNode> _renderEntityNodes = new List<EntityNode>();
 
         [DllImport("user32.dll")]
         public static extern bool LockWindowUpdate(IntPtr hWndLock);
@@ -29,7 +29,12 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                     RenderNode newRenderNode = new RenderNode();
                     newRenderNode.positionComponent = (PositionComponent)(entity.GetComponentOfType(typeof(PositionComponent)));
                     newRenderNode.renderComponent = (RenderComponent)(entity.GetComponentOfType(typeof(RenderComponent)));
-                    _renderNodes.Add(newRenderNode);
+                    EntityNode entityNode = new EntityNode
+                    {
+                        Node = newRenderNode,
+                        Entity = entity
+                    };
+                    _renderEntityNodes.Add(entityNode);
                 }
             }
             //renderProcessOn = true;
@@ -40,8 +45,9 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void Update(float deltaTime)
         {
             _gameEngine.GetDisplayWindow().ClearDisplayLayer();
-            foreach (RenderNode renderNode in _renderNodes)
+            foreach (EntityNode renderEntityNode in _renderEntityNodes)
             {
+                RenderNode renderNode = (RenderNode) renderEntityNode.Node;
                 _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().displayLayer, renderNode.positionComponent.position, renderNode.renderComponent.size, renderNode.renderComponent.image);                
             }
             //gameEngine.GetDisplayWindow().Refresh();
@@ -57,8 +63,9 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             while (renderProcessOn)
             {
                 _gameEngine.GetDisplayWindow().ClearDisplayLayer();
-                foreach (RenderNode renderNode in _renderNodes)
+                foreach (EntityNode renderEntityNode in _renderEntityNodes)
                 {
+                    RenderNode renderNode = (RenderNode) renderEntityNode.Node;
                     _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().displayLayer, renderNode.positionComponent.position, renderNode.renderComponent.size, renderNode.renderComponent.image);
                 }
                 //gameEngine.GetDisplayWindow().Refresh();

@@ -5,19 +5,11 @@ using MoteurJeuxProjetFinal.GameEngine.Nodes;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
-    /// <summary>
-    /// A class to associate the CollisionNode with their respective Entity
-    /// </summary>
-    internal class CollisionsNodesWithEntity
-    {
-        internal CollisionNode CollisionNode;
-        internal Entity Entity;
-    }
     
     class CollisionSystem : ISystem
     {
         private GameEngine _gameEngine;
-        private List<CollisionsNodesWithEntity> _collisionsNodesWithEntities = new List<CollisionsNodesWithEntity>();
+        private List<EntityNode> _collisionEntityNodes = new List<EntityNode>();
 
         public void Start(GameEngine gameEngine)
         {
@@ -34,26 +26,26 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                         PhysicsComponent = (PhysicsComponent) entity.GetComponentOfType(typeof(PhysicsComponent)),
                         BoxCollisionComponent = (BoxCollisionComponent) entity.GetComponentOfType(typeof(BoxCollisionComponent))
                     };
-                    CollisionsNodesWithEntity cnwe = new CollisionsNodesWithEntity
+                    EntityNode entityNode = new EntityNode
                     {
-                        CollisionNode = newCollisionNode,
+                        Node = newCollisionNode,
                         Entity = entity
                     };
-                    _collisionsNodesWithEntities.Add(cnwe);
+                    _collisionEntityNodes.Add(entityNode);
                 }
             }
         }
 
         public void Update(float deltaTime)
         {
-            for (int i = 0; i < _collisionsNodesWithEntities.Count; i++)
+            for (int i = 0; i < _collisionEntityNodes.Count; i++)
             {
-                CollisionNode node1 = _collisionsNodesWithEntities[i].CollisionNode;
+                CollisionNode node1 = (CollisionNode) _collisionEntityNodes[i].Node;
                 PositionComponent positionComponent1 = node1.PositionComponent;
                 BoxCollisionComponent boxCollisionComponent1 = node1.BoxCollisionComponent;
-                for (int j = i+1; j < _collisionsNodesWithEntities.Count; j++)
+                for (int j = i+1; j < _collisionEntityNodes.Count; j++)
                 {
-                    CollisionNode node2 = _collisionsNodesWithEntities[j].CollisionNode;
+                    CollisionNode node2 = (CollisionNode) _collisionEntityNodes[j].Node;
                     PositionComponent positionComponent2 = node2.PositionComponent;
                     BoxCollisionComponent boxCollisionComponent2 = node2.BoxCollisionComponent;
                     if (positionComponent1.position.X < positionComponent2.position.X + boxCollisionComponent2.size.X &&
@@ -70,9 +62,9 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                         // Create the collision Event and throw it :
                         CollisionEvent gameEvent = new CollisionEvent(
                             _gameEngine.GetSceneManager().GetCurrentScene(),
-                            _collisionsNodesWithEntities[i].Entity,
+                            _collisionEntityNodes[i].Entity,
                             node1,
-                            _collisionsNodesWithEntities[j].Entity,
+                            _collisionEntityNodes[j].Entity,
                             node2);
                         _gameEngine.GetEventManager().AddEvent(gameEvent);
                     }     

@@ -8,34 +8,39 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
     class PhysicsSystem : ISystem
     {
         private GameEngine _gameEngine;
-        private List<PhysicsNode> _physicsNodes = new List<PhysicsNode>();
+        private List<EntityNode> _physicsEntityNodes = new List<EntityNode>();
         
-        public void Start(GameEngine _gameEngine)
+        public void Start(GameEngine gameEngine)
         {
-            this._gameEngine = _gameEngine;
-            foreach (Entity entity in this._gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
+            _gameEngine = gameEngine;
+            foreach (Entity entity in _gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(PhysicsComponent)) != null &&
                     entity.GetComponentOfType(typeof(VelocityComponent)) != null)
                 {
                     PhysicsNode newPhysicsNode = new PhysicsNode();
-                    newPhysicsNode.physicsComponent = (PhysicsComponent)(entity.GetComponentOfType(typeof(PhysicsComponent)));
-                    newPhysicsNode.velocityComponent = (VelocityComponent)(entity.GetComponentOfType(typeof(VelocityComponent)));
-                    _physicsNodes.Add(newPhysicsNode);
+                    newPhysicsNode.physicsComponent = (PhysicsComponent)entity.GetComponentOfType(typeof(PhysicsComponent));
+                    newPhysicsNode.velocityComponent = (VelocityComponent)entity.GetComponentOfType(typeof(VelocityComponent));
+                    EntityNode entityNode = new EntityNode
+                    {
+                        Node = newPhysicsNode,
+                        Entity = entity
+                    };
+                    _physicsEntityNodes.Add(entityNode);
                 }
             }
         }
 
         public void Update(float deltaTime)
         {
-            foreach (PhysicsNode physicsNode in _physicsNodes)
+            foreach (EntityNode physicsEntityNode in _physicsEntityNodes)
             {
-                if (physicsNode.physicsComponent.useGravity == true)
+                PhysicsNode physicsNode = (PhysicsNode) physicsEntityNode.Node;
+                if (physicsNode.physicsComponent.useGravity)
                 {
                     physicsNode.physicsComponent._forces.Add(new Vector2(0, 200 * physicsNode.physicsComponent.masse));
                 }
                 
-
                 // CalculateSumForces
                 Vector2 sumForces = new Vector2(0, 0);
                 foreach (Vector2 force in physicsNode.physicsComponent._forces)
@@ -46,7 +51,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                 // Calculate velocity : v = a*t + v0 
                 physicsNode.velocityComponent.velocity += (sumForces / physicsNode.physicsComponent.masse) * deltaTime;
 
-                if (physicsNode.physicsComponent.useAirFriction == true)
+                if (physicsNode.physicsComponent.useAirFriction)
                 {
                     // each second remove "airFrictionTweaker" % of the max speed
                     physicsNode.velocityComponent.velocity -= physicsNode.physicsComponent.airFrictionTweaker* deltaTime* physicsNode.velocityComponent.velocity;
