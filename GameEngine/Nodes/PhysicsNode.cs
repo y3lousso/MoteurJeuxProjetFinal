@@ -2,7 +2,7 @@
 
 namespace MoteurJeuxProjetFinal.GameEngine.Nodes
 {
-    class PhysicsNode
+    class PhysicsNode : INode
     {
         public PhysicsComponent physicsComponent;
         public VelocityComponent velocityComponent;

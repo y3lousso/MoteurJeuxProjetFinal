@@ -62,6 +62,8 @@
     </Compile>
     <Compile Include="GameEngine\Event.cs" />
     <Compile Include="GameEngine\GameScript.cs" />
+    <Compile Include="GameEngine\IEntityNode.cs" />
+    <Compile Include="GameEngine\INode.cs" />
     <Compile Include="GameEngine\Listener.cs" />
     <Compile Include="GameEngine\Managers\ActionManager.cs" />
     <Compile Include="GameEngine\Managers\EventManager.cs" />

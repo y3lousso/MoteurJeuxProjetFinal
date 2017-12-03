@@ -2,7 +2,7 @@
 
 namespace MoteurJeuxProjetFinal.GameEngine.Nodes
 {
-    class RenderNode
+    class RenderNode : INode
     {
         public PositionComponent positionComponent;
         public RenderComponent renderComponent;

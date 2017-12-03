@@ -2,7 +2,7 @@
 {
     interface ISystem
     {
-        void Start(GameEngine _gameEngine);
+        void Start(GameEngine gameEngine);
 
         void Update(float deltaTime);
 
