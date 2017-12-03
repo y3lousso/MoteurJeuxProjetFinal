@@ -16,7 +16,7 @@
         /// <summary>
         /// Change and display the current scene
         /// </summary>
-        void ActionChangeCurrentScene(Scene scene)
+        public void ActionChangeCurrentScene(Scene scene)
         {
             _gameEngine.GetSceneManager().ChangeCurrentScene(scene);
             _gameEngine.GetSceneManager().DisplayCurrentScene();
@@ -25,7 +25,7 @@
         /// <summary>
         /// Change and display the current scene
         /// </summary>
-        void ActionChangeCurrentScene(int sceneIndex)
+        public void ActionChangeCurrentScene(int sceneIndex)
         {
             Scene scene = _gameEngine.GetSceneManager().GetScene(sceneIndex);
             if (scene != null)
@@ -38,15 +38,7 @@
         /// <summary>
         /// Add and display an new entity
         /// </summary>
-        void ActionAddEntity(Entity entity)
-        {
-            
-        }
-
-        /// <summary>
-        /// Remove an entity
-        /// </summary>
-        void ActionRemoveEntity(Entity entity)
+        public void ActionAddEntity(Entity entity)
         {
             throw new System.NotImplementedException();
         }
@@ -54,15 +46,33 @@
         /// <summary>
         /// Remove an entity
         /// </summary>
-        void ActionRemoveEntity(string entityName)
+        public void ActionRemoveEntity(Entity entity)
         {
-            throw new System.NotImplementedException();
+            // Remove the entity in the systems
+            foreach (ISystem system in _gameEngine.GetSystemManager().GetAllSystems())
+            {
+                system.RemoveEntity(entity);
+            }
+            // Remove the entity in the current scene
+            _gameEngine.GetSceneManager().GetCurrentScene().RemoveEntity(entity);
+        }
+
+        /// <summary>
+        /// Remove an entity
+        /// </summary>
+        public void ActionRemoveEntity(string entityName)
+        {
+            Entity entity = _gameEngine.GetSceneManager().GetCurrentScene().GetEntities().Find(e => e.GetName().Equals(entityName));
+            if (entity != null)
+            {
+                ActionRemoveEntity(entity);
+            }
         }
 
         /// <summary>
         /// Edit the attribute of an entity
         /// </summary>
-        void ActionEditEntity(Entity oldEntity, Entity newEntity)
+        public void ActionEditEntity(Entity oldEntity, Entity newEntity)
         {
             throw new System.NotImplementedException();
         }
@@ -70,7 +80,7 @@
         /// <summary>
         /// Edit the attribute of an entity
         /// </summary>
-        void ActionEditEntity(string oldEntityName, Entity newEntity)
+        public void ActionEditEntity(string oldEntityName, Entity newEntity)
         {
             throw new System.NotImplementedException();
         }

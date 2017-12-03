@@ -102,6 +102,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
         public XmlManager GetXmlManager() { return _xmlManager; }
         public DisplayWindow GetDisplayWindow() { return _displayWindow; }
         public InputManager GetInputManager() { return _inputManager; }
+        public SystemManager GetSystemManager() { return _systemManager; }
         public SceneManager GetSceneManager(){ return _sceneManager; }
         public EventManager GetEventManager(){ return _eventManager; }
         public ScriptManager GetScriptManager(){ return _scriptManager; }

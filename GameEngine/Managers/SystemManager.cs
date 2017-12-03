@@ -13,6 +13,12 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         {
             _gameEngine = gameEngine;
         }
+
+        public List<ISystem> GetAllSystems()
+        {
+            return _systems;
+        }
+        
         public void AddSystem(ISystem system)
         {
             _systems.Add(system);
