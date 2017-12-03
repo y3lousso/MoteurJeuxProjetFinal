@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
@@ -17,8 +17,8 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void Update(float deltaTime)
         {
             // Dispatch all the incoming events 
-            List<Event> incomingEvents = _gameEngine.GetEventManager().GetAllEvents();
-            foreach (Event incomingEvent in incomingEvents)
+            List<IEvent> incomingEvents = _gameEngine.GetEventManager().GetAllEvents();
+            foreach (IEvent incomingEvent in incomingEvents)
             {
                 incomingEvent.OnCall(_dispatcher);
             }

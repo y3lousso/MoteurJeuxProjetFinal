@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿﻿using System.Diagnostics;
+using MoteurJeuxProjetFinal.GameEngine.Managers;
 using MoteurJeuxProjetFinal.GameEngine.Systems;
 
 namespace MoteurJeuxProjetFinal.GameEngine
@@ -8,25 +9,23 @@ namespace MoteurJeuxProjetFinal.GameEngine
         // GameEngine states
         private bool is_running;
 
-        // Xml file management
-        private XML_Manager _xmlManager = new XML_Manager();
-        // Screen
+        // The manager
+        private XmlManager _xmlManager = new XmlManager();
         private DisplayWindow _displayWindow = new DisplayWindow();
-        // InputManager
         private InputManager _inputManager = new InputManager();
-        // List of systems
         private SystemManager _systemManager = new SystemManager();
-        // Scene mananger : to handle the differents scene
         private SceneManager _sceneManager = new SceneManager();
-        // Event manager 
         private EventManager _eventManager = new EventManager();
+        private ScriptManager _scriptManager = new ScriptManager();
+        private ActionManager _actionManager = new ActionManager();
+     
 
         public string imagePath;
 
         /// <summary>
         /// Init game engine
         /// </summary>
-        public void InitForXML(string gameName)
+        public void InitForXml(string gameName)
         {
             is_running = true;
 
@@ -36,14 +35,15 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _displayWindow.Init(this);
             _sceneManager.Init(this);
             _eventManager.Init(this);
-            ScriptManager.GetInstance().Init(this);
+            _scriptManager.Init(this);
+            _actionManager.Init(this);
 
             // Load game file
             _xmlManager.LoadGameFile(gameName);
 
             // Get properties from game data file.
             GameProperties gameProperties = _xmlManager.LoadGameProperties();
-            _displayWindow.InitFormProperties(gameProperties.gameName, gameProperties.screenWidth, gameProperties.screenHeight);
+            _displayWindow.InitFormProperties(gameProperties.GameName, gameProperties.ScreenWidth, gameProperties.ScreenHeight);
 
             // Loas all the scenes and set the current scene
             _sceneManager.InitScenes(0);
@@ -93,7 +93,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             float deltaTime;
             
             // Throw a GameStartEvent
-            _eventManager.AddEvent(new GameStartEvent(_sceneManager.GetCurrentScene()));
+            _eventManager.AddEvent(new GameStartEvent());
 
             // Game loop
             while (is_running)
@@ -112,7 +112,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             Debug.WriteLine("Game engine exited correctly.");
             
             // Throw a GameFinishEvent
-            _eventManager.AddEvent(new GameFinishEvent(_sceneManager.GetCurrentScene()));
+            _eventManager.AddEvent(new GameFinishEvent());
         }
 
         public void CloseGame()
@@ -121,11 +121,15 @@ namespace MoteurJeuxProjetFinal.GameEngine
             is_running = false;           
         }
 
-        public XML_Manager GetXmlManager() { return _xmlManager; }
+        // Managers getters
+        public XmlManager GetXmlManager() { return _xmlManager; }
         public DisplayWindow GetDisplayWindow() { return _displayWindow; }
         public InputManager GetInputManager() { return _inputManager; }
         public SceneManager GetSceneManager(){ return _sceneManager; }
         public EventManager GetEventManager(){ return _eventManager; }
+        public ScriptManager GetScriptManager(){ return _scriptManager; }
+        public ActionManager GetActionManager(){ return _actionManager; }
+
 
     }
 }

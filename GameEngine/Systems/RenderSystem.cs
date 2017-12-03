@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -16,12 +16,12 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public static extern bool LockWindowUpdate(IntPtr hWndLock);
 
         //private Thread renderingThread;
-        public bool renderProcessOn = false;
+        public bool renderProcessOn;
 
-        public void Start(GameEngine _gameEngine)
+        public void Start(GameEngine gameEngine)
         {
-            this._gameEngine = _gameEngine;
-            foreach (Entity entity in this._gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
+            _gameEngine = gameEngine;
+            foreach (Entity entity in _gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
                 if (entity.GetComponentOfType(typeof(PositionComponent)) != null &&
                     entity.GetComponentOfType(typeof(RenderComponent)) != null)

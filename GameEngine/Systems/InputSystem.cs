@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 using MoteurJeuxProjetFinal.GameEngine.Components;
 using MoteurJeuxProjetFinal.GameEngine.Nodes;
 
@@ -31,7 +31,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             foreach(InputNode inputNode in _inputNodes)
             {
                 // get inputs from input manager then ...               
-                inputNode.inputComponent.inputXY = _gameEngine.GetInputManager().inputs.inputXY;
+                inputNode.inputComponent.inputXY = _gameEngine.GetInputManager().GetInputs().InputXY;
                 // apply them as a force to the physic component
                 inputNode.physicsComponent._forces.Add(inputNode.inputComponent.inputXY * inputNode.inputComponent.inputTweaker);
             }
