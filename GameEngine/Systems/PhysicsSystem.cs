@@ -15,19 +15,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             _gameEngine = gameEngine;
             foreach (Entity entity in _gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
-                if (entity.GetComponentOfType(typeof(PhysicsComponent)) != null &&
-                    entity.GetComponentOfType(typeof(VelocityComponent)) != null)
-                {
-                    PhysicsNode newPhysicsNode = new PhysicsNode();
-                    newPhysicsNode.physicsComponent = (PhysicsComponent)entity.GetComponentOfType(typeof(PhysicsComponent));
-                    newPhysicsNode.velocityComponent = (VelocityComponent)entity.GetComponentOfType(typeof(VelocityComponent));
-                    EntityNode entityNode = new EntityNode
-                    {
-                        Node = newPhysicsNode,
-                        Entity = entity
-                    };
-                    _physicsEntityNodes.Add(entityNode);
-                }
+                AddEntity(entity);
             }
         }
 
@@ -75,6 +63,29 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void End()
         {
 
+        }
+
+        public void AddEntity(Entity entity)
+        {
+            if (entity.GetComponentOfType(typeof(PhysicsComponent)) != null &&
+                entity.GetComponentOfType(typeof(VelocityComponent)) != null)
+            {
+                PhysicsNode newPhysicsNode = new PhysicsNode();
+                newPhysicsNode.physicsComponent = (PhysicsComponent)entity.GetComponentOfType(typeof(PhysicsComponent));
+                newPhysicsNode.velocityComponent = (VelocityComponent)entity.GetComponentOfType(typeof(VelocityComponent));
+                EntityNode entityNode = new EntityNode
+                {
+                    Node = newPhysicsNode,
+                    Entity = entity
+                };
+                _physicsEntityNodes.Add(entityNode);
+            }
+        }
+
+        public void RemoveEntity(Entity entity)
+        {
+            EntityNode entityNode = _physicsEntityNodes.Find(node => node.Entity == entity);
+            _physicsEntityNodes.Remove(entityNode);        
         }
     }
 }

@@ -14,19 +14,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             _gameEngine = gameEngine;
             foreach (Entity entity in _gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
-                if (entity.GetComponentOfType(typeof(PositionComponent)) != null &&
-                    entity.GetComponentOfType(typeof(VelocityComponent)) != null)
-                {
-                    MoveNode newMoveNode = new MoveNode();
-                    newMoveNode.positionComponent = (PositionComponent)entity.GetComponentOfType(typeof(PositionComponent));
-                    newMoveNode.velocityComponent = (VelocityComponent)entity.GetComponentOfType(typeof(VelocityComponent));
-                    EntityNode entityNode = new EntityNode
-                    {
-                        Node = newMoveNode,
-                        Entity = entity
-                    };
-                    _moveEntityNodes.Add(entityNode);
-                }
+                AddEntity(entity);
             }
         }
 
@@ -54,6 +42,29 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void End()
         {
 
+        }
+
+        public void AddEntity(Entity entity)
+        {
+            if (entity.GetComponentOfType(typeof(PositionComponent)) != null &&
+                entity.GetComponentOfType(typeof(VelocityComponent)) != null)
+            {
+                MoveNode newMoveNode = new MoveNode();
+                newMoveNode.positionComponent = (PositionComponent)entity.GetComponentOfType(typeof(PositionComponent));
+                newMoveNode.velocityComponent = (VelocityComponent)entity.GetComponentOfType(typeof(VelocityComponent));
+                EntityNode entityNode = new EntityNode
+                {
+                    Node = newMoveNode,
+                    Entity = entity
+                };
+                _moveEntityNodes.Add(entityNode);
+            }
+        }
+
+        public void RemoveEntity(Entity entity)
+        {
+            EntityNode entityNode = _moveEntityNodes.Find(node => node.Entity == entity);
+            _moveEntityNodes.Remove(entityNode);        
         }
     }
 }

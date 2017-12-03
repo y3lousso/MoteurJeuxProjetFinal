@@ -30,6 +30,9 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void End()
         {
         }
+
+        public void AddEntity(Entity entity){}
+        public void RemoveEntity(Entity entity){}
     }
 
 }

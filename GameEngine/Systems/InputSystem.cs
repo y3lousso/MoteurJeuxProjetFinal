@@ -15,19 +15,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             _gameEngine = gameEngine;
             foreach (Entity entity in _gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
-                if (entity.GetComponentOfType(typeof(InputComponent)) != null &&
-                    entity.GetComponentOfType(typeof(PhysicsComponent)) != null)
-                {
-                    InputNode newInputNode = new InputNode();
-                    newInputNode.inputComponent = (InputComponent)entity.GetComponentOfType(typeof(InputComponent));
-                    newInputNode.physicsComponent = (PhysicsComponent)entity.GetComponentOfType(typeof(PhysicsComponent));
-                    EntityNode entityNode = new EntityNode
-                    {
-                        Node = newInputNode,
-                        Entity = entity
-                    };
-                    _inputEntityNodes.Add(entityNode);
-                }
+                AddEntity(entity);
             }
         }
 
@@ -45,7 +33,30 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public void End()
         {
+        }
 
+        public void AddEntity(Entity entity)
+        {
+            if (entity.GetComponentOfType(typeof(InputComponent)) != null &&
+                entity.GetComponentOfType(typeof(PhysicsComponent)) != null)
+            {
+                InputNode newInputNode = new InputNode();
+                newInputNode.inputComponent = (InputComponent)entity.GetComponentOfType(typeof(InputComponent));
+                newInputNode.physicsComponent = (PhysicsComponent)entity.GetComponentOfType(typeof(PhysicsComponent));
+                EntityNode entityNode = new EntityNode
+                {
+                    Node = newInputNode,
+                    Entity = entity
+                };
+                _inputEntityNodes.Add(entityNode);
+            }
+            
+        }
+
+        public void RemoveEntity(Entity entity)
+        {
+            EntityNode entityNode = _inputEntityNodes.Find(node => node.Entity == entity);
+            _inputEntityNodes.Remove(entityNode);
         }
     }
 }

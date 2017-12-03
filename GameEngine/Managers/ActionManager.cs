@@ -16,9 +16,23 @@
         /// <summary>
         /// Change and display the current scene
         /// </summary>
-        void ActionChangeCurrentScene()
+        void ActionChangeCurrentScene(Scene scene)
         {
-            throw new System.NotImplementedException();
+            _gameEngine.GetSceneManager().ChangeCurrentScene(scene);
+            _gameEngine.GetSceneManager().DisplayCurrentScene();
+        }
+        
+        /// <summary>
+        /// Change and display the current scene
+        /// </summary>
+        void ActionChangeCurrentScene(int sceneIndex)
+        {
+            Scene scene = _gameEngine.GetSceneManager().GetScene(sceneIndex);
+            if (scene != null)
+            {
+                _gameEngine.GetSceneManager().ChangeCurrentScene(scene);
+                _gameEngine.GetSceneManager().DisplayCurrentScene(); 
+            }
         }
 
         /// <summary>
@@ -26,7 +40,7 @@
         /// </summary>
         void ActionAddEntity(Entity entity)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         /// <summary>

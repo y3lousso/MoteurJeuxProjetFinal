@@ -23,19 +23,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             _gameEngine = gameEngine;
             foreach (Entity entity in _gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
-                if (entity.GetComponentOfType(typeof(PositionComponent)) != null &&
-                    entity.GetComponentOfType(typeof(RenderComponent)) != null)
-                {
-                    RenderNode newRenderNode = new RenderNode();
-                    newRenderNode.positionComponent = (PositionComponent)(entity.GetComponentOfType(typeof(PositionComponent)));
-                    newRenderNode.renderComponent = (RenderComponent)(entity.GetComponentOfType(typeof(RenderComponent)));
-                    EntityNode entityNode = new EntityNode
-                    {
-                        Node = newRenderNode,
-                        Entity = entity
-                    };
-                    _renderEntityNodes.Add(entityNode);
-                }
+                AddEntity(entity);
             }
             //renderProcessOn = true;
             //renderingThread = new Thread(RenderingProcess);
@@ -56,6 +44,29 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void End()
         {
             renderProcessOn = false;
+        }
+
+        public void AddEntity(Entity entity)
+        {
+            if (entity.GetComponentOfType(typeof(PositionComponent)) != null &&
+                entity.GetComponentOfType(typeof(RenderComponent)) != null)
+            {
+                RenderNode newRenderNode = new RenderNode();
+                newRenderNode.positionComponent = (PositionComponent)(entity.GetComponentOfType(typeof(PositionComponent)));
+                newRenderNode.renderComponent = (RenderComponent)(entity.GetComponentOfType(typeof(RenderComponent)));
+                EntityNode entityNode = new EntityNode
+                {
+                    Node = newRenderNode,
+                    Entity = entity
+                };
+                _renderEntityNodes.Add(entityNode);
+            }
+        }
+
+        public void RemoveEntity(Entity entity)
+        {
+            EntityNode entityNode = _renderEntityNodes.Find(node => node.Entity == entity);
+            _renderEntityNodes.Remove(entityNode);
         }
 
         private void RenderingProcess()

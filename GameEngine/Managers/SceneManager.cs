@@ -11,9 +11,9 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         private List<Scene> _scenes = new List<Scene>();
         private int _currentSceneIndex = -1;
 
-        public void Init(GameEngine _gameEngine)
+        public void Init(GameEngine gameEngine)
         {
-            this._gameEngine = _gameEngine;
+            _gameEngine = gameEngine;
         }
 
         ///  <summary>
@@ -28,10 +28,32 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         /// <summary>
         /// Get all the scenes
         /// </summary>
-        public List<Scene> getAllScenes()
+        public List<Scene> GetAllScenes()
         {
             return _scenes;
         }
+
+        /// <summary>
+        /// Get a scene with it index
+        /// </summary>
+        public Scene GetScene(int indexScene)
+        {
+            if (indexScene >= 0 && indexScene < _scenes.Count)
+            {
+                return _scenes.ElementAt(indexScene);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Get a scene with it name
+        /// </summary>
+        public Scene GetScene(string name)
+        {
+            return _scenes.Find(scene => scene.GetName().Equals(name));
+        }
+        
+        
         
         /// <summary>
         /// Get the current scene displayed in the game

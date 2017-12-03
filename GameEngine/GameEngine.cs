@@ -60,29 +60,6 @@ namespace MoteurJeuxProjetFinal.GameEngine
         }
 
         /// <summary>
-        /// Init game engine
-        /// </summary>
-       /* public void InitForCode(Scene scene)
-        {
-            is_running = true;
-            currentScene = scene;
-
-            // Init inputs manager
-            inputManager.Init(this);
-            displayWindow.Init(this);
-            displayWindow.InitForm("Plateformer2D", 1280, 720);
-            
-            systemManager.Init(this);
-
-            // Need to add them in the order they will be executed
-            systemManager.AddSystem(new InputSystem());
-            systemManager.AddSystem(new PhysicsSystem());
-            systemManager.AddSystem(new CollisionSystem());
-            systemManager.AddSystem(new MoveSystem());
-            systemManager.AddSystem(new RenderSystem());
-        }*/
-
-        /// <summary>
         /// Game engine loop
         /// </summary>
         public void RunGameLoop()

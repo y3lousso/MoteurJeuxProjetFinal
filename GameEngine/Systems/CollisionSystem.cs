@@ -16,23 +16,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             _gameEngine = gameEngine;
             foreach (Entity entity in gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
             {
-                if (entity.GetComponentOfType(typeof(PositionComponent)) != null && 
-                    entity.GetComponentOfType(typeof(PhysicsComponent)) != null && 
-                    entity.GetComponentOfType(typeof(BoxCollisionComponent)) != null)
-                {
-                    CollisionNode newCollisionNode = new CollisionNode
-                    {
-                        PositionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent)),
-                        PhysicsComponent = (PhysicsComponent) entity.GetComponentOfType(typeof(PhysicsComponent)),
-                        BoxCollisionComponent = (BoxCollisionComponent) entity.GetComponentOfType(typeof(BoxCollisionComponent))
-                    };
-                    EntityNode entityNode = new EntityNode
-                    {
-                        Node = newCollisionNode,
-                        Entity = entity
-                    };
-                    _collisionEntityNodes.Add(entityNode);
-                }
+                AddEntity(entity);
             }
         }
 
@@ -77,6 +61,33 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void End()
         {
 
+        }
+
+        public void AddEntity(Entity entity)
+        {
+            if (entity.GetComponentOfType(typeof(PositionComponent)) != null && 
+                entity.GetComponentOfType(typeof(PhysicsComponent)) != null && 
+                entity.GetComponentOfType(typeof(BoxCollisionComponent)) != null)
+            {
+                CollisionNode newCollisionNode = new CollisionNode
+                {
+                    PositionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent)),
+                    PhysicsComponent = (PhysicsComponent) entity.GetComponentOfType(typeof(PhysicsComponent)),
+                    BoxCollisionComponent = (BoxCollisionComponent) entity.GetComponentOfType(typeof(BoxCollisionComponent))
+                };
+                EntityNode entityNode = new EntityNode
+                {
+                    Node = newCollisionNode,
+                    Entity = entity
+                };
+                _collisionEntityNodes.Add(entityNode);
+            }
+        }
+
+        public void RemoveEntity(Entity entity)
+        {
+            EntityNode entityNode = _collisionEntityNodes.Find(node => node.Entity == entity);
+            _collisionEntityNodes.Remove(entityNode);
         }
     }
 }
