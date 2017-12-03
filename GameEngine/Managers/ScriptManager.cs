@@ -1,16 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace MoteurJeuxProjetFinal.GameEngine
+namespace MoteurJeuxProjetFinal.GameEngine.Managers
 {
     class ScriptManager
     {
         private List<GameScript> scripts = new List<GameScript>();
         private GameEngine _gameEngine;
-        
-       
-        private static ScriptManager INSTANCE;
-        public ScriptManager() {}
-        public static ScriptManager GetInstance() => INSTANCE ?? (INSTANCE = new ScriptManager());
 
         public void Init(GameEngine gameEngine)
         {
@@ -29,7 +24,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
         {
             foreach (GameScript script in scripts)
             {
-                script.Load();
+                script.Load(_gameEngine.GetActionManager());
             }
         }
         /// <summary>

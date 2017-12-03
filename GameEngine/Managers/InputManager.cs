@@ -1,17 +1,17 @@
 ﻿using System.Numerics;
 using System.Windows.Forms;
 
-namespace MoteurJeuxProjetFinal.GameEngine
+namespace MoteurJeuxProjetFinal.GameEngine.Managers
 {
     class InputManager
     {
-        private GameEngine gameEngine;
+        private GameEngine _gameEngine;
 
-        public Inputs inputs = new Inputs();
+        private Inputs _inputs;
 
-        public void Init(GameEngine _gameEngine)
+        public void Init(GameEngine gameEngine)
         {
-            gameEngine = _gameEngine;
+            _gameEngine = gameEngine;
         }
 
         public void ManageKeyPress(KeyEventArgs e)
@@ -19,24 +19,22 @@ namespace MoteurJeuxProjetFinal.GameEngine
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    inputs.inputXY.Y = -1; // may need to invert this if 0,0 is top left
+                    _inputs.InputXY.Y = -1; // may need to invert this if 0,0 is top left
                     break;
                 case Keys.Down:
-                    inputs.inputXY.Y = 1;
+                    _inputs.InputXY.Y = 1;
                     break;
                 case Keys.Left:
-                    inputs.inputXY.X = -1;
+                    _inputs.InputXY.X = -1;
                     break;
                 case Keys.Right:
-                    inputs.inputXY.X = 1;
+                    _inputs.InputXY.X = 1;
                     break;
                 case Keys.Space:
-                    inputs.space = true;
+                    _inputs.Space = true;
                     break;
                 case Keys.Escape:
-                    gameEngine.CloseGame();
-                    break;
-                default:
+                    _gameEngine.CloseGame();
                     break;
             }
             e.Handled = true;
@@ -47,30 +45,33 @@ namespace MoteurJeuxProjetFinal.GameEngine
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    inputs.inputXY.Y = 0;
+                    _inputs.InputXY.Y = 0;
                     break;
                 case Keys.Down:
-                    inputs.inputXY.Y = 0;
+                    _inputs.InputXY.Y = 0;
                     break;
                 case Keys.Left:
-                    inputs.inputXY.X = 0;
+                    _inputs.InputXY.X = 0;
                     break;
                 case Keys.Right:
-                    inputs.inputXY.X = 0;
+                    _inputs.InputXY.X = 0;
                     break;
                 case Keys.Space:
-                    inputs.space = false;
-                    break;
-                default:
+                    _inputs.Space = false;
                     break;
             }
             e.Handled = true;
         }
 
-        public struct Inputs
+        public Inputs GetInputs()
         {
-            public Vector2 inputXY;
-            public bool space;
+            return _inputs;
+        }
+
+        public struct Inputs 
+        {
+            public Vector2 InputXY;
+            public bool Space;
         }
     }
 }

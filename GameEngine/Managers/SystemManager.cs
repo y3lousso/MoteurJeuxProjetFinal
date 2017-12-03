@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 
-namespace MoteurJeuxProjetFinal.GameEngine
+namespace MoteurJeuxProjetFinal.GameEngine.Managers
 {
     class SystemManager
     {
-        GameEngine gameEngine;
+        GameEngine _gameEngine;
 
         // A prioritized list of the systems 
-        public List<ISystem> _systems = new List<ISystem>();
+        private List<ISystem> _systems = new List<ISystem>();
 
-        public void Init(GameEngine _gameEngine)
+        public void Init(GameEngine gameEngine)
         {
-            gameEngine = _gameEngine;
+            _gameEngine = gameEngine;
         }
         public void AddSystem(ISystem system)
         {
             _systems.Add(system);
-            system.Start(gameEngine);
+            system.Start(_gameEngine);
         } 
 
         public void Update(float deltaTime)
