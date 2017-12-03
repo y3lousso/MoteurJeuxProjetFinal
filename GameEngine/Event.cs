@@ -1,4 +1,4 @@
-﻿using MoteurJeuxProjetFinal.GameEngine.Nodes;
+﻿﻿using MoteurJeuxProjetFinal.GameEngine.Nodes;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
@@ -21,49 +21,35 @@ namespace MoteurJeuxProjetFinal.GameEngine
     // LIST OF EVENT //
     ///////////////////
 
-    abstract class Event
+    interface IEvent
     {
-        public Scene CurrentScene;
-        protected Event(Scene currentScene)
-        {
-            CurrentScene = currentScene;
-        }
-        public abstract void OnCall(IEventDispatcher dispatcher); 
+        void OnCall(IEventDispatcher dispatcher); 
     }
 
-    class GameStartEvent : Event
+    class GameStartEvent : IEvent
     {
-        public GameStartEvent(Scene currentScene) : base(currentScene)
-        {
-            
-        }
-
-        public sealed override void OnCall(IEventDispatcher dispatcher)
+        void IEvent.OnCall(IEventDispatcher dispatcher)
         {
             dispatcher.Dispatch(this);
         }
     }
 
-    class GameFinishEvent : Event
+    class GameFinishEvent : IEvent
     {
-        public GameFinishEvent(Scene currentScene) : base(currentScene)
-        {
-        }
-
-        public sealed override void OnCall(IEventDispatcher dispatcher)
+        void IEvent.OnCall(IEventDispatcher dispatcher)
         {
             dispatcher.Dispatch(this);
         }
     }
 
-    class CollisionEvent : Event
+    class CollisionEvent : IEvent
     {
         public Entity Entity1;
         public Entity Entity2;
         public CollisionNode Node1;
         public CollisionNode Node2;
         
-        public CollisionEvent(Scene currentScene, Entity entity1, CollisionNode node1, Entity entity2, CollisionNode node2) : base(currentScene)
+        public CollisionEvent(Scene currentScene, Entity entity1, CollisionNode node1, Entity entity2, CollisionNode node2)
         {
             Entity1 = entity1;
             Entity2 = entity2;
@@ -71,40 +57,39 @@ namespace MoteurJeuxProjetFinal.GameEngine
             Node2 = node2;
         }
 
-        public sealed override void OnCall(IEventDispatcher dispatcher)
+        void IEvent.OnCall(IEventDispatcher dispatcher)
         {
             dispatcher.Dispatch(this);
         }
     }
 
-    class SceneChangeEvent : Event
+    class SceneChangeEvent : IEvent
     {
         public Scene OldScene;
         public Scene NewScene;
         
-        public SceneChangeEvent(Scene oldScene, Scene newScene) : base(newScene)
+        public SceneChangeEvent(Scene oldScene, Scene newScene)
         {
             OldScene = oldScene;
             NewScene = newScene;
         }
 
-        public sealed override void OnCall(IEventDispatcher dispatcher)
+        void IEvent.OnCall(IEventDispatcher dispatcher)
         {
             dispatcher.Dispatch(this);
         }
     }
 
-    class NewSceneDisplayedEvent : Event
+    class NewSceneDisplayedEvent : IEvent
     {
         public Scene NewSceneDisplayed;
 
-        public NewSceneDisplayedEvent(Scene newSceneDisplayed) : base(newSceneDisplayed)
+        public NewSceneDisplayedEvent(Scene newSceneDisplayed)
         {
             NewSceneDisplayed = newSceneDisplayed;
         }
 
-
-        public sealed override void OnCall(IEventDispatcher dispatcher)
+        void IEvent.OnCall(IEventDispatcher dispatcher)
         {
             dispatcher.Dispatch(this);
         }
