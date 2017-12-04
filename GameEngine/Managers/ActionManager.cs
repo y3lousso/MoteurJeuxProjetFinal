@@ -30,9 +30,9 @@
             Scene scene = _gameEngine.GetSceneManager().GetScene(sceneIndex);
             if (scene != null)
             {
-                _gameEngine.GetSceneManager().ChangeCurrentScene(scene);
-                _gameEngine.GetSceneManager().DisplayCurrentScene(); 
+                 ActionChangeCurrentScene(scene);
             }
+            // TODO sa march pa mdr lol jsui nul
         }
 
         /// <summary>
@@ -40,7 +40,13 @@
         /// </summary>
         public void ActionAddEntity(Entity entity)
         {
-            throw new System.NotImplementedException();
+            // Add the entity in all the systems
+            foreach (ISystem system in _gameEngine.GetSystemManager().GetAllSystems())
+            {
+                system.AddEntity(entity);
+            }
+            // Add the entity in the current scene
+            _gameEngine.GetSceneManager().GetCurrentScene().AddEntity(entity);
         }
 
         /// <summary>
@@ -70,19 +76,31 @@
         }
 
         /// <summary>
-        /// Edit the attribute of an entity
+        /// Edit the attributes of an entity
+        /// Add the entity if the old one is not found !
         /// </summary>
         public void ActionEditEntity(Entity oldEntity, Entity newEntity)
         {
-            throw new System.NotImplementedException();
+            // Remove the entity in the systems
+            foreach (ISystem system in _gameEngine.GetSystemManager().GetAllSystems())
+            {
+                system.EditEntity(oldEntity, newEntity);
+            }
+            // Remove the entity in the current scene
+            _gameEngine.GetSceneManager().GetCurrentScene().ReplaceEntity(oldEntity, newEntity);
         }
         
         /// <summary>
-        /// Edit the attribute of an entity
+        /// Edit the attributes of an entity
+        /// Add the entity if the old one is not found !
         /// </summary>
         public void ActionEditEntity(string oldEntityName, Entity newEntity)
         {
-            throw new System.NotImplementedException();
+            Entity entity = _gameEngine.GetSceneManager().GetCurrentScene().GetEntities().Find(e => e.GetName().Equals(oldEntityName));
+            if (entity != null)
+            {
+                ActionEditEntity(entity, newEntity);
+            }
         }
     }
 }

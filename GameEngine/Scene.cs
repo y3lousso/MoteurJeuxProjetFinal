@@ -16,6 +16,20 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _entities.Add(entity);
         }
 
+        public void ReplaceEntity(Entity oldEntity, Entity newEntity)
+        {
+            int index = _entities.IndexOf(oldEntity);
+            if (index != -1)
+            {
+                _entities[index] = newEntity;
+            }
+            // Add the new entity if the old is not found !
+            else
+            {
+                _entities.Add(newEntity);
+            }
+        }
+
         public List<Entity> GetEntities()
         {
             return _entities;
