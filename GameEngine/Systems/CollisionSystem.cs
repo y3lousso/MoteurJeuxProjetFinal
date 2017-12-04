@@ -60,11 +60,16 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
         }
 
+        public bool IsCompatible(Entity entity)
+        {
+            return entity.GetComponentOfType(typeof(PositionComponent)) != null &&
+                   entity.GetComponentOfType(typeof(PhysicsComponent)) != null &&
+                   entity.GetComponentOfType(typeof(BoxCollisionComponent)) != null;
+        }
+
         public void AddEntity(Entity entity)
         {
-            if (entity.GetComponentOfType(typeof(PositionComponent)) != null && 
-                entity.GetComponentOfType(typeof(PhysicsComponent)) != null && 
-                entity.GetComponentOfType(typeof(BoxCollisionComponent)) != null)
+            if (IsCompatible(entity))
             {
                 CollisionNode newCollisionNode = new CollisionNode
                 {
@@ -81,10 +86,39 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             }
         }
 
+        public void EditEntity(Entity oldEntity, Entity newEntity)
+        {
+            if (IsCompatible(newEntity) && IsCompatible(oldEntity))
+            {
+                EntityNode entityNode = _collisionEntityNodes.Find(node => node.Entity == oldEntity);
+                if (!entityNode.Equals(null))
+                {
+                    entityNode.Entity = newEntity;
+                    entityNode.Node = new CollisionNode
+                    {
+                        PositionComponent = (PositionComponent) newEntity.GetComponentOfType(typeof(PositionComponent)),
+                        PhysicsComponent = (PhysicsComponent) newEntity.GetComponentOfType(typeof(PhysicsComponent)),
+                        BoxCollisionComponent = (BoxCollisionComponent) newEntity.GetComponentOfType(typeof(BoxCollisionComponent))
+                    };
+                }
+            }
+            else if (IsCompatible(newEntity) && !IsCompatible(oldEntity))
+            {
+                AddEntity(newEntity);
+            }
+            else if (!IsCompatible(newEntity) && IsCompatible(oldEntity))
+            {
+                RemoveEntity(oldEntity);
+            }
+        }
+
         public void RemoveEntity(Entity entity)
         {
             EntityNode entityNode = _collisionEntityNodes.Find(node => node.Entity == entity);
-            _collisionEntityNodes.Remove(entityNode);
+            if (!entityNode.Equals(null))
+            {
+                _collisionEntityNodes.Remove(entityNode);
+            }
         }
     }
 }

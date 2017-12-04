@@ -46,14 +46,21 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             renderProcessOn = false;
         }
 
+        public bool IsCompatible(Entity entity)
+        {
+            return entity.GetComponentOfType(typeof(PositionComponent)) != null &&
+                   entity.GetComponentOfType(typeof(RenderComponent)) != null;
+        }
+
         public void AddEntity(Entity entity)
         {
-            if (entity.GetComponentOfType(typeof(PositionComponent)) != null &&
-                entity.GetComponentOfType(typeof(RenderComponent)) != null)
+            if (IsCompatible(entity))
             {
-                RenderNode newRenderNode = new RenderNode();
-                newRenderNode.positionComponent = (PositionComponent)(entity.GetComponentOfType(typeof(PositionComponent)));
-                newRenderNode.renderComponent = (RenderComponent)(entity.GetComponentOfType(typeof(RenderComponent)));
+                RenderNode newRenderNode = new RenderNode
+                {
+                    positionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent)),
+                    renderComponent = (RenderComponent) entity.GetComponentOfType(typeof(RenderComponent))
+                };
                 EntityNode entityNode = new EntityNode
                 {
                     Node = newRenderNode,
@@ -63,10 +70,38 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             }
         }
 
+        public void EditEntity(Entity oldEntity, Entity newEntity)
+        {
+            if (IsCompatible(newEntity) && IsCompatible(oldEntity))
+            {
+                EntityNode entityNode = _renderEntityNodes.Find(node => node.Entity == oldEntity);
+                if (!entityNode.Equals(null))
+                {
+                    entityNode.Entity = newEntity;
+                    entityNode.Node = new RenderNode
+                    {             
+                        positionComponent = (PositionComponent) newEntity.GetComponentOfType(typeof(PositionComponent)),
+                        renderComponent = (RenderComponent) newEntity.GetComponentOfType(typeof(RenderComponent))
+                    };
+                }
+            }
+            else if (IsCompatible(newEntity) && !IsCompatible(oldEntity))
+            {
+                AddEntity(newEntity);
+            }
+            else if (!IsCompatible(newEntity) && IsCompatible(oldEntity))
+            {
+                RemoveEntity(oldEntity);
+            }        
+        }
+
         public void RemoveEntity(Entity entity)
         {
             EntityNode entityNode = _renderEntityNodes.Find(node => node.Entity == entity);
-            _renderEntityNodes.Remove(entityNode);
+            if (!entityNode.Equals(null))
+            {
+                _renderEntityNodes.Remove(entityNode);
+            }
         }
 
         private void RenderingProcess()

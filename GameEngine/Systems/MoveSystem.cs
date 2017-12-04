@@ -44,14 +44,21 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         }
 
+        public bool IsCompatible(Entity entity)
+        {
+            return entity.GetComponentOfType(typeof(PositionComponent)) != null &&
+                   entity.GetComponentOfType(typeof(VelocityComponent)) != null;
+        }
+
         public void AddEntity(Entity entity)
         {
-            if (entity.GetComponentOfType(typeof(PositionComponent)) != null &&
-                entity.GetComponentOfType(typeof(VelocityComponent)) != null)
+            if (IsCompatible(entity))
             {
-                MoveNode newMoveNode = new MoveNode();
-                newMoveNode.positionComponent = (PositionComponent)entity.GetComponentOfType(typeof(PositionComponent));
-                newMoveNode.velocityComponent = (VelocityComponent)entity.GetComponentOfType(typeof(VelocityComponent));
+                MoveNode newMoveNode = new MoveNode
+                {
+                    positionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent)),
+                    velocityComponent = (VelocityComponent) entity.GetComponentOfType(typeof(VelocityComponent))
+                };
                 EntityNode entityNode = new EntityNode
                 {
                     Node = newMoveNode,
@@ -61,10 +68,38 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             }
         }
 
+        public void EditEntity(Entity oldEntity, Entity newEntity)
+        {
+            if (IsCompatible(newEntity) && IsCompatible(oldEntity))
+            {
+                EntityNode entityNode = _moveEntityNodes.Find(node => node.Entity == oldEntity);
+                if (!entityNode.Equals(null))
+                {
+                    entityNode.Entity = newEntity;
+                    entityNode.Node = new MoveNode
+                    {
+                        positionComponent = (PositionComponent) newEntity.GetComponentOfType(typeof(PositionComponent)),
+                        velocityComponent = (VelocityComponent) newEntity.GetComponentOfType(typeof(VelocityComponent))
+                    };
+                }
+            }
+            else if (IsCompatible(newEntity) && !IsCompatible(oldEntity))
+            {
+                AddEntity(newEntity);
+            }
+            else if (!IsCompatible(newEntity) && IsCompatible(oldEntity))
+            {
+                RemoveEntity(oldEntity);
+            }        
+        }
+
         public void RemoveEntity(Entity entity)
         {
             EntityNode entityNode = _moveEntityNodes.Find(node => node.Entity == entity);
-            _moveEntityNodes.Remove(entityNode);        
+            if (!entityNode.Equals(null))
+            {
+                _moveEntityNodes.Remove(entityNode);
+            }       
         }
     }
 }
