@@ -117,10 +117,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void RemoveEntity(Entity entity)
         {
             EntityNode entityNode = _physicsEntityNodes.Find(node => node.Entity == entity);
-            if (!entityNode.Equals(null))
-            {
-                _physicsEntityNodes.Remove(entityNode);
-            }
+            _physicsEntityNodes.Remove(entityNode);
         }
     }
 }

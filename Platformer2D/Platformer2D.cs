@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using MoteurJeuxProjetFinal.GameEngine;
 using MoteurJeuxProjetFinal.Platformer2D.script;
 
 namespace MoteurJeuxProjetFinal.Platformer2D
@@ -10,6 +14,7 @@ namespace MoteurJeuxProjetFinal.Platformer2D
         /// </summary>
         public static void Main(string[] args)
         {
+            /**
             // Create instance of game engine
             GameEngine.GameEngine gameEngine = new GameEngine.GameEngine();
             
@@ -25,7 +30,10 @@ namespace MoteurJeuxProjetFinal.Platformer2D
             gameEngine.GetScriptManager().LoadAllScript();
             gameEngine.GetScriptManager().RegisterAllScriptListener();
 
-            gameEngine.RunGameLoop();        
+            gameEngine.RunGameLoop(); 
+            */
+
+
         }
     }
 }
