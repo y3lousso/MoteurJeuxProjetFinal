@@ -18,7 +18,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             // Dispatch all the incoming events 
             List<IEvent> incomingEvents = _gameEngine.GetEventManager().GetAllEvents();
-            foreach (IEvent incomingEvent in incomingEvents)
+            foreach (IEvent incomingEvent in incomingEvents.ToArray())
             {
                 incomingEvent.OnCall(_dispatcher);
             }

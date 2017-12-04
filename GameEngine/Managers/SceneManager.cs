@@ -71,8 +71,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         {   
             
             Scene oldScene = GetCurrentScene();
-            // TODO NOT WOrKing !!!!!!
-            //_gameEngine.GetEventManager().AddEvent(new SceneChangeEvent(oldScene, scene)); // Event change changed
             
             // Change the current scene index
             int index = _scenes.IndexOf(scene);
@@ -94,6 +92,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             // Display the new scene
             _gameEngine.GetDisplayWindow().DisplayScene(scene);
            
+            _gameEngine.GetEventManager().AddEvent(new SceneChangeEvent(oldScene, scene)); // Event change changed
         }
         
     }

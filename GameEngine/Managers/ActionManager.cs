@@ -39,7 +39,6 @@
             {
                  ActionChangeCurrentScene(scene);
             }
-            // TODO sa march pa mdr lol jsui nul
         }
 
         /// <summary>
