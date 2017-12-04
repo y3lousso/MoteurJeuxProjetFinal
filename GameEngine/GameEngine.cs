@@ -47,7 +47,6 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
             // Loas all the scenes and set the current scene
             _sceneManager.InitScenes(0);
-            _sceneManager.DisplayCurrentScene();
 
             _systemManager.Init(this);
             // Need to add them in the order they will be executed
@@ -57,6 +56,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _systemManager.AddSystem(new MoveSystem());
             _systemManager.AddSystem(new RenderSystem());
             _systemManager.AddSystem(new EventSystem());
+
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace MoteurJeuxProjetFinal.GameEngine
+﻿using System.Collections.Generic;
+
+namespace MoteurJeuxProjetFinal.GameEngine
 {
     interface ISystem
     {
@@ -29,6 +31,14 @@
         /// </summary>
         void EditEntity(Entity oldEntity, Entity newEntity);
 
+        /// <summary>
+        /// Remove the node associated with the entity
+        /// </summary>
         void RemoveEntity(Entity entity);
+
+        /// <summary>
+        /// Init the nodes of the system with a list of entity
+        /// </summary>
+        void InitEntities(List<Entity> entities);
     }
 }

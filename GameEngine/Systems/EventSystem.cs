@@ -32,9 +32,10 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         }
 
         public bool IsCompatible(Entity entity) { return false; }
-        public void AddEntity(Entity entity){}
-        public void EditEntity(Entity oldEntity, Entity newEntity){}
-        public void RemoveEntity(Entity entity){}
+        public void AddEntity(Entity entity) {}
+        public void EditEntity(Entity oldEntity, Entity newEntity) {}
+        public void RemoveEntity(Entity entity) {}
+        public void InitEntities(List<Entity> entities) {}
     }
 
 }

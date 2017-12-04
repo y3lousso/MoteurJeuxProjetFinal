@@ -8,15 +8,12 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
     class PhysicsSystem : ISystem
     {
         private GameEngine _gameEngine;
-        private List<EntityNode> _physicsEntityNodes = new List<EntityNode>();
+        private List<EntityNode> _physicsEntityNodes;
         
         public void Start(GameEngine gameEngine)
         {
             _gameEngine = gameEngine;
-            foreach (Entity entity in _gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
-            {
-                AddEntity(entity);
-            }
+            InitEntities(_gameEngine.GetSceneManager().GetCurrentScene().GetEntities());
         }
 
         public void Update(float deltaTime)
@@ -118,6 +115,15 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             EntityNode entityNode = _physicsEntityNodes.Find(node => node.Entity == entity);
             _physicsEntityNodes.Remove(entityNode);
+        }
+        
+        public void InitEntities(List<Entity> entities)
+        {
+            _physicsEntityNodes = new List<EntityNode>();
+            foreach (Entity entity in entities)
+            {
+                AddEntity(entity);
+            }
         }
     }
 }

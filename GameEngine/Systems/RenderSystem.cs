@@ -1,7 +1,6 @@
 ﻿﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Threading;
 using MoteurJeuxProjetFinal.GameEngine.Components;
 using MoteurJeuxProjetFinal.GameEngine.Nodes;
 
@@ -10,7 +9,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
     class RenderSystem : ISystem
     {        
         private GameEngine _gameEngine;
-        private List<EntityNode> _renderEntityNodes = new List<EntityNode>();
+        private List<EntityNode> _renderEntityNodes;
 
         [DllImport("user32.dll")]
         public static extern bool LockWindowUpdate(IntPtr hWndLock);
@@ -21,10 +20,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void Start(GameEngine gameEngine)
         {
             _gameEngine = gameEngine;
-            foreach (Entity entity in _gameEngine.GetSceneManager().GetCurrentScene().GetEntities())
-            {
-                AddEntity(entity);
-            }
+            InitEntities(gameEngine.GetSceneManager().GetCurrentScene().GetEntities());
             //renderProcessOn = true;
             //renderingThread = new Thread(RenderingProcess);
             //renderingThread.Start();
@@ -38,7 +34,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                 RenderNode renderNode = (RenderNode) renderEntityNode.Node;
                 _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().displayLayer, renderNode.positionComponent.position, renderNode.renderComponent.size, renderNode.renderComponent.image);                
             }
-            //gameEngine.GetDisplayWindow().Refresh();
+            _gameEngine.GetDisplayWindow().Refresh();
         }
 
         public void End()
@@ -100,6 +96,15 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             EntityNode entityNode = _renderEntityNodes.Find(node => node.Entity == entity);
             _renderEntityNodes.Remove(entityNode);
         }
+        
+        public void InitEntities(List<Entity> entities)
+        {
+            _renderEntityNodes = new List<EntityNode>();
+            foreach (Entity entity in entities)
+            {
+                AddEntity(entity);
+            }
+        }
 
         private void RenderingProcess()
         {
@@ -112,7 +117,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                     _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().displayLayer, renderNode.positionComponent.position, renderNode.renderComponent.size, renderNode.renderComponent.image);
                 }
                 //gameEngine.GetDisplayWindow().Refresh();
-                Thread.Sleep(15);
             }
 
         }

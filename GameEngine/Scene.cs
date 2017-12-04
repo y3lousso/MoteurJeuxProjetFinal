@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
@@ -33,6 +34,11 @@ namespace MoteurJeuxProjetFinal.GameEngine
         public List<Entity> GetEntities()
         {
             return _entities;
+        }
+
+        public Entity findEntityWithName(string entityName)
+        {
+            return _entities.Find(e => e.GetName().Equals(entityName));
         }
 
         public void RemoveEntity(Entity entity)

@@ -14,7 +14,6 @@ namespace MoteurJeuxProjetFinal.Platformer2D
         /// </summary>
         public static void Main(string[] args)
         {
-            /**
             // Create instance of game engine
             GameEngine.GameEngine gameEngine = new GameEngine.GameEngine();
             
@@ -31,9 +30,6 @@ namespace MoteurJeuxProjetFinal.Platformer2D
             gameEngine.GetScriptManager().RegisterAllScriptListener();
 
             gameEngine.RunGameLoop(); 
-            */
-
-
         }
     }
 }

@@ -12,6 +12,14 @@
         {
             _gameEngine = gameEngine;
         }
+
+        /// <summary>
+        /// Return an instance of the current scene
+        /// </summary>
+        public Scene ActionGetCurentScene()
+        {
+            return _gameEngine.GetSceneManager().GetCurrentScene();
+        }
         
         /// <summary>
         /// Change and display the current scene
@@ -19,7 +27,6 @@
         public void ActionChangeCurrentScene(Scene scene)
         {
             _gameEngine.GetSceneManager().ChangeCurrentScene(scene);
-            _gameEngine.GetSceneManager().DisplayCurrentScene();
         }
         
         /// <summary>

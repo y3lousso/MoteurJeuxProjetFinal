@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MoteurJeuxProjetFinal.GameEngine;
+using MoteurJeuxProjetFinal.GameEngine.Components;
 using MoteurJeuxProjetFinal.GameEngine.Managers;
 
 namespace MoteurJeuxProjetFinal.Platformer2D.script
@@ -46,6 +47,11 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
                 {
                     _coins++;
                     _actionManager.ActionRemoveEntity(entity);
+                    if (_coins == 5)
+                    {
+                        Entity door = _actionManager.ActionGetCurentScene().findEntityWithName("door");
+                        ((RenderComponent) door.GetComponentOfType(typeof(RenderComponent))).image = "door.png";
+                    }
                 }
                 // Collision with door -> change scene if enought coins
                 else if (_coins == 5 && entity.GetName().Equals("door"))

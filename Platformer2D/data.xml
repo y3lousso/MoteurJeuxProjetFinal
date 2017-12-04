@@ -205,7 +205,7 @@
                                 <orientation>0</orientation>
                             </Component>
                             <Component Type="Render">
-                                <image>door.png</image>
+                                <image>floorTile.png</image>
                                 <sizeX>50</sizeX>
                                 <sizeY>100</sizeY>
                             </Component>

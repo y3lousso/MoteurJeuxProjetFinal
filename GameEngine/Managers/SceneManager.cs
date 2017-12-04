@@ -23,6 +23,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         {
             _gameEngine.GetXmlManager().LoadGameContent(ref _scenes);
             _currentSceneIndex = firstSceneIndex;
+            _gameEngine.GetDisplayWindow().DisplayScene(GetScene(firstSceneIndex));
         }
 
         /// <summary>
@@ -62,22 +63,16 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         {
             return _currentSceneIndex == -1 ? null : _scenes.ElementAt(_currentSceneIndex);
         }
-        /// <summary>
-        ///  Display the current scene in the window
-        /// </summary>
-        public void DisplayCurrentScene()
-        {
-            Scene scene = _scenes.ElementAt(_currentSceneIndex);
-            _gameEngine.GetDisplayWindow().DisplayScene(scene);
-            _gameEngine.GetEventManager().AddEvent(new NewSceneDisplayedEvent(scene)); // Event new scene displayed
-        }
 
         /// <summary>
         /// Change the current scene displayed
         /// </summary>
         public void ChangeCurrentScene(Scene scene)
-        {
+        {   
+            
             Scene oldScene = GetCurrentScene();
+            // TODO NOT WOrKing !!!!!!
+            //_gameEngine.GetEventManager().AddEvent(new SceneChangeEvent(oldScene, scene)); // Event change changed
             
             // Change the current scene index
             int index = _scenes.IndexOf(scene);
@@ -91,8 +86,14 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             {
                 _currentSceneIndex = index;
             }
-            _gameEngine.GetEventManager().AddEvent(new SceneChangeEvent(oldScene, scene)); // Event change changed
-
+            // Clear the datas of all the systems
+            foreach (ISystem system in _gameEngine.GetSystemManager().GetAllSystems())
+            {
+                system.InitEntities(_gameEngine.GetSceneManager().GetCurrentScene().GetEntities());
+            }
+            // Display the new scene
+            _gameEngine.GetDisplayWindow().DisplayScene(scene);
+           
         }
         
     }
