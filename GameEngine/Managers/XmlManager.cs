@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using MoteurJeuxProjetFinal.GameEngine.Components;
 
@@ -132,25 +135,24 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
                     renderComponent.size.Y = int.Parse(component.Element("sizeY")?.Value);
                     currentEntity.AddComponent(renderComponent);
                     break;
+                case "Script":
+                    ScriptComponent scriptComponent = new ScriptComponent();
+                    scriptComponent.Script = CreateScriptInstance(component.Element("scriptName")?.Value);
+                    currentEntity.AddComponent(scriptComponent);
+                    break;
                 default:
                     throw new Exception("Undefined Component");
             }
         }
 
-
-
-
-        private void AddScene(string sceneName)
+        private GameScript CreateScriptInstance(string scriptName)
         {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Type type = assembly.GetTypes().First(t => t.Name.Equals(scriptName));
 
+            return (GameScript) Activator.CreateInstance(type);
         }
 
-        /*private void AddEntityToScene(string entity, string sceneName, XmlTextWriter writer)
-        {
-            writer.WriteStartAttribute(sceneName, entity, writer);
-            writer.WriteString(entity);
-            writer.WriteEndElement();
-        }*/
     }
 
     public struct GameProperties
