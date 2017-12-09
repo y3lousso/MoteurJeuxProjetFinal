@@ -16,11 +16,11 @@ namespace MoteurJeuxProjetFinal.GameEngine
         private SystemManager _systemManager = new SystemManager();
         private SceneManager _sceneManager = new SceneManager();
         private EventManager _eventManager = new EventManager();
-        private ScriptManager _scriptManager = new ScriptManager();
         private ActionManager _actionManager = new ActionManager();
      
 
         public string imagePath;
+          
 
         /// <summary>
         /// Init game engine
@@ -35,7 +35,6 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _displayWindow.Init(this);
             _sceneManager.Init(this);
             _eventManager.Init(this);
-            _scriptManager.Init(this);
             _actionManager.Init(this);
 
             // Load game file
@@ -56,6 +55,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _systemManager.AddSystem(new CollisionSystem());
             _systemManager.AddSystem(new RenderSystem());
             _systemManager.AddSystem(new EventSystem());
+            _systemManager.AddSystem(new ScriptSystem());
 
         }
 
@@ -64,9 +64,6 @@ namespace MoteurJeuxProjetFinal.GameEngine
         /// </summary>
         public void RunGameLoop()
         {
-            // Load the scripts and register them
-            _scriptManager.LoadAllScript();
-            _scriptManager.RegisterAllScriptListener();
             
             // Init Timer
             Stopwatch stopWatch = new Stopwatch();
@@ -109,7 +106,6 @@ namespace MoteurJeuxProjetFinal.GameEngine
         public SystemManager GetSystemManager() { return _systemManager; }
         public SceneManager GetSceneManager(){ return _sceneManager; }
         public EventManager GetEventManager(){ return _eventManager; }
-        public ScriptManager GetScriptManager(){ return _scriptManager; }
         public ActionManager GetActionManager(){ return _actionManager; }
 
 

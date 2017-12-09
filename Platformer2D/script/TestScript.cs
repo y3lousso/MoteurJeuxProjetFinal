@@ -9,7 +9,7 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
     {
         private static ActionManager _actionManager;
         private int _coins;
-
+        
         protected internal override void Start(ActionManager actionManager)
         {
             _actionManager = actionManager;
