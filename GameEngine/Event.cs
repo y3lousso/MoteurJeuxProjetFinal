@@ -46,15 +46,11 @@ namespace MoteurJeuxProjetFinal.GameEngine
     {
         public Entity Entity1;
         public Entity Entity2;
-        public CollisionNode Node1;
-        public CollisionNode Node2;
         
-        public CollisionEvent(Scene currentScene, Entity entity1, CollisionNode node1, Entity entity2, CollisionNode node2)
+        public CollisionEvent(Scene currentScene, Entity entity1, Entity entity2)
         {
             Entity1 = entity1;
             Entity2 = entity2;
-            Node1 = node1;
-            Node2 = node2;
         }
 
         void IEvent.OnCall(IEventDispatcher dispatcher)

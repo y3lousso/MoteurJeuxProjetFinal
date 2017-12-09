@@ -43,21 +43,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                         {
                             HandleCollision(_entities[j], positionComponent1, boxCollisionComponent1);
                         }
-                        /*
-                        PhysicsComponent physicsComponent1 = node1.PhysicsComponent;
-                        PhysicsComponent physicsComponent2 = node2.PhysicsComponent;
-                        //physicsComponent1._forces.Add(new Vector2(0, -20000f));
-                        //physicsComponent2._forces.Add(new Vector2(0, +20000f));
                         
                         // Create the collision Event and throw it :
                         CollisionEvent gameEvent = new CollisionEvent(
                             _gameEngine.GetSceneManager().GetCurrentScene(),
-                            _collisionEntityNodes[i].Entity,
-                            node1,
-                            _collisionEntityNodes[j].Entity,
-                            node2);
+                            _entities[i],
+                            _entities[j]);
                         _gameEngine.GetEventManager().AddEvent(gameEvent);
-                        */
                     }    
                 }
             }
