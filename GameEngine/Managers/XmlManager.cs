@@ -110,6 +110,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
                     BoxCollisionComponent boxCollisionComponent = new BoxCollisionComponent();
                     boxCollisionComponent.size.X = float.Parse(component.Element("sizeX")?.Value);
                     boxCollisionComponent.size.Y = float.Parse(component.Element("sizeY")?.Value);
+                    boxCollisionComponent.consistance = bool.Parse(component.Element("consistance")?.Value);
                     currentEntity.AddComponent(boxCollisionComponent);
                     break;
                 case "Position":

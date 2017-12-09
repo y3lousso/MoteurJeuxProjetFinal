@@ -34,16 +34,19 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                         && positionComponent1.position.Y + boxCollisionComponent1.size.Y > positionComponent2.position.Y)
                     {
                         // Collision detected
-                        if (_entities[i].GetComponentOfType(typeof(VelocityComponent)) != null)
+                        if (boxCollisionComponent1.consistance && boxCollisionComponent2.consistance)
                         {
-                            HandleCollision(_entities[i], positionComponent2, boxCollisionComponent2);
+                            if (_entities[i].GetComponentOfType(typeof(VelocityComponent)) != null)
+                            {
+                                HandleCollision(_entities[i], positionComponent2, boxCollisionComponent2);
 
+                            }
+                            if (_entities[j].GetComponentOfType(typeof(VelocityComponent)) != null)
+                            {
+                                HandleCollision(_entities[j], positionComponent1, boxCollisionComponent1);
+                            }
                         }
-                        if (_entities[j].GetComponentOfType(typeof(VelocityComponent)) != null)
-                        {
-                            HandleCollision(_entities[j], positionComponent1, boxCollisionComponent1);
-                        }
-                        
+
                         // Create the collision Event and throw it :
                         CollisionEvent gameEvent = new CollisionEvent(
                             _gameEngine.GetSceneManager().GetCurrentScene(),
