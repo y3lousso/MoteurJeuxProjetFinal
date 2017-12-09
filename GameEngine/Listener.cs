@@ -6,10 +6,10 @@
     /// </summary>
     internal interface IListenerRegister
     {
-        void Register(OnGameStartListener listener);
-        void Register(OnGameFinishListener listener);
-        void Register(OnCollisionListener listener);
-        void Register(OnSceneChangeListener listener);
+        //void Register(OnGameStartListener listener);
+        //void Register(OnGameFinishListener listener);
+        //void Register(OnCollisionListener listener);
+        //void Register(OnSceneChangeListener listener);
     }
     
     //////////////////////
@@ -19,44 +19,10 @@
     internal interface IListener
     {
         void OnRegister(IListenerRegister register);
+        void OnGameStart(GameStartEvent gameStartEvent);
+        void OnGameFinish(GameFinishEvent gameFinishEvent);
+        void OnCollision(CollisionEvent collisionEvent);
+        void OnSceneChange(SceneChangeEvent sceneChangeEvent);
+        void OnNewSceneDisplayed(NewSceneDisplayedEvent sceneChangeEvent);
     }
-
-    abstract class OnGameStartListener : IListener
-    {
-        public abstract void OnGameStart(GameStartEvent gameStartEvent);
-        public void OnRegister(IListenerRegister register)
-        {
-            register.Register(this);
-        }
-    }
-
-    abstract class OnGameFinishListener : IListener
-    {
-        public abstract void OnGameFinish(GameFinishEvent gameFinishEvent);
-        public void OnRegister(IListenerRegister register)
-        {
-            register.Register(this);
-        }
-    }
-
-    abstract class OnCollisionListener : IListener
-    {
-        public abstract void OnCollision(CollisionEvent collisionEvent);
-        public void OnRegister(IListenerRegister register)
-        {
-            register.Register(this);
-        }
-    }
-
-    abstract class OnSceneChangeListener : IListener
-    {
-        public abstract void OnSceneChange(SceneChangeEvent sceneChangeEvent);
-        public abstract void OnNewSceneDisplayed(NewSceneDisplayedEvent sceneChangeEvent);
-        public void OnRegister(IListenerRegister register)
-        {
-            register.Register(this);
-        }
-    }
-       
-  
 }

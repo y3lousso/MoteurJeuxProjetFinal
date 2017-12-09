@@ -24,7 +24,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         {
             foreach (GameScript script in scripts)
             {
-                script.Load(_gameEngine.GetActionManager());
+                script.Start(_gameEngine.GetActionManager());
             }
         }
         /// <summary>
@@ -34,12 +34,9 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         {
             foreach (GameScript script in scripts)
             {
-                foreach (IListener listener in script.GetListenersToRegister())
+                if (script != null)
                 {
-                    if (listener != null)
-                    {
-                        _gameEngine.GetEventManager().RegisterListener(listener);
-                    }
+                    _gameEngine.GetEventManager().RegisterListener(script);
                 }
             }
         }
