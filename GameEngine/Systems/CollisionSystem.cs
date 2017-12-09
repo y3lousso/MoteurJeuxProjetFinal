@@ -46,13 +46,16 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                                 HandleCollision(_entities[j], positionComponent1, boxCollisionComponent1);
                             }
                         }
-
-                        // Create the collision Event and throw it :
-                        CollisionEvent gameEvent = new CollisionEvent(
-                            _gameEngine.GetSceneManager().GetCurrentScene(),
+                        
+                        // Create the collision Event and throw it for concerned entities:
+                        CollisionEvent gameEvent1 = new CollisionEvent(
                             _entities[i],
                             _entities[j]);
-                        _gameEngine.GetEventManager().AddEvent(gameEvent);
+                        CollisionEvent gameEvent2 = new CollisionEvent(
+                            _entities[j],
+                            _entities[i]);
+                        _gameEngine.GetEventManager().AddEvent(gameEvent1);
+                        _gameEngine.GetEventManager().AddEvent(gameEvent2);
                     }    
                 }
             }
