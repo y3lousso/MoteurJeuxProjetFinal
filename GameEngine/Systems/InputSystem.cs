@@ -1,6 +1,5 @@
 ﻿﻿using System.Collections.Generic;
 using MoteurJeuxProjetFinal.GameEngine.Components;
-using MoteurJeuxProjetFinal.GameEngine.Nodes;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
@@ -8,7 +7,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
     {
         
         private GameEngine _gameEngine;
-        private List<EntityNode> _inputEntityNodes;
+        private List<Entity> _entities;
 
         public void Start(GameEngine gameEngine)
         {
@@ -18,13 +17,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public void Update(float deltaTime)
         {
-            foreach(EntityNode inputEntityNode in _inputEntityNodes)
+            foreach(Entity entity in _entities)
             {
-                InputNode inputNode = (InputNode) inputEntityNode.Node;
+                InputComponent inputComponent = (InputComponent) entity.GetComponentOfType(typeof(InputComponent));
                 // get inputs from input manager then ...               
-                inputNode.inputComponent.inputXY = _gameEngine.GetInputManager().GetInputs().InputXY;
+                inputComponent.inputXY = _gameEngine.GetInputManager().GetInputs().InputXY;
                 // apply them as a force to the physic component
-                inputNode.physicsComponent._forces.Add(inputNode.inputComponent.inputXY * inputNode.inputComponent.inputTweaker);
+                ((PhysicsComponent) entity.GetComponentOfType(typeof(PhysicsComponent)))._forces.Add(inputComponent.inputXY * inputComponent.inputTweaker);
             }
         }
 
@@ -39,37 +38,21 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         }
 
         public void AddEntity(Entity entity)
-        {            
+        {
             if (IsCompatible(entity))
             {
-                InputNode newInputNode = new InputNode
-                {
-                    inputComponent = (InputComponent) entity.GetComponentOfType(typeof(InputComponent)),
-                    physicsComponent = (PhysicsComponent) entity.GetComponentOfType(typeof(PhysicsComponent))
-                };
-                EntityNode entityNode = new EntityNode
-                {
-                    Node = newInputNode,
-                    Entity = entity
-                };
-                _inputEntityNodes.Add(entityNode);
+                _entities.Add(entity);
             }
-            
         }
 
         public void EditEntity(Entity oldEntity, Entity newEntity)
         {
             if (IsCompatible(newEntity) && IsCompatible(oldEntity))
             {
-                EntityNode entityNode = _inputEntityNodes.Find(node => node.Entity == oldEntity);
-                if (!entityNode.Equals(null))
+                int index = _entities.IndexOf(oldEntity);
+                if (index != -1)
                 {
-                    entityNode.Entity = newEntity;
-                    entityNode.Node = new InputNode
-                    {
-                        inputComponent = (InputComponent) newEntity.GetComponentOfType(typeof(InputComponent)),
-                        physicsComponent = (PhysicsComponent) newEntity.GetComponentOfType(typeof(PhysicsComponent))
-                    };
+                    _entities[index] = newEntity;
                 }
             }
             else if (IsCompatible(newEntity) && !IsCompatible(oldEntity))
@@ -79,18 +62,17 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             else if (!IsCompatible(newEntity) && IsCompatible(oldEntity))
             {
                 RemoveEntity(oldEntity);
-            }        
+            }
         }
 
         public void RemoveEntity(Entity entity)
         {
-            EntityNode entityNode = _inputEntityNodes.Find(node => node.Entity == entity);
-            _inputEntityNodes.Remove(entityNode);      
+            _entities.Remove(entity);
         }
-        
+
         public void InitEntities(List<Entity> entities)
         {
-            _inputEntityNodes = new List<EntityNode>();
+            _entities = new List<Entity>();
             foreach (Entity entity in entities)
             {
                 AddEntity(entity);

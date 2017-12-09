@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using MoteurJeuxProjetFinal.GameEngine.Components;
-using MoteurJeuxProjetFinal.GameEngine.Nodes;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
     class RenderSystem : ISystem
     {        
         private GameEngine _gameEngine;
-        private List<EntityNode> _renderEntityNodes;
+        private List<Entity> _entities;
 
         [DllImport("user32.dll")]
         public static extern bool LockWindowUpdate(IntPtr hWndLock);
@@ -29,10 +28,11 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         public void Update(float deltaTime)
         {
             _gameEngine.GetDisplayWindow().ClearDisplayLayer();
-            foreach (EntityNode renderEntityNode in _renderEntityNodes)
+            foreach (Entity entity in _entities)
             {
-                RenderNode renderNode = (RenderNode) renderEntityNode.Node;
-                _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().displayLayer, renderNode.positionComponent.position, renderNode.renderComponent.size, renderNode.renderComponent.image);                
+                RenderComponent renderComponent = (RenderComponent) entity.GetComponentOfType(typeof(RenderComponent));
+                PositionComponent positionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent));
+                _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().displayLayer, positionComponent.position, renderComponent.size, renderComponent.image);                
             }
             _gameEngine.GetDisplayWindow().Refresh();
         }
@@ -44,25 +44,15 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public bool IsCompatible(Entity entity)
         {
-            return entity.GetComponentOfType(typeof(PositionComponent)) != null &&
-                   entity.GetComponentOfType(typeof(RenderComponent)) != null;
+            return entity.GetComponentOfType(typeof(RenderComponent)) != null &&
+                   entity.GetComponentOfType(typeof(PositionComponent)) != null;
         }
 
         public void AddEntity(Entity entity)
         {
             if (IsCompatible(entity))
             {
-                RenderNode newRenderNode = new RenderNode
-                {
-                    positionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent)),
-                    renderComponent = (RenderComponent) entity.GetComponentOfType(typeof(RenderComponent))
-                };
-                EntityNode entityNode = new EntityNode
-                {
-                    Node = newRenderNode,
-                    Entity = entity
-                };
-                _renderEntityNodes.Add(entityNode);
+                _entities.Add(entity);
             }
         }
 
@@ -70,15 +60,10 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             if (IsCompatible(newEntity) && IsCompatible(oldEntity))
             {
-                EntityNode entityNode = _renderEntityNodes.Find(node => node.Entity == oldEntity);
-                if (!entityNode.Equals(null))
+                int index = _entities.IndexOf(oldEntity);
+                if (index != -1)
                 {
-                    entityNode.Entity = newEntity;
-                    entityNode.Node = new RenderNode
-                    {             
-                        positionComponent = (PositionComponent) newEntity.GetComponentOfType(typeof(PositionComponent)),
-                        renderComponent = (RenderComponent) newEntity.GetComponentOfType(typeof(RenderComponent))
-                    };
+                    _entities[index] = newEntity;
                 }
             }
             else if (IsCompatible(newEntity) && !IsCompatible(oldEntity))
@@ -88,18 +73,17 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             else if (!IsCompatible(newEntity) && IsCompatible(oldEntity))
             {
                 RemoveEntity(oldEntity);
-            }        
+            }
         }
 
         public void RemoveEntity(Entity entity)
         {
-            EntityNode entityNode = _renderEntityNodes.Find(node => node.Entity == entity);
-            _renderEntityNodes.Remove(entityNode);
+            _entities.Remove(entity);
         }
-        
+
         public void InitEntities(List<Entity> entities)
         {
-            _renderEntityNodes = new List<EntityNode>();
+            _entities = new List<Entity>();
             foreach (Entity entity in entities)
             {
                 AddEntity(entity);
@@ -111,12 +95,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             while (renderProcessOn)
             {
                 _gameEngine.GetDisplayWindow().ClearDisplayLayer();
-                foreach (EntityNode renderEntityNode in _renderEntityNodes)
+                foreach (Entity entity in _entities)
                 {
-                    RenderNode renderNode = (RenderNode) renderEntityNode.Node;
-                    _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().displayLayer, renderNode.positionComponent.position, renderNode.renderComponent.size, renderNode.renderComponent.image);
+                    RenderComponent renderComponent = (RenderComponent) entity.GetComponentOfType(typeof(RenderComponent));
+                    PositionComponent positionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent));
+                    _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().displayLayer, positionComponent.position, renderComponent.size, renderComponent.image);                
                 }
-                //gameEngine.GetDisplayWindow().Refresh();
+                //_gameEngine.GetDisplayWindow().Refresh();
             }
 
         }

@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 using MoteurJeuxProjetFinal.GameEngine.Components;
-using MoteurJeuxProjetFinal.GameEngine.Nodes;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
     class PhysicsSystem : ISystem
     {
         private GameEngine _gameEngine;
-        private List<EntityNode> _physicsEntityNodes;
+        private List<Entity> _entities;
         
         public void Start(GameEngine gameEngine)
         {
@@ -18,42 +17,43 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public void Update(float deltaTime)
         {
-            foreach (EntityNode physicsEntityNode in _physicsEntityNodes)
+            foreach (Entity entity in _entities)
             {
-                PhysicsNode physicsNode = (PhysicsNode) physicsEntityNode.Node;
-                if (physicsNode.physicsComponent.useGravity)
+                PhysicsComponent physicsComponent = (PhysicsComponent) entity.GetComponentOfType(typeof(PhysicsComponent));
+                VelocityComponent velocityComponent = (VelocityComponent) entity.GetComponentOfType(typeof(VelocityComponent));
+                if (physicsComponent.useGravity)
                 {
-                    physicsNode.physicsComponent._forces.Add(new Vector2(0, 200 * physicsNode.physicsComponent.masse));
+                    physicsComponent._forces.Add(new Vector2(0, 200 * physicsComponent.masse));
                 }
                 
                 // CalculateSumForces
                 Vector2 sumForces = new Vector2(0, 0);
-                foreach (Vector2 force in physicsNode.physicsComponent._forces)
+                foreach (Vector2 force in physicsComponent._forces)
                 {
                     sumForces += force;
                 }
 
                 // Calculate velocity : v = a*t + v0 
-                physicsNode.velocityComponent.velocity += (sumForces / physicsNode.physicsComponent.masse) * deltaTime;
+                velocityComponent.velocity += (sumForces / physicsComponent.masse) * deltaTime;
 
-                if (physicsNode.physicsComponent.useAirFriction)
+                if (physicsComponent.useAirFriction)
                 {
                     // each second remove "airFrictionTweaker" % of the max speed
-                    physicsNode.velocityComponent.velocity -= physicsNode.physicsComponent.airFrictionTweaker* deltaTime* physicsNode.velocityComponent.velocity;
+                    velocityComponent.velocity -= physicsComponent.airFrictionTweaker* deltaTime* velocityComponent.velocity;
                 }
 
                 // Limit Max velocity
-                if(physicsNode.velocityComponent.velocity.X > physicsNode.velocityComponent.maxVelocity)
-                    physicsNode.velocityComponent.velocity.X  = physicsNode.velocityComponent.maxVelocity;
-                else if (physicsNode.velocityComponent.velocity.X < -physicsNode.velocityComponent.maxVelocity)
-                    physicsNode.velocityComponent.velocity.X = -physicsNode.velocityComponent.maxVelocity;
-                if (physicsNode.velocityComponent.velocity.Y > physicsNode.velocityComponent.maxVelocity)               
-                    physicsNode.velocityComponent.velocity.Y = physicsNode.velocityComponent.maxVelocity;
-                else if (physicsNode.velocityComponent.velocity.Y < -physicsNode.velocityComponent.maxVelocity)
-                    physicsNode.velocityComponent.velocity.Y = -physicsNode.velocityComponent.maxVelocity;
+                if(velocityComponent.velocity.X > velocityComponent.maxVelocity)
+                    velocityComponent.velocity.X  = velocityComponent.maxVelocity;
+                else if (velocityComponent.velocity.X < -velocityComponent.maxVelocity)
+                    velocityComponent.velocity.X = -velocityComponent.maxVelocity;
+                if (velocityComponent.velocity.Y > velocityComponent.maxVelocity)               
+                    velocityComponent.velocity.Y = velocityComponent.maxVelocity;
+                else if (velocityComponent.velocity.Y < -velocityComponent.maxVelocity)
+                    velocityComponent.velocity.Y = -velocityComponent.maxVelocity;
 
                 // Clear forces vector for next frame
-                physicsNode.physicsComponent._forces.Clear();
+                physicsComponent._forces.Clear();
             }
         }
 
@@ -72,17 +72,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             if (IsCompatible(entity))
             {
-                PhysicsNode newPhysicsNode = new PhysicsNode
-                {
-                    physicsComponent = (PhysicsComponent) entity.GetComponentOfType(typeof(PhysicsComponent)),
-                    velocityComponent = (VelocityComponent) entity.GetComponentOfType(typeof(VelocityComponent))
-                };
-                EntityNode entityNode = new EntityNode
-                {
-                    Node = newPhysicsNode,
-                    Entity = entity
-                };
-                _physicsEntityNodes.Add(entityNode);
+                _entities.Add(entity);
             }
         }
 
@@ -90,15 +80,10 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             if (IsCompatible(newEntity) && IsCompatible(oldEntity))
             {
-                EntityNode entityNode = _physicsEntityNodes.Find(node => node.Entity == oldEntity);
-                if (!entityNode.Equals(null))
+                int index = _entities.IndexOf(oldEntity);
+                if (index != -1)
                 {
-                    entityNode.Entity = newEntity;
-                    entityNode.Node = new PhysicsNode
-                    {
-                        physicsComponent = (PhysicsComponent) newEntity.GetComponentOfType(typeof(PhysicsComponent)),
-                        velocityComponent = (VelocityComponent) newEntity.GetComponentOfType(typeof(VelocityComponent))
-                    };
+                    _entities[index] = newEntity;
                 }
             }
             else if (IsCompatible(newEntity) && !IsCompatible(oldEntity))
@@ -108,18 +93,17 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             else if (!IsCompatible(newEntity) && IsCompatible(oldEntity))
             {
                 RemoveEntity(oldEntity);
-            }        
+            }
         }
 
         public void RemoveEntity(Entity entity)
         {
-            EntityNode entityNode = _physicsEntityNodes.Find(node => node.Entity == entity);
-            _physicsEntityNodes.Remove(entityNode);
+            _entities.Remove(entity);
         }
-        
+
         public void InitEntities(List<Entity> entities)
         {
-            _physicsEntityNodes = new List<EntityNode>();
+            _entities = new List<Entity>();
             foreach (Entity entity in entities)
             {
                 AddEntity(entity);
