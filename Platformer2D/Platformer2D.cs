@@ -24,10 +24,6 @@ namespace MoteurJeuxProjetFinal.Platformer2D
             string path = Environment.CurrentDirectory + "\\Platformer2D";
             gameEngine.imagePath = path + "\\img\\";
             gameEngine.InitForXml(path+ "\\data.xml");
-            
-            // Load the scripts and register them
-            gameEngine.GetScriptManager().LoadAllScript();
-            gameEngine.GetScriptManager().RegisterAllScriptListener();
 
             gameEngine.RunGameLoop(); 
         }

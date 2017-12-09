@@ -64,6 +64,10 @@ namespace MoteurJeuxProjetFinal.GameEngine
         /// </summary>
         public void RunGameLoop()
         {
+            // Load the scripts and register them
+            _scriptManager.LoadAllScript();
+            _scriptManager.RegisterAllScriptListener();
+            
             // Init Timer
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
