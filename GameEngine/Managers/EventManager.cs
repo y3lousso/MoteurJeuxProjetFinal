@@ -9,13 +9,19 @@ namespace MoteurJeuxProjetFinal.GameEngine
     class EventManager
     {
 
+        internal struct EntityListener
+        {
+            public IListener Listener;
+            public Entity Entity;
+        }
+
         private EventDispatcher _eventDispatcher;
-        private List<IListener> _listeners = new List<IListener>();
+        private List<EntityListener> _entityListeners = new List<EntityListener>();
         private List<IEvent> _events = new List<IEvent>();
 
         public void Init(GameEngine gameEngine)
         {
-            _eventDispatcher = new EventDispatcher(_listeners);
+            _eventDispatcher = new EventDispatcher(_entityListeners);
         }
 
         public void AddEvent(IEvent gameEvent)
@@ -33,9 +39,14 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _events = new List<IEvent>();
         }
 
-        public void RegisterListener(IListener listener)
+        public void RegisterListener(IListener listener, Entity entity)
         {
-            _listeners.Add(listener);
+            EntityListener entityListener = new EntityListener
+            {
+                Listener = listener,
+                Entity = entity
+            };
+            _entityListeners.Add(entityListener);
         }
 
         public EventDispatcher GetEventDispatcher()
@@ -43,6 +54,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             return _eventDispatcher;
         }
     }
+
 }
 
 /// <summary>
@@ -50,50 +62,52 @@ namespace MoteurJeuxProjetFinal.GameEngine
 /// </summary>
 internal class EventDispatcher : IEventDispatcher
 {
-    private List<IListener> _listeners;
+    private List<EventManager.EntityListener> _entityListeners;
 
-    internal EventDispatcher(List<IListener> listeners)
+    internal EventDispatcher(List<EventManager.EntityListener> entityListeners)
     {
-        _listeners = listeners;
+        _entityListeners = entityListeners;
     }
-    
+
     public void Dispatch(GameStartEvent gameEvent)
     {
-        foreach (IListener listener in _listeners)
+        foreach (EventManager.EntityListener entityListener in _entityListeners)
         {
-            listener.OnGameStart(gameEvent);
+            entityListener.Listener.OnGameStart(gameEvent);
         }
     }
 
     public void Dispatch(GameFinishEvent gameEvent)
     {
-        foreach (IListener listener in _listeners)
+        foreach (EventManager.EntityListener entityListener in _entityListeners)
         {
-            listener.OnGameFinish(gameEvent);
+            entityListener.Listener.OnGameFinish(gameEvent);
         }
     }
 
     public void Dispatch(CollisionEvent gameEvent)
-    { 
-        foreach (IListener listener in _listeners)
+    {
+        foreach (EventManager.EntityListener entityListener in _entityListeners)
         {
-            listener.OnCollision(gameEvent);
+            // Dispatch the event only for the concerned entity
+            if (gameEvent.Entity.Equals(entityListener.Entity))
+                entityListener.Listener.OnCollision(gameEvent);
         }
     }
 
     public void Dispatch(SceneChangeEvent gameEvent)
     {
-        foreach (IListener listener in _listeners)
+        foreach (EventManager.EntityListener entityListener in _entityListeners)
         {
-            listener.OnSceneChange(gameEvent);
+            entityListener.Listener.OnSceneChange(gameEvent);
         }
     }
 
     public void Dispatch(NewSceneDisplayedEvent gameEvent)
     {
-        foreach (IListener listener in _listeners)
+        foreach (EventManager.EntityListener entityListener in _entityListeners)
         {
-            listener.OnNewSceneDisplayed(gameEvent);
+            entityListener.Listener.OnNewSceneDisplayed(gameEvent);
         }
     }
 }
