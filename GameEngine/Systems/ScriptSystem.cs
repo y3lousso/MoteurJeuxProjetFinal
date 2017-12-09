@@ -23,7 +23,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                 // Start the script :
                 scriptComponent.Script.Start(_gameEngine.GetActionManager());
                 // Register the script :
-                _gameEngine.GetEventManager().RegisterListener(scriptComponent.Script);
+                _gameEngine.GetEventManager().RegisterListener(scriptComponent.Script, entity);
             }
         }
 

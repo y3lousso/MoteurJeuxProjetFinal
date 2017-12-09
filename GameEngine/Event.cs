@@ -44,13 +44,13 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
     class CollisionEvent : IEvent
     {
-        public Entity Entity1;
-        public Entity Entity2;
+        public Entity Entity;
+        public Entity OtherEntity;
         
-        public CollisionEvent(Scene currentScene, Entity entity1, Entity entity2)
+        public CollisionEvent(Entity entity1, Entity entity2)
         {
-            Entity1 = entity1;
-            Entity2 = entity2;
+            Entity = entity1;
+            OtherEntity = entity2;
         }
 
         void IEvent.OnCall(IEventDispatcher dispatcher)
