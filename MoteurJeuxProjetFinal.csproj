@@ -56,6 +56,7 @@
     <Compile Include="GameEngine\Components\PhysicsComponent.cs" />
     <Compile Include="GameEngine\Components\PositionComponent.cs" />
     <Compile Include="GameEngine\Components\RenderComponent.cs" />
+    <Compile Include="GameEngine\Components\ScriptComponent.cs" />
     <Compile Include="GameEngine\Components\VelocityComponent.cs" />
     <Compile Include="GameEngine\DisplayLayer.cs">
       <SubType>Component</SubType>
@@ -69,7 +70,6 @@
     <Compile Include="GameEngine\Managers\EventManager.cs" />
     <Compile Include="GameEngine\Managers\InputManager.cs" />
     <Compile Include="GameEngine\Managers\SceneManager.cs" />
-    <Compile Include="GameEngine\Managers\ScriptManager.cs" />
     <Compile Include="GameEngine\Managers\SystemManager.cs" />
     <Compile Include="GameEngine\Managers\XmlManager.cs" />
     <Compile Include="GameEngine\Nodes\CollisionNode.cs" />
@@ -90,6 +90,7 @@
     <Compile Include="GameEngine\Systems\PhysicsSystem.cs" />
     <Compile Include="GameEngine\Systems\RenderSystem.cs" />
     <Compile Include="GameEngine\Systems\EventSystem.cs" />
+    <Compile Include="GameEngine\Systems\ScriptSystem.cs" />
     <Compile Include="Platformer2D\Platformer2D.cs" />
     <Compile Include="GameEngine\ISystem.cs" />
     <Compile Include="Platformer2D\script\TestScript.cs" />
@@ -146,6 +147,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Platformer2D\img\coin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Platformer2D\script\TestScript.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Platformer2D\data.xml">
