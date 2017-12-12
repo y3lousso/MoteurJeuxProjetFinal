@@ -72,12 +72,8 @@
     <Compile Include="GameEngine\Managers\SceneManager.cs" />
     <Compile Include="GameEngine\Managers\SystemManager.cs" />
     <Compile Include="GameEngine\Managers\XmlManager.cs" />
-    <Compile Include="GameEngine\Nodes\CollisionNode.cs" />
-    <Compile Include="GameEngine\Nodes\InputNode.cs" />
-    <Compile Include="GameEngine\Nodes\PhysicsNode.cs" />
     <Compile Include="GameEngine\GameEngine.cs" />
-    <Compile Include="GameEngine\Nodes\MoveNode.cs" />
-    <Compile Include="GameEngine\Nodes\RenderNode.cs" />
+    <Compile Include="GameEngine\RenderNode.cs" />
     <Compile Include="GameEngine\Scene.cs" />
     <Compile Include="GameEngine\DisplayWindow.cs">
       <SubType>Form</SubType>

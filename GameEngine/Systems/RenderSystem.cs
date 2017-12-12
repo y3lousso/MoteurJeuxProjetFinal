@@ -1,5 +1,6 @@
 ﻿﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using MoteurJeuxProjetFinal.GameEngine.Components;
 
@@ -7,8 +8,15 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
     class RenderSystem : ISystem
     {        
+        
+        private struct EntityAndNode
+        {
+            public Entity Entity;
+            public RenderNode RenderNode;
+        }
+        
         private GameEngine _gameEngine;
-        private List<Entity> _entities;
+        private List<EntityAndNode> _entitiesAndNodes;
 
         [DllImport("user32.dll")]
         public static extern bool LockWindowUpdate(IntPtr hWndLock);
@@ -20,21 +28,34 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             _gameEngine = gameEngine;
             InitEntities(gameEngine.GetSceneManager().GetCurrentScene().GetEntities());
-            //renderProcessOn = true;
-            //renderingThread = new Thread(RenderingProcess);
-            //renderingThread.Start();
         }
 
         public void Update(float deltaTime)
         {
-            _gameEngine.GetDisplayWindow().ClearDisplayLayer();
-            foreach (Entity entity in _entities)
+            bool needToRefresh = false;
+
+            for (int i = 0; i < _entitiesAndNodes.Count; i++)
             {
-                RenderComponent renderComponent = (RenderComponent) entity.GetComponentOfType(typeof(RenderComponent));
-                PositionComponent positionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent));
-                _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().displayLayer, positionComponent.position, renderComponent.size, renderComponent.image);                
+                // Check if the components have changed :
+                EntityAndNode entityAndNode = _entitiesAndNodes[i];
+                RenderComponent renderComponent = (RenderComponent) entityAndNode.Entity.GetComponentOfType(typeof(RenderComponent));
+                PositionComponent positionComponent = (PositionComponent) entityAndNode.Entity.GetComponentOfType(typeof(PositionComponent));
+                if (!positionComponent.position.Equals(entityAndNode.RenderNode.Position) ||
+                    !renderComponent.image.Equals(entityAndNode.RenderNode.Image) ||
+                    !renderComponent.size.Equals(entityAndNode.RenderNode.Size))
+                {
+                                        
+                    // Redraw the entity
+                    RenderNode newRenderNode = CreateRenderNode(entityAndNode.Entity);
+                    _gameEngine.GetDisplayWindow().UpdateImageFromDisplayLayer(_gameEngine.GetDisplayWindow().DisplayLayer, entityAndNode.RenderNode, newRenderNode);
+                    entityAndNode.RenderNode = newRenderNode;
+                    needToRefresh = true;
+                }
             }
-            _gameEngine.GetDisplayWindow().Refresh();
+            if (needToRefresh)
+            {
+                _gameEngine.GetDisplayWindow().Refresh();
+            }
         }
 
         public void End()
@@ -52,7 +73,14 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             if (IsCompatible(entity))
             {
-                _entities.Add(entity);
+                RenderNode renderNode = CreateRenderNode(entity);
+                _entitiesAndNodes.Add(new EntityAndNode
+                {
+                    Entity = entity,
+                    RenderNode = renderNode
+                });
+                // Draw the new entity
+                _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().DisplayLayer, renderNode);                
             }
         }
 
@@ -60,10 +88,16 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             if (IsCompatible(newEntity) && IsCompatible(oldEntity))
             {
-                int index = _entities.IndexOf(oldEntity);
+                int index = _entitiesAndNodes.FindIndex(e => e.Entity == oldEntity);
                 if (index != -1)
                 {
-                    _entities[index] = newEntity;
+                    RenderNode renderNode = CreateRenderNode(newEntity);
+
+                    _entitiesAndNodes[index] = new EntityAndNode
+                    {
+                        Entity = newEntity,
+                        RenderNode = renderNode
+                    };
                 }
             }
             else if (IsCompatible(newEntity) && !IsCompatible(oldEntity))
@@ -78,32 +112,31 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public void RemoveEntity(Entity entity)
         {
-            _entities.Remove(entity);
+            EntityAndNode entityAndNode = _entitiesAndNodes.Find(e => e.Entity == entity);
+            _entitiesAndNodes.Remove(entityAndNode);
+            _gameEngine.GetDisplayWindow().RemoveImageFromDisplayLayer(_gameEngine.GetDisplayWindow().DisplayLayer, entityAndNode.RenderNode);
         }
 
         public void InitEntities(List<Entity> entities)
         {
-            _entities = new List<Entity>();
+            _entitiesAndNodes = new List<EntityAndNode>();
             foreach (Entity entity in entities)
             {
                 AddEntity(entity);
             }
         }
 
-        private void RenderingProcess()
+        private static RenderNode CreateRenderNode(Entity entity)
         {
-            while (renderProcessOn)
+            // Create the render node
+            RenderComponent renderComponent = (RenderComponent) entity.GetComponentOfType(typeof(RenderComponent));
+            PositionComponent positionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent));
+            return new RenderNode
             {
-                _gameEngine.GetDisplayWindow().ClearDisplayLayer();
-                foreach (Entity entity in _entities)
-                {
-                    RenderComponent renderComponent = (RenderComponent) entity.GetComponentOfType(typeof(RenderComponent));
-                    PositionComponent positionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent));
-                    _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().displayLayer, positionComponent.position, renderComponent.size, renderComponent.image);                
-                }
-                //_gameEngine.GetDisplayWindow().Refresh();
-            }
-
+                Image = string.Copy(renderComponent.image),
+                Position = new Vector2(positionComponent.position.X, positionComponent.position.Y),
+                Size = new Vector2(renderComponent.size.X, renderComponent.size.Y)
+            };
         }
     }
 }

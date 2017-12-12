@@ -1,25 +1,36 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
-using System.Numerics;
 using System.Windows.Forms;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
     class DisplayWindow : Form
     {
-        private GameEngine gameEngine;
+        private GameEngine _gameEngine;
 
-        public DisplayLayer displayLayer = new DisplayLayer();
+        public DisplayLayer DisplayLayer = new DisplayLayer();
+        
+        private List<ImagePanel> _imagesPanels = new List<ImagePanel>();
 
         public delegate void AddPanelDelegate(Panel mainPanel, Panel panelToAdd);
-        public AddPanelDelegate addPanelDelegate;
+        private AddPanelDelegate addPanelDelegate;
 
         public delegate void ClearPanelDelegate(Panel panel);
-        public ClearPanelDelegate clearPanelDelegate;
+        private ClearPanelDelegate clearPanelDelegate;
+
+        public delegate void RemovePanelDelegate(Panel mainPanel, Panel panelToRemove);
+        private RemovePanelDelegate removePanelDelegate;
+        
+        private struct ImagePanel
+        {
+            public Panel Panel;
+            public RenderNode RenderNode;
+        }
 
         public void Init(GameEngine _gameEngine)
         {
-            gameEngine = _gameEngine;
+            this._gameEngine = _gameEngine;
         }
 
         public void InitFormProperties(string gameName, int width, int height)
@@ -48,12 +59,12 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
-            gameEngine.GetInputManager().ManageKeyPress(e);
+            _gameEngine.GetInputManager().ManageKeyPress(e);
         }
 
         public void OnKeyUp(object sender, KeyEventArgs e)
         {
-            gameEngine.GetInputManager().ManageKeyRelease(e);
+            _gameEngine.GetInputManager().ManageKeyRelease(e);
         }
 
         public void OnFormClosed(object sender, FormClosedEventArgs e)
@@ -61,43 +72,65 @@ namespace MoteurJeuxProjetFinal.GameEngine
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 Hide();
-                gameEngine.CloseGame();
+                _gameEngine.CloseGame();
             }
         }
 
-        public void AddImageToDisplayLayer(DisplayLayer displayLayer, Vector2 position, Vector2 size, string image)
+        public void AddImageToDisplayLayer(DisplayLayer displayLayer, RenderNode renderNode)
         {
             // Same here with the white one
             Panel panelToAdd = new Panel();
-            panelToAdd.BackgroundImage = Image.FromFile(gameEngine.imagePath + image);
+            panelToAdd.BackgroundImage = Image.FromFile(_gameEngine.imagePath + renderNode.Image);
             panelToAdd.BackgroundImageLayout = ImageLayout.Stretch;
             panelToAdd.BackColor = Color.Transparent;
-            panelToAdd.Location = new Point((int)position.X, (int)position.Y);
-            panelToAdd.Size = new Size((int)size.X, (int)size.Y);
+            panelToAdd.Location = new Point((int)renderNode.Position.X, (int)renderNode.Position.Y);
+            panelToAdd.Size = new Size((int)renderNode.Size.X, (int)renderNode.Size.Y);
             panelToAdd.TabIndex = 0;
 
             if (InvokeRequired)
             {
-                addPanelDelegate = new AddPanelDelegate(AddPanelMethod);
-                Invoke(addPanelDelegate, new Object[] { displayLayer, panelToAdd });
+                addPanelDelegate = AddPanelMethod;
+                Invoke(addPanelDelegate, displayLayer, panelToAdd);
             }
             else
             {
                 displayLayer.Controls.Add(panelToAdd);
             }
+            _imagesPanels.Add(new ImagePanel
+            {
+                RenderNode = renderNode,
+                Panel = panelToAdd
+            });
+        }
+
+        public void UpdateImageFromDisplayLayer(DisplayLayer displayLayer, RenderNode oldRenderNode, RenderNode newRenderNode)
+        {
+            ImagePanel panelToUpdate = _imagesPanels.Find(ip => ip.RenderNode.Equals(oldRenderNode));
+            panelToUpdate.Panel.BackgroundImage = Image.FromFile(_gameEngine.imagePath + newRenderNode.Image);
+            panelToUpdate.Panel.Location = new Point((int)newRenderNode.Position.X, (int)newRenderNode.Position.Y);
+            panelToUpdate.Panel.Size = new Size((int)newRenderNode.Size.X, (int)newRenderNode.Size.Y);
+            panelToUpdate.RenderNode = newRenderNode;
+        }
+
+        public void RemoveImageFromDisplayLayer(DisplayLayer displayLayer, RenderNode renderNode)
+        {
+            ImagePanel panelToRemove = _imagesPanels.Find(ip => ip.RenderNode.Equals(renderNode));
+            displayLayer.Controls.Remove(panelToRemove.Panel);
+            _imagesPanels.Remove(panelToRemove);
         }
 
         public void ClearDisplayLayer()
         {
             if (InvokeRequired)
             {
-                clearPanelDelegate = new ClearPanelDelegate(ClearPanelMethod);
-                Invoke(clearPanelDelegate, new Object[] { displayLayer });
+                clearPanelDelegate = ClearPanelMethod;
+                Invoke(clearPanelDelegate, new object[] { DisplayLayer });
             }
             else
             {
-                displayLayer.Controls.Clear();
+                DisplayLayer.Controls.Clear();
             }
+            _imagesPanels = new List<ImagePanel>();
         }
 
         static void ClearPanelMethod(Panel displayLayer)
@@ -115,14 +148,14 @@ namespace MoteurJeuxProjetFinal.GameEngine
         public void DisplayScene(Scene scene)
         {
             // Clear old scene if needed
-            displayLayer.Controls.Clear();
+            DisplayLayer.Controls.Clear();
 
             // Draw Background Image
-            displayLayer.BackgroundImage = Image.FromFile(gameEngine.imagePath + gameEngine.GetSceneManager().GetCurrentScene().backgroundImage);
-            displayLayer.BackgroundImageLayout = ImageLayout.Stretch;
-            displayLayer.Location = new Point(0, 0);
-            displayLayer.Size = new Size(Width, Height);
-            Controls.Add(displayLayer);
+            DisplayLayer.BackgroundImage = Image.FromFile(_gameEngine.imagePath + _gameEngine.GetSceneManager().GetCurrentScene().backgroundImage);
+            DisplayLayer.BackgroundImageLayout = ImageLayout.Stretch;
+            DisplayLayer.Location = new Point(0, 0);
+            DisplayLayer.Size = new Size(Width, Height);
+            Controls.Add(DisplayLayer);
 
             Refresh();
         }
