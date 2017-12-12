@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameEngine\CollisionSide.cs" />
     <Compile Include="GameEngine\Components\BoxCollisionComponent.cs" />
     <Compile Include="GameEngine\Components\InputComponent.cs" />
     <Compile Include="GameEngine\Components\PhysicsComponent.cs" />
