@@ -119,6 +119,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public void InitEntities(List<Entity> entities)
         {
+            _gameEngine.GetDisplayWindow().ClearDisplayLayer();
             _entitiesAndNodes = new List<EntityAndNode>();
             foreach (Entity entity in entities)
             {
