@@ -84,13 +84,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             {
                 _currentSceneIndex = index;
             }
+            // Display the new scene
+            _gameEngine.GetDisplayWindow().DisplayScene(scene);
             // Clear the datas of all the systems
             foreach (ISystem system in _gameEngine.GetSystemManager().GetAllSystems())
             {
                 system.InitEntities(_gameEngine.GetSceneManager().GetCurrentScene().GetEntities());
             }
-            // Display the new scene
-            _gameEngine.GetDisplayWindow().DisplayScene(scene);
            
             _gameEngine.GetEventManager().AddEvent(new SceneChangeEvent(oldScene, scene)); // Event change changed
         }
