@@ -1,6 +1,4 @@
-﻿﻿using MoteurJeuxProjetFinal.GameEngine.Nodes;
-
-namespace MoteurJeuxProjetFinal.GameEngine
+﻿namespace MoteurJeuxProjetFinal.GameEngine
 {
     
     /// <summary>
@@ -46,11 +44,13 @@ namespace MoteurJeuxProjetFinal.GameEngine
     {
         public Entity Entity;
         public Entity OtherEntity;
+        public CollisionSide CollisionSide;
         
-        public CollisionEvent(Entity entity1, Entity entity2)
+        public CollisionEvent(Entity entity1, Entity entity2, CollisionSide collisionSide)
         {
             Entity = entity1;
             OtherEntity = entity2;
+            CollisionSide = collisionSide; // where Entity collides OtherEntity 
         }
 
         void IEvent.OnCall(IEventDispatcher dispatcher)
