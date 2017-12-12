@@ -27,36 +27,43 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                     
                     PositionComponent positionComponent2 = (PositionComponent) _entities[j].GetComponentOfType(typeof(PositionComponent));
                     BoxCollisionComponent boxCollisionComponent2 = (BoxCollisionComponent) _entities[j].GetComponentOfType(typeof(BoxCollisionComponent));
-                 
+
                     if (positionComponent2.position.X + boxCollisionComponent2.size.X > positionComponent1.position.X
                         && positionComponent1.position.X + boxCollisionComponent1.size.X > positionComponent2.position.X
                         && positionComponent2.position.Y + boxCollisionComponent2.size.Y > positionComponent1.position.Y
-                        && positionComponent1.position.Y + boxCollisionComponent1.size.Y > positionComponent2.position.Y)
+                        && positionComponent1.position.Y + boxCollisionComponent1.size.Y >
+                        positionComponent2.position.Y)
                     {
                         // Collision detected
+                        CollisionSide collisionSide1 = CollisionSide.UNKNOWN;
+                        CollisionSide collisionSide2 = CollisionSide.UNKNOWN;
+
                         if (boxCollisionComponent1.consistance && boxCollisionComponent2.consistance)
                         {
                             if (_entities[i].GetComponentOfType(typeof(VelocityComponent)) != null)
                             {
-                                HandleCollision(_entities[i], positionComponent2, boxCollisionComponent2);
-
+                                collisionSide1 = HandleCollision(_entities[i], positionComponent2,
+                                    boxCollisionComponent2);
                             }
                             if (_entities[j].GetComponentOfType(typeof(VelocityComponent)) != null)
                             {
-                                HandleCollision(_entities[j], positionComponent1, boxCollisionComponent1);
+                                collisionSide2 = HandleCollision(_entities[j], positionComponent1,
+                                    boxCollisionComponent1);
                             }
                         }
-                        
-                        // Create the collision Event and throw it for concerned entities:
+                        // Create the CollisionEvent for entity 1 :
                         CollisionEvent gameEvent1 = new CollisionEvent(
                             _entities[i],
-                            _entities[j]);
+                            _entities[j],
+                            collisionSide1);
+                        _gameEngine.GetEventManager().AddEvent(gameEvent1);
+                        // Create the CollisionEvent for entity 2 :
                         CollisionEvent gameEvent2 = new CollisionEvent(
                             _entities[j],
-                            _entities[i]);
-                        _gameEngine.GetEventManager().AddEvent(gameEvent1);
+                            _entities[i],
+                            collisionSide2);
                         _gameEngine.GetEventManager().AddEvent(gameEvent2);
-                    }    
+                    }
                 }
             }
         }
@@ -66,11 +73,14 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         /// <param name="entity1">The entity</param>
         /// <param name="positionComponent2">The position of the other entity</param>
         /// <param name="boxCollisionComponent2">The box of the other entity</param>
-        private void HandleCollision(Entity entity1, PositionComponent positionComponent2, BoxCollisionComponent boxCollisionComponent2)
+        /// <returns>The collision side, ie where entity1 collides entity2</returns>
+        private CollisionSide HandleCollision(Entity entity1, PositionComponent positionComponent2, BoxCollisionComponent boxCollisionComponent2)
         {
             PositionComponent positionComponent1 = (PositionComponent) entity1.GetComponentOfType(typeof(PositionComponent));
             BoxCollisionComponent boxCollisionComponent1 = (BoxCollisionComponent) entity1.GetComponentOfType(typeof(BoxCollisionComponent));
             VelocityComponent velocityComponent1 = (VelocityComponent) entity1.GetComponentOfType(typeof(VelocityComponent));
+
+            CollisionSide collisionSide; // Where entity1 collides entity2
 
             // The 4 distances which indicate how the entity1 is inside entity2
             // dx1, dx2, dy1 & dy2 are respectively the ditance between the left, right, up & down side of entity1 
@@ -84,25 +94,39 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             if (Math.Min(dx1, dx2) < Math.Min(dy1, dy2))
             {
                 if (dx1 > dx2)
+                {
                     // Collision by the left
                     positionComponent1.position.X -= dx2;
+                    collisionSide = CollisionSide.FROM_LEFT_SIDE;
+                }
                 else
+                {
                     // Collision by the right
                     positionComponent1.position.X += dx1;
+                    collisionSide = CollisionSide.FROM_RIGHT_SIDE;
+                }
                 // Negate the Y velocity
                 velocityComponent1.velocity.X = 0;
             }
             else
             {
                 if (dy1 > dy2)
+                {
                     // Collision by the up
                     positionComponent1.position.Y -= dy2;
+                    collisionSide = CollisionSide.FROM_TOP_SIDE;
+                }
                 else
+                {
                     // Collision by the down
                     positionComponent1.position.Y += dy1;
+                    collisionSide = CollisionSide.FROM_BOTTOM_SIDE;
+                }
+
                 // Negate the X velocity
                 velocityComponent1.velocity.Y = 0;
             }
+            return collisionSide;
         }
         
 

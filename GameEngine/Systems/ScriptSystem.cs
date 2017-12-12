@@ -18,7 +18,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             // Start and register all the scripts
             foreach (Entity entity in _entities)
             {
-                Debug.WriteLine("player" + entity.GetName());
                 ScriptComponent scriptComponent = (ScriptComponent) entity.GetComponentOfType(typeof(ScriptComponent));
                 // Start the script :
                 scriptComponent.Script.Start(_gameEngine.GetActionManager());
