@@ -74,7 +74,6 @@
     <Compile Include="GameEngine\Managers\SystemManager.cs" />
     <Compile Include="GameEngine\Managers\XmlManager.cs" />
     <Compile Include="GameEngine\GameEngine.cs" />
-    <Compile Include="GameEngine\RenderNode.cs" />
     <Compile Include="GameEngine\Scene.cs" />
     <Compile Include="GameEngine\DisplayWindow.cs">
       <SubType>Form</SubType>

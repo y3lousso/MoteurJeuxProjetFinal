@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Numerics;
 using System.Windows.Forms;
+using MoteurJeuxProjetFinal.GameEngine.Components;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
@@ -11,7 +13,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
         public DisplayLayer DisplayLayer = new DisplayLayer();
         
-        private List<ImagePanel> _imagesPanels = new List<ImagePanel>();
+        private List<EntityPanel> _entityPanels = new List<EntityPanel>();
 
         public delegate void AddPanelDelegate(Panel mainPanel, Panel panelToAdd);
         private AddPanelDelegate addPanelDelegate;
@@ -21,11 +23,18 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
         public delegate void RemovePanelDelegate(Panel mainPanel, Panel panelToRemove);
         private RemovePanelDelegate removePanelDelegate;
-        
-        private struct ImagePanel
+       
+
+        /// <summary>
+        /// A structure to associate the entity (the usefull informations) and the panel rendered
+        /// </summary>
+        private struct EntityPanel
         {
             public Panel Panel;
-            public RenderNode RenderNode;
+            public Entity Entity;
+            public string Image;
+            public Vector2 Size;
+            public Vector2 Position;
         }
 
         public void Init(GameEngine _gameEngine)
@@ -76,47 +85,81 @@ namespace MoteurJeuxProjetFinal.GameEngine
             }
         }
 
-        public void AddImageToDisplayLayer(DisplayLayer displayLayer, RenderNode renderNode)
+        public void AddEntityInDisplayLayer(Entity entityToAdd)
         {
-            // Same here with the white one
+            RenderComponent renderComponent = (RenderComponent) entityToAdd.GetComponentOfType(typeof(RenderComponent));
+            PositionComponent positionComponent = (PositionComponent) entityToAdd.GetComponentOfType(typeof(PositionComponent));
+            
+            // Create a panel 
             Panel panelToAdd = new Panel();
-            panelToAdd.BackgroundImage = Image.FromFile(_gameEngine.imagePath + renderNode.Image);
+            panelToAdd.BackgroundImage = Image.FromFile(_gameEngine.imagePath + renderComponent.image);
             panelToAdd.BackgroundImageLayout = ImageLayout.Stretch;
             panelToAdd.BackColor = Color.Transparent;
-            panelToAdd.Location = new Point((int)renderNode.Position.X, (int)renderNode.Position.Y);
-            panelToAdd.Size = new Size((int)renderNode.Size.X, (int)renderNode.Size.Y);
+            panelToAdd.Location = new Point((int)positionComponent.position.X, (int)positionComponent.position.Y);
+            panelToAdd.Size = new Size((int)renderComponent.size.X, (int)renderComponent.size.Y);
             panelToAdd.TabIndex = 0;
 
+            // Add the panel
             if (InvokeRequired)
             {
                 addPanelDelegate = AddPanelMethod;
-                Invoke(addPanelDelegate, displayLayer, panelToAdd);
+                Invoke(addPanelDelegate, DisplayLayer, panelToAdd);
             }
             else
             {
-                displayLayer.Controls.Add(panelToAdd);
+                DisplayLayer.Controls.Add(panelToAdd);
             }
-            _imagesPanels.Add(new ImagePanel
+            // Store the Panel and the RenderNode :
+            _entityPanels.Add(new EntityPanel 
             {
-                RenderNode = renderNode,
-                Panel = panelToAdd
+                Panel = panelToAdd,
+                Entity = entityToAdd,
+                Image = renderComponent.image,
+                Size = renderComponent.size,
+                Position = positionComponent.position
             });
         }
 
-        public void UpdateImageFromDisplayLayer(DisplayLayer displayLayer, RenderNode oldRenderNode, RenderNode newRenderNode)
+        public void UpdateDisplayLayer()
         {
-            ImagePanel panelToUpdate = _imagesPanels.Find(ip => ip.RenderNode.Equals(oldRenderNode));
-            panelToUpdate.Panel.BackgroundImage = Image.FromFile(_gameEngine.imagePath + newRenderNode.Image);
-            panelToUpdate.Panel.Location = new Point((int)newRenderNode.Position.X, (int)newRenderNode.Position.Y);
-            panelToUpdate.Panel.Size = new Size((int)newRenderNode.Size.X, (int)newRenderNode.Size.Y);
-            panelToUpdate.RenderNode = newRenderNode;
+           
+            for (int i = 0; i < _entityPanels.Count; i++)
+            {
+                EntityPanel entityPanel = _entityPanels[i];
+                               
+                RenderComponent renderComponent = (RenderComponent) _entityPanels[i].Entity.GetComponentOfType(typeof(RenderComponent));
+                PositionComponent positionComponent = (PositionComponent) _entityPanels[i].Entity.GetComponentOfType(typeof(PositionComponent));
+
+                if (!entityPanel.Position.Equals(positionComponent.position)
+                 || !entityPanel.Image.Equals(renderComponent.image)
+                 || !entityPanel.Size.Equals(renderComponent.size))
+                {
+                    Debug.WriteLine("redraw");
+                    entityPanel.Panel.BackgroundImage = Image.FromFile(_gameEngine.imagePath + renderComponent.image);
+                    entityPanel.Panel.Location = new Point((int)positionComponent.position.X, (int)positionComponent.position.Y);
+                    entityPanel.Panel.Size = new Size((int)renderComponent.size.X, (int)renderComponent.size.Y);
+                    entityPanel.Image = renderComponent.image;
+                    entityPanel.Size = renderComponent.size;
+                    entityPanel.Position = positionComponent.position;
+                }
+            }
         }
 
-        public void RemoveImageFromDisplayLayer(DisplayLayer displayLayer, RenderNode renderNode)
+        public void RemoveEntityFromDisplayLayer(Entity entityToRemove)
         {
-            ImagePanel panelToRemove = _imagesPanels.Find(ip => ip.RenderNode.Equals(renderNode));
-            displayLayer.Controls.Remove(panelToRemove.Panel);
-            _imagesPanels.Remove(panelToRemove);
+            
+            // Remove the render node and the panel
+            EntityPanel panelToRemove = _entityPanels.Find(ep => ep.Entity.Equals(entityToRemove));
+            if (InvokeRequired)
+            {
+                removePanelDelegate = AddPanelMethod;
+                Invoke(removePanelDelegate, DisplayLayer, panelToRemove);
+            }
+            else
+            {
+                DisplayLayer.Controls.Remove(panelToRemove.Panel);
+            }
+            _entityPanels.Remove(panelToRemove);
         }
 
         public void ClearDisplayLayer()
@@ -124,13 +167,13 @@ namespace MoteurJeuxProjetFinal.GameEngine
             if (InvokeRequired)
             {
                 clearPanelDelegate = ClearPanelMethod;
-                Invoke(clearPanelDelegate, new object[] { DisplayLayer });
+                Invoke(clearPanelDelegate, DisplayLayer);
             }
             else
             {
                 DisplayLayer.Controls.Clear();
             }
-            _imagesPanels = new List<ImagePanel>();
+            _entityPanels = new List<EntityPanel>();
         }
 
         static void ClearPanelMethod(Panel displayLayer)
@@ -159,5 +202,6 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
             Refresh();
         }
+
     }
 }
