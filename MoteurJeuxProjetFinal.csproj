@@ -53,7 +53,6 @@
   <ItemGroup>
     <Compile Include="GameEngine\CollisionSide.cs" />
     <Compile Include="GameEngine\Components\BoxCollisionComponent.cs" />
-    <Compile Include="GameEngine\Components\InputComponent.cs" />
     <Compile Include="GameEngine\Components\PhysicsComponent.cs" />
     <Compile Include="GameEngine\Components\PositionComponent.cs" />
     <Compile Include="GameEngine\Components\RenderComponent.cs" />

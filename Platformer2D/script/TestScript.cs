@@ -4,12 +4,11 @@ using MoteurJeuxProjetFinal.GameEngine.Managers;
 
 namespace MoteurJeuxProjetFinal.Platformer2D.script
 {
-
-    class TestScript : GameScript
+    internal class TestScript : GameScript
     {
         private static ActionManager _actionManager;
         private int _coins;
-        
+
         protected internal override void Start(ActionManager actionManager)
         {
             _actionManager = actionManager;
@@ -29,7 +28,7 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
                 if (_coins == 5)
                 {
                     Entity door = _actionManager.ActionGetCurentScene().findEntityWithName("door");
-                    ((RenderComponent) door.GetComponentOfType(typeof(RenderComponent))).image = "door.png";
+                    ((RenderComponent)door.GetComponentOfType(typeof(RenderComponent))).image = "door.png";
                 }
             }
             // Collision with door -> change scene if enought coins
