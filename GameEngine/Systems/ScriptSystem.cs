@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using MoteurJeuxProjetFinal.GameEngine.Components;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
@@ -19,6 +18,8 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             foreach (Entity entity in _entities)
             {
                 ScriptComponent scriptComponent = (ScriptComponent) entity.GetComponentOfType(typeof(ScriptComponent));
+                // Set the entity :
+                scriptComponent.Script.SetEntity(entity);
                 // Start the script :
                 scriptComponent.Script.Start(_gameEngine.GetActionManager());
                 // Register the script :

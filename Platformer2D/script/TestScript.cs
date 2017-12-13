@@ -21,7 +21,32 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
 
         public override void OnCollision(CollisionEvent collisionEvent)
         {
-            // Collision with coin -> collect him
+
+            /**
+            switch (collisionEvent.CollisionSide)
+            {
+                case CollisionSide.FROM_LEFT_SIDE:
+                    Debug.WriteLine("Player collides " + collisionEvent.OtherEntity.GetName() + " from left side !");
+                    break;
+                case CollisionSide.FROM_RIGHT_SIDE:
+                    Debug.WriteLine("Player collides " + collisionEvent.OtherEntity.GetName() + " from right side !");
+                    break;
+                case CollisionSide.FROM_TOP_SIDE:
+                    Debug.WriteLine("Player collides " + collisionEvent.OtherEntity.GetName() + " from top side !");
+                    break;
+                case CollisionSide.FROM_BOTTOM_SIDE:
+                    Debug.WriteLine("Player collides " + collisionEvent.OtherEntity.GetName() + " from bottom side !");
+                    break;
+                case CollisionSide.UNKNOWN:
+                    Debug.WriteLine("Player collides " + collisionEvent.OtherEntity.GetName() + " from unknown side !");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            */
+            
+            
+            // Collision with coin -> collect it
             if (collisionEvent.OtherEntity.GetName().Contains("coin"))
             {
                 _coins++;

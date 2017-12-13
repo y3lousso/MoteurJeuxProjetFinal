@@ -4,7 +4,12 @@ namespace MoteurJeuxProjetFinal.GameEngine
 {
        
     abstract class GameScript : IListener
-    {        
+    {
+        private Entity _entity;
+
+        public void SetEntity(Entity entity) { _entity = entity; }
+        public Entity GetEntity() { return _entity; }
+        
         /// <summary>
         /// Method called by the ScriptManager to Load the script
         /// Give an instance of ActionManager to allow the script to act on the game engine
