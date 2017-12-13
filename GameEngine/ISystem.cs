@@ -2,7 +2,7 @@
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
-    interface ISystem
+    internal interface ISystem
     {
         void Start(GameEngine gameEngine);
 

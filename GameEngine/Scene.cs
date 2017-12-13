@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
-    class Scene
+    internal class Scene
     {
         private string name = "Unknown";
 

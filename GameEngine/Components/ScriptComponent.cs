@@ -1,7 +1,7 @@
 ﻿namespace MoteurJeuxProjetFinal.GameEngine.Components
 {
-    class ScriptComponent : IComponent
+    internal class ScriptComponent : IComponent
     {
-         public GameScript Script;
+        public GameScript Script;
     }
 }

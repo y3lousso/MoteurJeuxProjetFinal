@@ -1,0 +1,16 @@
+[
+  {
+    "Name": "Exit",
+    "KeyPlus": "Escape"
+  },
+  {
+    "Name": "Vertical",
+    "KeyPlus": "Up",
+    "KeyMinus": "Down"
+  },
+  {
+    "Name": "Horizontal",
+    "KeyPlus": "Right",
+    "KeyMinus": "Left"
+  }
+]

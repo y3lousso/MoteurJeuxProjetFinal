@@ -1,11 +1,10 @@
-﻿using System;
+﻿using MoteurJeuxProjetFinal.GameEngine.Components;
+using System;
 using System.Collections.Generic;
-using MoteurJeuxProjetFinal.GameEngine.Components;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
-    
-    class CollisionSystem : ISystem
+    internal class CollisionSystem : ISystem
     {
         private GameEngine _gameEngine;
         private List<Entity> _entities;
@@ -20,13 +19,12 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             for (int i = 0; i < _entities.Count; i++)
             {
-                PositionComponent positionComponent1 = (PositionComponent) _entities[i].GetComponentOfType(typeof(PositionComponent));
-                BoxCollisionComponent boxCollisionComponent1 = (BoxCollisionComponent) _entities[i].GetComponentOfType(typeof(BoxCollisionComponent));
-                for (int j = i+1; j < _entities.Count; j++)
+                PositionComponent positionComponent1 = (PositionComponent)_entities[i].GetComponentOfType(typeof(PositionComponent));
+                BoxCollisionComponent boxCollisionComponent1 = (BoxCollisionComponent)_entities[i].GetComponentOfType(typeof(BoxCollisionComponent));
+                for (int j = i + 1; j < _entities.Count; j++)
                 {
-                    
-                    PositionComponent positionComponent2 = (PositionComponent) _entities[j].GetComponentOfType(typeof(PositionComponent));
-                    BoxCollisionComponent boxCollisionComponent2 = (BoxCollisionComponent) _entities[j].GetComponentOfType(typeof(BoxCollisionComponent));
+                    PositionComponent positionComponent2 = (PositionComponent)_entities[j].GetComponentOfType(typeof(PositionComponent));
+                    BoxCollisionComponent boxCollisionComponent2 = (BoxCollisionComponent)_entities[j].GetComponentOfType(typeof(BoxCollisionComponent));
 
                     if (positionComponent2.position.X + boxCollisionComponent2.size.X > positionComponent1.position.X
                         && positionComponent1.position.X + boxCollisionComponent1.size.X > positionComponent2.position.X
@@ -67,6 +65,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                 }
             }
         }
+
         /// <summary>
         /// Handle the collision of an entity compared to an other (identified by its components)
         /// </summary>
@@ -76,14 +75,14 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         /// <returns>The collision side, ie where entity1 collides entity2</returns>
         private CollisionSide HandleCollision(Entity entity1, PositionComponent positionComponent2, BoxCollisionComponent boxCollisionComponent2)
         {
-            PositionComponent positionComponent1 = (PositionComponent) entity1.GetComponentOfType(typeof(PositionComponent));
-            BoxCollisionComponent boxCollisionComponent1 = (BoxCollisionComponent) entity1.GetComponentOfType(typeof(BoxCollisionComponent));
-            VelocityComponent velocityComponent1 = (VelocityComponent) entity1.GetComponentOfType(typeof(VelocityComponent));
+            PositionComponent positionComponent1 = (PositionComponent)entity1.GetComponentOfType(typeof(PositionComponent));
+            BoxCollisionComponent boxCollisionComponent1 = (BoxCollisionComponent)entity1.GetComponentOfType(typeof(BoxCollisionComponent));
+            VelocityComponent velocityComponent1 = (VelocityComponent)entity1.GetComponentOfType(typeof(VelocityComponent));
 
             CollisionSide collisionSide; // Where entity1 collides entity2
 
             // The 4 distances which indicate how the entity1 is inside entity2
-            // dx1, dx2, dy1 & dy2 are respectively the ditance between the left, right, up & down side of entity1 
+            // dx1, dx2, dy1 & dy2 are respectively the ditance between the left, right, up & down side of entity1
             // and the right, left, down & up side of entity2
             float dx1 = positionComponent2.position.X + boxCollisionComponent2.size.X - positionComponent1.position.X;
             float dx2 = positionComponent1.position.X + boxCollisionComponent1.size.X - positionComponent2.position.X;
@@ -128,7 +127,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             }
             return collisionSide;
         }
-        
 
         public void End()
         {

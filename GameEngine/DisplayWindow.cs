@@ -1,27 +1,29 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
-    class DisplayWindow : Form
+    internal class DisplayWindow : Form
     {
         private GameEngine _gameEngine;
 
         public DisplayLayer DisplayLayer = new DisplayLayer();
-        
+
         private List<ImagePanel> _imagesPanels = new List<ImagePanel>();
 
         public delegate void AddPanelDelegate(Panel mainPanel, Panel panelToAdd);
+
         private AddPanelDelegate addPanelDelegate;
 
         public delegate void ClearPanelDelegate(Panel panel);
+
         private ClearPanelDelegate clearPanelDelegate;
 
         public delegate void RemovePanelDelegate(Panel mainPanel, Panel panelToRemove);
+
         private RemovePanelDelegate removePanelDelegate;
-        
+
         private struct ImagePanel
         {
             public Panel Panel;
@@ -39,14 +41,14 @@ namespace MoteurJeuxProjetFinal.GameEngine
             KeyDown += OnKeyDown;
             KeyUp += OnKeyUp;
             KeyPreview = true;
-            FormClosed += OnFormClosed;            
-            
+            FormClosed += OnFormClosed;
+
             // Set screen properties
             Text = gameName;
             Width = width;
             Height = height;
             HelpButton = false;
-            FormBorderStyle = FormBorderStyle.None; 
+            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -133,17 +135,20 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _imagesPanels = new List<ImagePanel>();
         }
 
-        static void ClearPanelMethod(Panel displayLayer)
+        private static void ClearPanelMethod(Panel displayLayer)
         {
             displayLayer.Controls.Clear();
         }
 
-        static void AddPanelMethod(Panel mainPanel, Panel panelToAdd)
+        private static void AddPanelMethod(Panel mainPanel, Panel panelToAdd)
         {
             mainPanel.Controls.Add(panelToAdd);
         }
 
-        public Form GetForm() { return this; }
+        public Form GetForm()
+        {
+            return this;
+        }
 
         public void DisplayScene(Scene scene)
         {

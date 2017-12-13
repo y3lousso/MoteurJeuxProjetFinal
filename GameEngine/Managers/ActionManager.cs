@@ -3,9 +3,8 @@
     /// <summary>
     /// ActionManager countains methods to interact with the game engine
     /// </summary>
-    class ActionManager
+    internal class ActionManager
     {
-
         private GameEngine _gameEngine;
 
         public void Init(GameEngine gameEngine)
@@ -20,7 +19,7 @@
         {
             return _gameEngine.GetSceneManager().GetCurrentScene();
         }
-        
+
         /// <summary>
         /// Change and display the current scene
         /// </summary>
@@ -28,7 +27,7 @@
         {
             _gameEngine.GetSceneManager().ChangeCurrentScene(scene);
         }
-        
+
         /// <summary>
         /// Change and display the current scene
         /// </summary>
@@ -37,7 +36,7 @@
             Scene scene = _gameEngine.GetSceneManager().GetScene(sceneIndex);
             if (scene != null)
             {
-                 ActionChangeCurrentScene(scene);
+                ActionChangeCurrentScene(scene);
             }
         }
 
@@ -95,7 +94,7 @@
             // Remove the entity in the current scene
             _gameEngine.GetSceneManager().GetCurrentScene().ReplaceEntity(oldEntity, newEntity);
         }
-        
+
         /// <summary>
         /// Edit the attributes of an entity
         /// Add the entity if the old one is not found !

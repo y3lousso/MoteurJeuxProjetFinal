@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
-    class Entity
+    internal class Entity
     {
         // All entities need a transform
         // If an entity has a player component, it needs a rigidbody component too
@@ -24,7 +24,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
         public IComponent GetComponentOfType(Type type)
         {
-            foreach(IComponent component in _components)
+            foreach (IComponent component in _components)
             {
                 if (component.GetType() == type)
                 {
