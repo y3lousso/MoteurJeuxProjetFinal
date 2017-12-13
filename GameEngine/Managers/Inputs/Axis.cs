@@ -12,6 +12,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers.Inputs
             this.KeyPlus = KeyPlus;
             this.IsPressed = false;
             this.Value = 0f;
+            this._type = "Axis";
         }
 
         public String KeyMinus { get; set; }

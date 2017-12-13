@@ -1,16 +1,19 @@
 [
   {
-    "Name": "Exit",
-    "KeyPlus": "Escape"
-  },
-  {
+    "Type": "Axis",
+    "KeyMinus": "Up",
     "Name": "Vertical",
-    "KeyPlus": "Up",
-    "KeyMinus": "Down"
+    "KeyPlus": "Down"
   },
   {
+    "Type": "Axis",
+    "KeyMinus": "Left",
     "Name": "Horizontal",
-    "KeyPlus": "Right",
-    "KeyMinus": "Left"
+    "KeyPlus": "Right"
+  },
+  {
+    "Type": "Button",
+    "Name": "Jump",
+    "KeyPlus": "Space"
   }
 ]

@@ -9,6 +9,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers.Inputs
             this.KeyPlus = KeyPlus;
             this.Name = name;
             this.IsPressed = false;
+            this._type = "Button";
         }
     }
 }

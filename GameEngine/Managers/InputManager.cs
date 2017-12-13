@@ -19,7 +19,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
 
         private List<Input> _inputs;
 
-        public string InputFileName { get => inputFileName }
+        public string InputFileName { get => inputFileName; }
 
         internal static InputManager Instance
         {
@@ -45,6 +45,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         {
             _gameEngine = gameEngine;
             inputFileName = _gameEngine.inputsPath;
+
             LoadInputs();
         }
 
@@ -53,7 +54,10 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             if (File.Exists(InputFileName))
             {
                 string jsonInput = File.ReadAllText(InputFileName);
-                this._inputs = JsonConvert.DeserializeObject<List<Input>>(jsonInput);
+                var inputConverter = new InputConverter();
+                var deserializeSettings = new JsonSerializerSettings();
+                deserializeSettings.Converters.Add(inputConverter);
+                this._inputs = JsonConvert.DeserializeObject<List<Input>>(jsonInput, deserializeSettings);
             }
             else
             {
@@ -63,25 +67,29 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
 
         public void ManageKeyPress(KeyEventArgs key)
         {
+            if (key.KeyCode == Keys.F4 && key.Modifiers == Keys.Alt)
+            {
+                _gameEngine.CloseGame();
+            }
             if (_controller == Controller.KEYBOARD)
             {
                 foreach (Input input in _inputs)
                 {
                     if (input is Inputs.Button btn)
                     {
-                        if (btn.KeyPlus == key.ToString())
+                        if (btn.KeyPlus == key.KeyData.ToString())
                         {
                             btn.IsPressed = true;
                         }
                     }
                     else if (input is Axis axis)
                     {
-                        if (axis.KeyMinus == key.ToString())
+                        if (axis.KeyMinus == key.KeyData.ToString())
                         {
                             axis.Value = -1f;
                             axis.IsPressed = true;
                         }
-                        else if (axis.KeyPlus == key.ToString())
+                        else if (axis.KeyPlus == key.KeyData.ToString())
                         {
                             axis.Value = 1f;
                             axis.IsPressed = true;
@@ -100,19 +108,19 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
                 {
                     if (input is Inputs.Button btn)
                     {
-                        if (btn.IsPressed && btn.KeyPlus == key.ToString())
+                        if (btn.IsPressed && btn.KeyPlus == key.KeyData.ToString())
                         {
                             btn.IsPressed = false;
                         }
                     }
                     else if (input is Axis axis)
                     {
-                        if (axis.IsPressed && (axis.Value < 0) && axis.KeyMinus == key.ToString())
+                        if (axis.IsPressed && (axis.Value < 0) && axis.KeyMinus == key.KeyData.ToString())
                         {
                             axis.Value = 0f;
                             axis.IsPressed = false;
                         }
-                        else if (axis.IsPressed && (axis.Value > 0) && axis.KeyPlus == key.ToString())
+                        else if (axis.IsPressed && (axis.Value > 0) && axis.KeyPlus == key.KeyData.ToString())
                         {
                             axis.Value = 0f;
                             axis.IsPressed = false;
