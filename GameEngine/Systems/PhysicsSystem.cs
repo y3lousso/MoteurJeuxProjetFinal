@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using MoteurJeuxProjetFinal.GameEngine.Components;
+using System.Collections.Generic;
 using System.Numerics;
-using MoteurJeuxProjetFinal.GameEngine.Components;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
-    class PhysicsSystem : ISystem
+    internal class PhysicsSystem : ISystem
     {
         private GameEngine _gameEngine;
         private List<Entity> _entities;
-        
+
         public void Start(GameEngine gameEngine)
         {
             _gameEngine = gameEngine;
@@ -19,13 +19,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             foreach (Entity entity in _entities)
             {
-                PhysicsComponent physicsComponent = (PhysicsComponent) entity.GetComponentOfType(typeof(PhysicsComponent));
-                VelocityComponent velocityComponent = (VelocityComponent) entity.GetComponentOfType(typeof(VelocityComponent));
+                PhysicsComponent physicsComponent = (PhysicsComponent)entity.GetComponentOfType(typeof(PhysicsComponent));
+                VelocityComponent velocityComponent = (VelocityComponent)entity.GetComponentOfType(typeof(VelocityComponent));
                 if (physicsComponent.useGravity)
                 {
                     physicsComponent._forces.Add(new Vector2(0, 200 * physicsComponent.masse));
                 }
-                
+
                 // CalculateSumForces
                 Vector2 sumForces = new Vector2(0, 0);
                 foreach (Vector2 force in physicsComponent._forces)
@@ -33,21 +33,21 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                     sumForces += force;
                 }
 
-                // Calculate velocity : v = a*t + v0 
+                // Calculate velocity : v = a*t + v0
                 velocityComponent.velocity += (sumForces / physicsComponent.masse) * deltaTime;
 
                 if (physicsComponent.useAirFriction)
                 {
                     // each second remove "airFrictionTweaker" % of the max speed
-                    velocityComponent.velocity -= physicsComponent.airFrictionTweaker* deltaTime* velocityComponent.velocity;
+                    velocityComponent.velocity -= physicsComponent.airFrictionTweaker * deltaTime * velocityComponent.velocity;
                 }
 
                 // Limit Max velocity
-                if(velocityComponent.velocity.X > velocityComponent.maxVelocity)
-                    velocityComponent.velocity.X  = velocityComponent.maxVelocity;
+                if (velocityComponent.velocity.X > velocityComponent.maxVelocity)
+                    velocityComponent.velocity.X = velocityComponent.maxVelocity;
                 else if (velocityComponent.velocity.X < -velocityComponent.maxVelocity)
                     velocityComponent.velocity.X = -velocityComponent.maxVelocity;
-                if (velocityComponent.velocity.Y > velocityComponent.maxVelocity)               
+                if (velocityComponent.velocity.Y > velocityComponent.maxVelocity)
                     velocityComponent.velocity.Y = velocityComponent.maxVelocity;
                 else if (velocityComponent.velocity.Y < -velocityComponent.maxVelocity)
                     velocityComponent.velocity.Y = -velocityComponent.maxVelocity;
@@ -59,7 +59,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public void End()
         {
-
         }
 
         public bool IsCompatible(Entity entity)

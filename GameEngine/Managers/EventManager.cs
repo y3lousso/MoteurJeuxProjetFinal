@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using MoteurJeuxProjetFinal.GameEngine;
+﻿using MoteurJeuxProjetFinal.GameEngine;
+using System.Collections.Generic;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
     /// <summary>
     /// EventManager allows to add Events
     /// </summary>
-    class EventManager
+    internal class EventManager
     {
-
         internal struct EntityListener
         {
             public IListener Listener;
@@ -54,7 +53,6 @@ namespace MoteurJeuxProjetFinal.GameEngine
             return _eventDispatcher;
         }
     }
-
 }
 
 /// <summary>

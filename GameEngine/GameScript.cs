@@ -2,8 +2,7 @@
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
-       
-    abstract class GameScript : IListener
+    internal abstract class GameScript : IListener
     {
         private Entity _entity;
 
@@ -20,13 +19,28 @@ namespace MoteurJeuxProjetFinal.GameEngine
         /// A method update each frame to update the script
         /// </summary>
         protected internal abstract void Update();
-        
+
         // The listener methods
-        public virtual void OnRegister(IListenerRegister register) {}
-        public virtual void OnGameStart(GameStartEvent gameStartEvent) {}
-        public virtual void OnGameFinish(GameFinishEvent gameFinishEvent) {}
-        public virtual void OnCollision(CollisionEvent collisionEvent) {}
-        public virtual void OnSceneChange(SceneChangeEvent sceneChangeEvent) {}
-        public virtual void OnNewSceneDisplayed(NewSceneDisplayedEvent sceneChangeEvent) {}
+        public virtual void OnRegister(IListenerRegister register) { }
+
+        public virtual void OnGameStart(GameStartEvent gameStartEvent)
+        {
+        }
+
+        public virtual void OnGameFinish(GameFinishEvent gameFinishEvent)
+        {
+        }
+
+        public virtual void OnCollision(CollisionEvent collisionEvent)
+        {
+        }
+
+        public virtual void OnSceneChange(SceneChangeEvent sceneChangeEvent)
+        {
+        }
+
+        public virtual void OnNewSceneDisplayed(NewSceneDisplayedEvent sceneChangeEvent)
+        {
+        }
     }
 }

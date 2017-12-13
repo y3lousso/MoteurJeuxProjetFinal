@@ -10,11 +10,11 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
         public override bool Equals(object obj)
         {
-            if(obj == null || obj.GetType() != typeof(RenderNode))
+            if (obj == null || obj.GetType() != typeof(RenderNode))
             {
                 return false;
             }
-            RenderNode rd = (RenderNode) obj;
+            RenderNode rd = (RenderNode)obj;
             return Image.Equals(rd.Image) && Position.Equals(rd.Position) && Size.Equals(rd.Size);
         }
     }

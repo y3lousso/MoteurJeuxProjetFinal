@@ -2,7 +2,7 @@
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
-    class DisplayLayer : Panel
+    internal class DisplayLayer : Panel
     {
         public DisplayLayer()
         {

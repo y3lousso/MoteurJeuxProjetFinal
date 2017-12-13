@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using MoteurJeuxProjetFinal.GameEngine.Components;
+﻿using MoteurJeuxProjetFinal.GameEngine.Components;
+using System.Collections.Generic;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
-    class MoveSystem : ISystem
+    internal class MoveSystem : ISystem
     {
         private GameEngine _gameEngine;
         private List<Entity> _entities;
-        
-        public void Start(GameEngine gameEngine)          
+
+        public void Start(GameEngine gameEngine)
         {
             _gameEngine = gameEngine;
             InitEntities(gameEngine.GetSceneManager().GetCurrentScene().GetEntities());
@@ -16,22 +16,22 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public void Update(float deltaTime)
         {
-            foreach(Entity entity in _entities)
+            foreach (Entity entity in _entities)
             {
-                PositionComponent positionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent));
-                VelocityComponent velocityComponent = (VelocityComponent) entity.GetComponentOfType(typeof(VelocityComponent));
+                PositionComponent positionComponent = (PositionComponent)entity.GetComponentOfType(typeof(PositionComponent));
+                VelocityComponent velocityComponent = (VelocityComponent)entity.GetComponentOfType(typeof(VelocityComponent));
 
                 positionComponent.position += velocityComponent.velocity * deltaTime;
 
                 // Windows collision tweak
                 if (positionComponent.position.X < 0)
-                     positionComponent.position.X = 0;
+                    positionComponent.position.X = 0;
                 if (positionComponent.position.Y < 0)
-                     positionComponent.position.Y = 0;
-                if (positionComponent.position.X > _gameEngine.GetDisplayWindow().GetForm().Width-50)
-                     positionComponent.position.X = _gameEngine.GetDisplayWindow().GetForm().Width-50;
-                if (positionComponent.position.Y > _gameEngine.GetDisplayWindow().GetForm().Height-50)
-                     positionComponent.position.Y = _gameEngine.GetDisplayWindow().GetForm().Height-50;
+                    positionComponent.position.Y = 0;
+                if (positionComponent.position.X > _gameEngine.GetDisplayWindow().GetForm().Width - 50)
+                    positionComponent.position.X = _gameEngine.GetDisplayWindow().GetForm().Width - 50;
+                if (positionComponent.position.Y > _gameEngine.GetDisplayWindow().GetForm().Height - 50)
+                    positionComponent.position.Y = _gameEngine.GetDisplayWindow().GetForm().Height - 50;
 
                 positionComponent.orientation += velocityComponent.angularVelocity * deltaTime;
             }
@@ -39,7 +39,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public void End()
         {
-
         }
 
         public bool IsCompatible(Entity entity)

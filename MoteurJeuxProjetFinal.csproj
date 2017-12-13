@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -53,7 +56,6 @@
   <ItemGroup>
     <Compile Include="GameEngine\CollisionSide.cs" />
     <Compile Include="GameEngine\Components\BoxCollisionComponent.cs" />
-    <Compile Include="GameEngine\Components\InputComponent.cs" />
     <Compile Include="GameEngine\Components\PhysicsComponent.cs" />
     <Compile Include="GameEngine\Components\PositionComponent.cs" />
     <Compile Include="GameEngine\Components\RenderComponent.cs" />
@@ -70,6 +72,10 @@
     <Compile Include="GameEngine\Managers\ActionManager.cs" />
     <Compile Include="GameEngine\Managers\EventManager.cs" />
     <Compile Include="GameEngine\Managers\InputManager.cs" />
+    <Compile Include="GameEngine\Managers\Inputs\Axis.cs" />
+    <Compile Include="GameEngine\Managers\Inputs\Button.cs" />
+    <Compile Include="GameEngine\Managers\Inputs\CustomJsonConverter.cs" />
+    <Compile Include="GameEngine\Managers\Inputs\Input.cs" />
     <Compile Include="GameEngine\Managers\SceneManager.cs" />
     <Compile Include="GameEngine\Managers\SystemManager.cs" />
     <Compile Include="GameEngine\Managers\XmlManager.cs" />
@@ -82,7 +88,6 @@
     <Compile Include="GameEngine\Entity.cs" />
     <Compile Include="GameEngine\IComponent.cs" />
     <Compile Include="GameEngine\Systems\CollisionSystem.cs" />
-    <Compile Include="GameEngine\Systems\InputSystem.cs" />
     <Compile Include="GameEngine\Systems\MoveSystem.cs" />
     <Compile Include="GameEngine\Systems\PhysicsSystem.cs" />
     <Compile Include="GameEngine\Systems\RenderSystem.cs" />
@@ -106,6 +111,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Platformer2D\inputs.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

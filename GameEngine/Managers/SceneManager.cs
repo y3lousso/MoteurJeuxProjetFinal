@@ -3,11 +3,10 @@ using System.Linq;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Managers
 {
-    class SceneManager
+    internal class SceneManager
     {
-
         private GameEngine _gameEngine;
-        
+
         private List<Scene> _scenes = new List<Scene>();
         private int _currentSceneIndex = -1;
 
@@ -53,9 +52,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         {
             return _scenes.Find(scene => scene.GetName().Equals(name));
         }
-        
-        
-        
+
         /// <summary>
         /// Get the current scene displayed in the game
         /// </summary>
@@ -68,10 +65,9 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         /// Change the current scene displayed
         /// </summary>
         public void ChangeCurrentScene(Scene scene)
-        {   
-            
+        {
             Scene oldScene = GetCurrentScene();
-            
+
             // Change the current scene index
             int index = _scenes.IndexOf(scene);
             if (index == -1)
@@ -91,9 +87,8 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             {
                 system.InitEntities(_gameEngine.GetSceneManager().GetCurrentScene().GetEntities());
             }
-           
+
             _gameEngine.GetEventManager().AddEvent(new SceneChangeEvent(oldScene, scene)); // Event change changed
         }
-        
     }
 }

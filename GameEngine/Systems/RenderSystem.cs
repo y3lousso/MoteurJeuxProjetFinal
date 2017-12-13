@@ -1,20 +1,19 @@
-﻿﻿using System;
+﻿using MoteurJeuxProjetFinal.GameEngine.Components;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
-using MoteurJeuxProjetFinal.GameEngine.Components;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
-    class RenderSystem : ISystem
-    {        
-        
+    internal class RenderSystem : ISystem
+    {
         private struct EntityAndNode
         {
             public Entity Entity;
             public RenderNode RenderNode;
         }
-        
+
         private GameEngine _gameEngine;
         private List<EntityAndNode> _entitiesAndNodes;
 
@@ -38,13 +37,12 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             {
                 // Check if the components have changed :
                 EntityAndNode entityAndNode = _entitiesAndNodes[i];
-                RenderComponent renderComponent = (RenderComponent) entityAndNode.Entity.GetComponentOfType(typeof(RenderComponent));
-                PositionComponent positionComponent = (PositionComponent) entityAndNode.Entity.GetComponentOfType(typeof(PositionComponent));
+                RenderComponent renderComponent = (RenderComponent)entityAndNode.Entity.GetComponentOfType(typeof(RenderComponent));
+                PositionComponent positionComponent = (PositionComponent)entityAndNode.Entity.GetComponentOfType(typeof(PositionComponent));
                 if (!positionComponent.position.Equals(entityAndNode.RenderNode.Position) ||
                     !renderComponent.image.Equals(entityAndNode.RenderNode.Image) ||
                     !renderComponent.size.Equals(entityAndNode.RenderNode.Size))
                 {
-                                        
                     // Redraw the entity
                     RenderNode newRenderNode = CreateRenderNode(entityAndNode.Entity);
                     _gameEngine.GetDisplayWindow().UpdateImageFromDisplayLayer(_gameEngine.GetDisplayWindow().DisplayLayer, entityAndNode.RenderNode, newRenderNode);
@@ -80,7 +78,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                     RenderNode = renderNode
                 });
                 // Draw the new entity
-                _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().DisplayLayer, renderNode);                
+                _gameEngine.GetDisplayWindow().AddImageToDisplayLayer(_gameEngine.GetDisplayWindow().DisplayLayer, renderNode);
             }
         }
 
@@ -130,8 +128,8 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         private static RenderNode CreateRenderNode(Entity entity)
         {
             // Create the render node
-            RenderComponent renderComponent = (RenderComponent) entity.GetComponentOfType(typeof(RenderComponent));
-            PositionComponent positionComponent = (PositionComponent) entity.GetComponentOfType(typeof(PositionComponent));
+            RenderComponent renderComponent = (RenderComponent)entity.GetComponentOfType(typeof(RenderComponent));
+            PositionComponent positionComponent = (PositionComponent)entity.GetComponentOfType(typeof(PositionComponent));
             return new RenderNode
             {
                 Image = string.Copy(renderComponent.image),

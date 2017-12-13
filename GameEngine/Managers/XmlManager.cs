@@ -1,17 +1,16 @@
-﻿using System;
+﻿using MoteurJeuxProjetFinal.GameEngine.Components;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-using MoteurJeuxProjetFinal.GameEngine.Components;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Managers
 {
-    class XmlManager
+    internal class XmlManager
     {
-        GameEngine _gameEngine;
+        private GameEngine _gameEngine;
         private XDocument _doc;
 
         public void Init(GameEngine gameEngine)
@@ -24,14 +23,14 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         /// </summary>
         public void LoadGameFile(string fileName)
         {
-            _doc = XDocument.Load(fileName);           
+            _doc = XDocument.Load(fileName);
         }
 
         /// <summary>
         /// Load game properties from xml file
         /// </summary>
         public GameProperties LoadGameProperties()
-        {            
+        {
             GameProperties gameProperties = new GameProperties();
             XElement gamePropertyElement = _doc.Element("Game.xml")?.Element("GameProperties");
 
@@ -96,11 +95,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             //Component
             switch (component.Attribute("Type")?.Value)
             {
-                case "Input":
-                    InputComponent inputComponent = new InputComponent();
-                    inputComponent.inputTweaker = float.Parse(component.Element("inputTweaker")?.Value);
-                    currentEntity.AddComponent(inputComponent);
-                    break;
                 case "Physics":
                     PhysicsComponent physicsComponent = new PhysicsComponent();
                     physicsComponent.masse = int.Parse(component.Element("masse")?.Value);
@@ -109,6 +103,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
                     physicsComponent.airFrictionTweaker = float.Parse(component.Element("airFrictionTweaker")?.Value, CultureInfo.InvariantCulture);
                     currentEntity.AddComponent(physicsComponent);
                     break;
+
                 case "BoxCollision":
                     BoxCollisionComponent boxCollisionComponent = new BoxCollisionComponent();
                     boxCollisionComponent.size.X = float.Parse(component.Element("sizeX")?.Value);
@@ -116,6 +111,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
                     boxCollisionComponent.consistance = bool.Parse(component.Element("consistance")?.Value);
                     currentEntity.AddComponent(boxCollisionComponent);
                     break;
+
                 case "Position":
                     PositionComponent positionComponent = new PositionComponent();
                     positionComponent.position.X = float.Parse(component.Element("posX")?.Value);
@@ -123,11 +119,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
                     positionComponent.orientation = float.Parse(component.Element("orientation")?.Value);
                     currentEntity.AddComponent(positionComponent);
                     break;
+
                 case "Velocity":
                     VelocityComponent velocityComponent = new VelocityComponent();
                     velocityComponent.maxVelocity = float.Parse(component.Element("maxVelocity")?.Value);
                     currentEntity.AddComponent(velocityComponent);
                     break;
+
                 case "Render":
                     RenderComponent renderComponent = new RenderComponent();
                     renderComponent.image = component.Element("image")?.Value;
@@ -135,11 +133,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
                     renderComponent.size.Y = int.Parse(component.Element("sizeY")?.Value);
                     currentEntity.AddComponent(renderComponent);
                     break;
+
                 case "Script":
                     ScriptComponent scriptComponent = new ScriptComponent();
                     scriptComponent.Script = CreateScriptInstance(component.Element("scriptName")?.Value);
                     currentEntity.AddComponent(scriptComponent);
                     break;
+
                 default:
                     throw new Exception("Undefined Component");
             }
@@ -150,9 +150,8 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             Assembly assembly = Assembly.GetExecutingAssembly();
             Type type = assembly.GetTypes().First(t => t.Name.Equals(scriptName));
 
-            return (GameScript) Activator.CreateInstance(type);
+            return (GameScript)Activator.CreateInstance(type);
         }
-
     }
 
     public struct GameProperties
