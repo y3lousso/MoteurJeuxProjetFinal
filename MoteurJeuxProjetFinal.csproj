@@ -94,7 +94,9 @@
     <Compile Include="GameEngine\Systems\ScriptSystem.cs" />
     <Compile Include="Platformer2D\Platformer2D.cs" />
     <Compile Include="GameEngine\ISystem.cs" />
-    <Compile Include="Platformer2D\script\TestScript.cs" />
+    <Compile Include="Platformer2D\script\TestScript.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GameEngine\DisplayWindow.resx">
       <DependentUpon>DisplayWindow.cs</DependentUpon>
@@ -151,9 +153,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Platformer2D\img\coin.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Platformer2D\script\TestScript.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Platformer2D\data.xml">
