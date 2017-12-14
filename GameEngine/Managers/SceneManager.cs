@@ -23,6 +23,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             _gameEngine.GetXmlManager().LoadGameContent(ref _scenes);
             _currentSceneIndex = firstSceneIndex;
             _gameEngine.GetDisplayWindow().DisplayScene(GetScene(firstSceneIndex));
+            GetScene(_currentSceneIndex).PlaySong();
         }
 
         /// <summary>

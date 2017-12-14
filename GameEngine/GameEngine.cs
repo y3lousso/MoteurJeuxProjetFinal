@@ -21,6 +21,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
         public string imagePath;
         public string inputsPath;
+        public string audioPath;
 
         /// <summary>
         /// Init game engine

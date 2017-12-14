@@ -15,6 +15,7 @@ namespace MoteurJeuxProjetFinal.Platformer2D
             //FOR XML FILE CONTENT
             string path = Environment.CurrentDirectory + "\\Platformer2D";
             gameEngine.imagePath = path + "\\img\\";
+            gameEngine.audioPath = path + "\\sound\\";
             gameEngine.inputsPath = path + "\\inputs.json";
             gameEngine.InitForXml(path + "\\data.xml");
 

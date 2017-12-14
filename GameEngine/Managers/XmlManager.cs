@@ -63,6 +63,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             Scene currentScene = new Scene();
             currentScene.SetName(scene.Attribute("Name")?.ToString());
             currentScene.backgroundImage = scene.Element("BackgroundImage")?.Value;
+            currentScene.SetSong(_gameEngine.audioPath + scene.Element("Song")?.Value);
             scenes.Add(currentScene);
 
             // Elements
