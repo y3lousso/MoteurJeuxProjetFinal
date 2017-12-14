@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Media;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
@@ -8,6 +9,8 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
         // background image
         public string backgroundImage;
+        // scene song
+        private SoundPlayer song;
 
         private List<Entity> _entities = new List<Entity>();
 
@@ -53,6 +56,21 @@ namespace MoteurJeuxProjetFinal.GameEngine
         public string GetName()
         {
             return name;
+        }
+
+        public void SetSong(string soundFileName)
+        {
+            song = new SoundPlayer(soundFileName);
+        }
+
+        public void PlaySong()
+        {
+            song.Play();
+        }
+
+        public void StopSong()
+        {
+            song.Stop();
         }
     }
 }

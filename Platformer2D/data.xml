@@ -12,6 +12,7 @@
                   ////////////////////////////////////////////// -->
       <Scene Name="Scene1">
         <BackgroundImage>background.png</BackgroundImage>
+        <Song>marioTheme.wav</Song>
         <Entities>
           <Entity Name="Player">
             <Components>
@@ -352,6 +353,7 @@
                   ////////////////////////////////////////////// -->
       <Scene Name="Scene2">
         <BackgroundImage>background3.png</BackgroundImage>
+        <Song>marioTheme.wav</Song>
         <Entities>
           <Entity Name="Player">
             <Components>
