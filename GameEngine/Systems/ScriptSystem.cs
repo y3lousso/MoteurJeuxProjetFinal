@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using MoteurJeuxProjetFinal.GameEngine.Components;
+﻿using MoteurJeuxProjetFinal.GameEngine.Components;
+using System.Collections.Generic;
 
 namespace MoteurJeuxProjetFinal.GameEngine.Systems
 {
-    class ScriptSystem : ISystem
+    internal class ScriptSystem : ISystem
     {
-
         private GameEngine _gameEngine;
         private List<Entity> _entities;
 
@@ -17,7 +16,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             // Start and register all the scripts
             foreach (Entity entity in _entities)
             {
-                ScriptComponent scriptComponent = (ScriptComponent) entity.GetComponentOfType(typeof(ScriptComponent));
+                ScriptComponent scriptComponent = (ScriptComponent)entity.GetComponentOfType(typeof(ScriptComponent));
                 // Set the entity :
                 scriptComponent.Script.SetEntity(entity);
                 // Start the script :
@@ -31,7 +30,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             foreach (Entity entity in _entities)
             {
-                ScriptComponent scriptComponent = (ScriptComponent) entity.GetComponentOfType(typeof(ScriptComponent));
+                ScriptComponent scriptComponent = (ScriptComponent)entity.GetComponentOfType(typeof(ScriptComponent));
                 scriptComponent.Script.Update();
             }
         }

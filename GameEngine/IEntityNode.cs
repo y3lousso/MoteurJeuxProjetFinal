@@ -1,6 +1,6 @@
 ﻿namespace MoteurJeuxProjetFinal.GameEngine
 {
-    struct EntityNode
+    internal struct EntityNode
     {
         public INode Node;
         public Entity Entity;

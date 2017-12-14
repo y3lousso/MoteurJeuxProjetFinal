@@ -1,26 +1,26 @@
-﻿﻿using System.Diagnostics;
-using MoteurJeuxProjetFinal.GameEngine.Managers;
+﻿using MoteurJeuxProjetFinal.GameEngine.Managers;
 using MoteurJeuxProjetFinal.GameEngine.Systems;
+using System.Diagnostics;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
-    class GameEngine
+    internal class GameEngine
     {
         // GameEngine states
         private bool is_running;
 
         // The manager
         private XmlManager _xmlManager = new XmlManager();
+
         private DisplayWindow _displayWindow = new DisplayWindow();
-        private InputManager _inputManager = new InputManager();
+        private InputManager _inputManager = InputManager.Instance;
         private SystemManager _systemManager = new SystemManager();
         private SceneManager _sceneManager = new SceneManager();
         private EventManager _eventManager = new EventManager();
         private ActionManager _actionManager = new ActionManager();
-     
 
         public string imagePath;
-          
+        public string inputsPath;
 
         /// <summary>
         /// Init game engine
@@ -49,14 +49,13 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
             _systemManager.Init(this);
             // Need to add them in the order they will be executed
-            _systemManager.AddSystem(new InputSystem());
+
             _systemManager.AddSystem(new MoveSystem());
             _systemManager.AddSystem(new PhysicsSystem());
             _systemManager.AddSystem(new CollisionSystem());
             _systemManager.AddSystem(new RenderSystem());
             _systemManager.AddSystem(new EventSystem());
             _systemManager.AddSystem(new ScriptSystem());
-
         }
 
         /// <summary>
@@ -64,12 +63,11 @@ namespace MoteurJeuxProjetFinal.GameEngine
         /// </summary>
         public void RunGameLoop()
         {
-            
             // Init Timer
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             float deltaTime;
-            
+
             // Throw a GameStartEvent
             _eventManager.AddEvent(new GameStartEvent());
 
@@ -77,37 +75,59 @@ namespace MoteurJeuxProjetFinal.GameEngine
             while (is_running)
             {
                 stopWatch.Stop();
-                deltaTime = stopWatch.ElapsedMilliseconds/1000f;
+                deltaTime = stopWatch.ElapsedMilliseconds / 1000f;
                 stopWatch.Reset();
                 stopWatch.Start();
 
                 // Check inputs
                 System.Windows.Forms.Application.DoEvents();
 
-                _systemManager.Update(deltaTime);          
+                _systemManager.Update(deltaTime);
             }
             // Game engine exit
             Debug.WriteLine("Game engine exited correctly.");
-            
+
             // Throw a GameFinishEvent
             _eventManager.AddEvent(new GameFinishEvent());
         }
 
         public void CloseGame()
-        { 
+        {
             _systemManager.End();
-            is_running = false;           
+            is_running = false;
         }
 
         // Managers getters
         public XmlManager GetXmlManager() { return _xmlManager; }
-        public DisplayWindow GetDisplayWindow() { return _displayWindow; }
-        public InputManager GetInputManager() { return _inputManager; }
-        public SystemManager GetSystemManager() { return _systemManager; }
-        public SceneManager GetSceneManager(){ return _sceneManager; }
-        public EventManager GetEventManager(){ return _eventManager; }
-        public ActionManager GetActionManager(){ return _actionManager; }
 
+        public DisplayWindow GetDisplayWindow()
+        {
+            return _displayWindow;
+        }
 
+        public InputManager GetInputManager()
+        {
+            return _inputManager;
+        }
+
+        public SystemManager GetSystemManager()
+        {
+            return _systemManager;
+        }
+
+        public SceneManager GetSceneManager()
+        {
+            return _sceneManager;
+        }
+
+        public EventManager GetEventManager()
+        {
+            return _eventManager;
+        }
+
+        public ActionManager GetActionManager()
+        {
+            return _actionManager;
+        }
     }
 }

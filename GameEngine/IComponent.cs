@@ -1,7 +1,6 @@
 ﻿namespace MoteurJeuxProjetFinal.GameEngine
 {
-    interface IComponent
+    internal interface IComponent
     {
-
     }
 }
