@@ -132,13 +132,13 @@ namespace MoteurJeuxProjetFinal.GameEngine
                 RenderComponent renderComponent = (RenderComponent) entityPanel.Entity.GetComponentOfType(typeof(RenderComponent));
                 PositionComponent positionComponent = (PositionComponent) entityPanel.Entity.GetComponentOfType(typeof(PositionComponent));
 
-                if (!entityPanel.Position.Equals(positionComponent.position)
-                 || !entityPanel.Image.Equals(renderComponent.image)
-                 || !entityPanel.Size.Equals(renderComponent.size))
+                if (!entityPanel.Position.Equals(positionComponent.position) ||
+                    !entityPanel.Image.Equals(renderComponent.image) ||
+                    !entityPanel.Size.Equals(renderComponent.size))
                 {
                     entityPanel.Panel.BackgroundImage = Image.FromFile(_gameEngine.imagePath + renderComponent.image);
-                    entityPanel.Panel.Location = new Point((int)positionComponent.position.X, (int)positionComponent.position.Y);
-                    entityPanel.Panel.Size = new Size((int)renderComponent.size.X, (int)renderComponent.size.Y);
+                    entityPanel.Panel.Location = new Point((int) positionComponent.position.X, (int) positionComponent.position.Y);
+                    entityPanel.Panel.Size = new Size((int) renderComponent.size.X, (int) renderComponent.size.Y);
                     entityPanel.Image = renderComponent.image;
                     entityPanel.Size = renderComponent.size;
                     entityPanel.Position = positionComponent.position;

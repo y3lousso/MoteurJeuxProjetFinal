@@ -77,6 +77,7 @@
     <Compile Include="GameEngine\Managers\Inputs\CustomJsonConverter.cs" />
     <Compile Include="GameEngine\Managers\Inputs\Input.cs" />
     <Compile Include="GameEngine\Managers\SceneManager.cs" />
+    <Compile Include="GameEngine\Managers\SoundManager.cs" />
     <Compile Include="GameEngine\Managers\SystemManager.cs" />
     <Compile Include="GameEngine\Managers\XmlManager.cs" />
     <Compile Include="GameEngine\GameEngine.cs" />
@@ -132,6 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Platformer2D\sound\marioTheme.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	    <Content Include="Platformer2D\sound\coinGetSound.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Platformer2D\img\background.png">

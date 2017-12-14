@@ -41,6 +41,13 @@
         }
 
         /// <summary>
+        /// Play a short sound
+        /// </summary>
+        public void ActionPlaySound(string soundPath)
+        {
+            _gameEngine.GetSoundManager().PlaySound(soundPath);
+        }
+        /// <summary>
         /// Add and display an new entity
         /// </summary>
         public void ActionAddEntity(Entity entity)

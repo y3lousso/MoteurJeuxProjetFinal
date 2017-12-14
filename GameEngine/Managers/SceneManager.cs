@@ -16,15 +16,22 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         }
 
         ///  <summary>
-        /// Init all the scenes from the xml file, and set the first scene
+        /// Init all the scenes from the xml file, and set the first scene (display + sound)
         /// </summary>
         public void InitScenes(int firstSceneIndex)
         {
             _gameEngine.GetXmlManager().LoadGameContent(ref _scenes);
             _currentSceneIndex = firstSceneIndex;
-            _gameEngine.GetDisplayWindow().DisplayScene(GetScene(firstSceneIndex));
-            GetScene(_currentSceneIndex).PlaySong();
-        }
+
+            Scene scene = GetScene(firstSceneIndex);
+            _gameEngine.GetDisplayWindow().DisplayScene(scene);
+            
+            // Background sound
+            if (scene.backgroundImage != null)
+            {
+                _gameEngine.GetSoundManager().PlayBackgroundSound(scene.backgroundSound);
+
+            }        }
 
         /// <summary>
         /// Get all the scenes
@@ -87,6 +94,13 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             foreach (ISystem system in _gameEngine.GetSystemManager().GetAllSystems())
             {
                 system.InitEntities(_gameEngine.GetSceneManager().GetCurrentScene().GetEntities());
+            }
+            
+            // Play the new background sound :
+            if (scene.backgroundImage != null)
+            {
+                _gameEngine.GetSoundManager().PlayBackgroundSound(scene.backgroundSound);
+
             }
 
             _gameEngine.GetEventManager().AddEvent(new SceneChangeEvent(oldScene, scene)); // Event change changed

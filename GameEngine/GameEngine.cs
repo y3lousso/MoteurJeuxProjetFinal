@@ -18,6 +18,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
         private SceneManager _sceneManager = new SceneManager();
         private EventManager _eventManager = new EventManager();
         private ActionManager _actionManager = new ActionManager();
+        private SoundManager _soundManager = new SoundManager();
 
         public string imagePath;
         public string inputsPath;
@@ -34,6 +35,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _xmlManager.Init(this);
             _inputManager.Init(this);
             _displayWindow.Init(this);
+            _soundManager.Init(this);
             _sceneManager.Init(this);
             _eventManager.Init(this);
             _actionManager.Init(this);
@@ -129,6 +131,11 @@ namespace MoteurJeuxProjetFinal.GameEngine
         public ActionManager GetActionManager()
         {
             return _actionManager;
+        }
+
+        public SoundManager GetSoundManager()
+        {
+            return _soundManager;
         }
     }
 }
