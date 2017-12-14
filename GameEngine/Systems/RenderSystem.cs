@@ -1,6 +1,5 @@
 ﻿﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
 using System.Runtime.InteropServices;
 using MoteurJeuxProjetFinal.GameEngine.Components;
 
@@ -10,7 +9,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
     {        
         
         private GameEngine _gameEngine;
-        private List<Entity> _entities;
 
         [DllImport("user32.dll")]
         public static extern bool LockWindowUpdate(IntPtr hWndLock);
@@ -44,7 +42,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             if (IsCompatible(entity))
             {
-                _entities.Add(entity);
                 // Draw the new entity
                 _gameEngine.GetDisplayWindow().AddEntityInDisplayLayer(entity);
             }
@@ -54,10 +51,11 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             if (IsCompatible(newEntity) && IsCompatible(oldEntity))
             {
-                int index = _entities.IndexOf(oldEntity);
+                // TODO handle explicit edition
+                int index = -1;//_entities.IndexOf(oldEntity);
                 if (index != -1)
                 {
-                    _entities[index] = newEntity;
+                    //_entities[index] = newEntity;
                     // No need to update manually the DisplayWindow, the update will be processed in the Update 
                     // of the RenderSystem (the system will detect the changement in the component of the entity)
                 }
@@ -74,14 +72,12 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public void RemoveEntity(Entity entity)
         {
-            _entities.Remove(entity);
             _gameEngine.GetDisplayWindow().RemoveEntityFromDisplayLayer(entity);
         }
 
         public void InitEntities(List<Entity> entities)
         {
             _gameEngine.GetDisplayWindow().ClearDisplayLayer();
-            _entities = new List<Entity>();
             foreach (Entity entity in entities)
             {
                 AddEntity(entity);

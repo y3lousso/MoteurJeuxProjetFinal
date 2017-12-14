@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using System.Windows.Forms;
@@ -109,7 +108,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             {
                 DisplayLayer.Controls.Add(panelToAdd);
             }
-            // Store the Panel and the RenderNode :
+            // Store the Panel and the Entity :
             _entityPanels.Add(new EntityPanel 
             {
                 Panel = panelToAdd,
@@ -122,19 +121,18 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
         public void UpdateDisplayLayer()
         {
-           
+
             for (int i = 0; i < _entityPanels.Count; i++)
             {
                 EntityPanel entityPanel = _entityPanels[i];
                                
-                RenderComponent renderComponent = (RenderComponent) _entityPanels[i].Entity.GetComponentOfType(typeof(RenderComponent));
-                PositionComponent positionComponent = (PositionComponent) _entityPanels[i].Entity.GetComponentOfType(typeof(PositionComponent));
+                RenderComponent renderComponent = (RenderComponent) entityPanel.Entity.GetComponentOfType(typeof(RenderComponent));
+                PositionComponent positionComponent = (PositionComponent) entityPanel.Entity.GetComponentOfType(typeof(PositionComponent));
 
                 if (!entityPanel.Position.Equals(positionComponent.position)
                  || !entityPanel.Image.Equals(renderComponent.image)
                  || !entityPanel.Size.Equals(renderComponent.size))
                 {
-                    Debug.WriteLine("redraw");
                     entityPanel.Panel.BackgroundImage = Image.FromFile(_gameEngine.imagePath + renderComponent.image);
                     entityPanel.Panel.Location = new Point((int)positionComponent.position.X, (int)positionComponent.position.Y);
                     entityPanel.Panel.Size = new Size((int)renderComponent.size.X, (int)renderComponent.size.Y);
