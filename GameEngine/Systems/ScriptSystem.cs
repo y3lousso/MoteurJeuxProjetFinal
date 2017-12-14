@@ -12,18 +12,6 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
         {
             _gameEngine = gameEngine;
             InitEntities(_gameEngine.GetSceneManager().GetCurrentScene().GetEntities());
-
-            // Start and register all the scripts
-            foreach (Entity entity in _entities)
-            {
-                ScriptComponent scriptComponent = (ScriptComponent)entity.GetComponentOfType(typeof(ScriptComponent));
-                // Set the entity :
-                scriptComponent.Script.SetEntity(entity);
-                // Start the script :
-                scriptComponent.Script.Start(_gameEngine.GetActionManager());
-                // Register the script :
-                _gameEngine.GetEventManager().RegisterListener(scriptComponent.Script, entity);
-            }
         }
 
         public void Update(float deltaTime)
@@ -83,6 +71,19 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
             foreach (Entity entity in entities)
             {
                 AddEntity(entity);
+            }
+            
+            // Start and register all the scripts
+            _gameEngine.GetEventManager().UnregisterAllListeners();
+            foreach (Entity entity in _entities)
+            {
+                ScriptComponent scriptComponent = (ScriptComponent)entity.GetComponentOfType(typeof(ScriptComponent));
+                // Set the entity :
+                scriptComponent.Script.SetEntity(entity);
+                // Start the script :
+                scriptComponent.Script.Start(_gameEngine.GetActionManager());
+                // Register the script :
+                _gameEngine.GetEventManager().RegisterListener(scriptComponent.Script, entity);
             }
         }
     }

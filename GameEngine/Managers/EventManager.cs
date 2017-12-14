@@ -1,5 +1,6 @@
 ﻿using MoteurJeuxProjetFinal.GameEngine;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MoteurJeuxProjetFinal.GameEngine
 {
@@ -15,12 +16,11 @@ namespace MoteurJeuxProjetFinal.GameEngine
         }
 
         private EventDispatcher _eventDispatcher;
-        private List<EntityListener> _entityListeners = new List<EntityListener>();
         private List<IEvent> _events = new List<IEvent>();
 
         public void Init(GameEngine gameEngine)
         {
-            _eventDispatcher = new EventDispatcher(_entityListeners);
+            _eventDispatcher = new EventDispatcher(new List<EntityListener>());
         }
 
         public void AddEvent(IEvent gameEvent)
@@ -37,7 +37,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
         {
             _events = new List<IEvent>();
         }
-
+        
         public void RegisterListener(IListener listener, Entity entity)
         {
             EntityListener entityListener = new EntityListener
@@ -45,7 +45,12 @@ namespace MoteurJeuxProjetFinal.GameEngine
                 Listener = listener,
                 Entity = entity
             };
-            _entityListeners.Add(entityListener);
+            _eventDispatcher.AddListener(entityListener);
+        }
+
+        public void UnregisterAllListeners()
+        {
+            _eventDispatcher.ClearListeners();
         }
 
         public EventDispatcher GetEventDispatcher()
@@ -65,6 +70,16 @@ internal class EventDispatcher : IEventDispatcher
     internal EventDispatcher(List<EventManager.EntityListener> entityListeners)
     {
         _entityListeners = entityListeners;
+    }
+
+    internal void AddListener(EventManager.EntityListener entityListener)
+    {
+        _entityListeners.Add(entityListener);
+    }
+
+    internal void ClearListeners()
+    {
+        _entityListeners = new List<EventManager.EntityListener>();
     }
 
     public void Dispatch(GameStartEvent gameEvent)

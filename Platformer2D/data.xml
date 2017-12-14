@@ -357,7 +357,6 @@
         <Entities>
           <Entity Name="Player">
             <Components>
-
               <Component Type="Physics">
                 <masse>60</masse>
                 <useGravity>true</useGravity>
@@ -381,6 +380,9 @@
                 <image>mario.png</image>
                 <sizeX>60</sizeX>
                 <sizeY>80</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>TestScript</scriptName>
               </Component>
             </Components>
           </Entity>
