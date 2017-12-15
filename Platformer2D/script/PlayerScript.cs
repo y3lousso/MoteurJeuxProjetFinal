@@ -14,6 +14,7 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
 
         private Entity player;
         private PhysicsComponent pc;
+        private bool CanJump = false;
 
         protected internal override void Awake()
         {
@@ -34,7 +35,12 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
         {
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
-            pc._forces.Add(new System.Numerics.Vector2(50000 * horizontal, 50000 * vertical));
+            pc._forces.Add(new System.Numerics.Vector2(50000 * horizontal,0));
+            if (CanJump)
+            {
+                pc._forces.Add(new System.Numerics.Vector2(0, 50000000* vertical));
+                CanJump = false;
+            }
         }
 
         protected internal override void End()
@@ -55,7 +61,12 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
                     Entity door = _actionManager.ActionGetCurrentScene().findEntityWithName("door");
                     ((RenderComponent)door.GetComponentOfType(typeof(RenderComponent))).image = "door.png";
                 }
-            }            
+            }
+            // Collision with coin -> collect it
+            if (collisionEvent.OtherEntity.GetName().Contains("Floor"))
+            {
+                CanJump = true;
+            }
         }
 
         public override void OnClick(EntityClickEvent entityClickEvent)
