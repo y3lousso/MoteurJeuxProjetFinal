@@ -6,7 +6,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
     class SoundManager
     {
         private GameEngine _gameEngine;
-        private SoundPlayer _backgroundSoundPlayer;
+        private MediaPlayer.MediaPlayer _backgroundSoundPlayer = new MediaPlayer.MediaPlayer();
                 
         public void Init(GameEngine gameEngine)
         {
@@ -15,13 +15,9 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
 
         public void PlayBackgroundSound(string backgroundSoundPath)
         {
-            if (_backgroundSoundPlayer != null)
-            {
-                _backgroundSoundPlayer.Stop();
-                _backgroundSoundPlayer.Dispose();
-            }
-            _backgroundSoundPlayer = new SoundPlayer(backgroundSoundPath);
-            _backgroundSoundPlayer.PlayLooping();
+            _backgroundSoundPlayer.Stop();
+            _backgroundSoundPlayer.Open(backgroundSoundPath);
+            _backgroundSoundPlayer.Play();
         }
 
         public void StopBackgroundSound()
@@ -29,11 +25,10 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             _backgroundSoundPlayer.Stop();
         }
 
-
         public void PlaySound(string soundPath)
         {
             String fullPath = _gameEngine.audioPath + soundPath;
-            SoundPlayer soundPlayer = new SoundPlayer(fullPath); // TODO sound not play parallely of the background music
+            SoundPlayer soundPlayer = new SoundPlayer(fullPath);
             soundPlayer.Play();
         }
         

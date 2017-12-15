@@ -92,10 +92,8 @@ namespace MoteurJeuxProjetFinal.GameEngine
             // Stop song
             _soundManager.StopBackgroundSound();
               
-            
             // Game engine exit
             Debug.WriteLine("Game engine exited correctly.");
-
         }
 
         public void CloseGame()
