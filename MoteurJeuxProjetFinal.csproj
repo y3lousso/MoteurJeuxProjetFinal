@@ -132,6 +132,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Platformer2D\img\doorLock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Platformer2D\sound\marioTheme.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

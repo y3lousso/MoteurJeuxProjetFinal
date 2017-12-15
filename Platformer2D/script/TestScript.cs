@@ -29,7 +29,6 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
 
         public override void OnCollision(CollisionEvent collisionEvent)
         {
-
             // Collision with coin -> collect it
             if (collisionEvent.OtherEntity.GetName().Contains("coin"))
             {

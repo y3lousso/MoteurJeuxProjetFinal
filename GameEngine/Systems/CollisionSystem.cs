@@ -36,7 +36,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
                         CollisionSide collisionSide1 = CollisionSide.UNKNOWN;
                         CollisionSide collisionSide2 = CollisionSide.UNKNOWN;
 
-                        if (boxCollisionComponent1.consistance && boxCollisionComponent2.consistance)
+                        if (!boxCollisionComponent1.isTrigger && !boxCollisionComponent2.isTrigger)
                         {
                             if (_entities[i].GetComponentOfType(typeof(VelocityComponent)) != null)
                             {

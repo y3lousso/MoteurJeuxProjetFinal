@@ -63,7 +63,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
             Scene currentScene = new Scene();
             currentScene.SetName(scene.Attribute("Name")?.ToString());
             currentScene.backgroundImage = scene.Element("BackgroundImage")?.Value;
-            currentScene.SetSong(_gameEngine.audioPath + scene.Element("Song")?.Value);
+            currentScene.SetSong(_gameEngine.audioPath + scene.Element("BackgroundSound")?.Value);
             scenes.Add(currentScene);
 
             // Elements
@@ -109,7 +109,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
                     BoxCollisionComponent boxCollisionComponent = new BoxCollisionComponent();
                     boxCollisionComponent.size.X = float.Parse(component.Element("sizeX")?.Value);
                     boxCollisionComponent.size.Y = float.Parse(component.Element("sizeY")?.Value);
-                    boxCollisionComponent.consistance = bool.Parse(component.Element("consistance")?.Value);
+                    boxCollisionComponent.isTrigger = bool.Parse(component.Element("isTrigger")?.Value);
                     currentEntity.AddComponent(boxCollisionComponent);
                     break;
 
