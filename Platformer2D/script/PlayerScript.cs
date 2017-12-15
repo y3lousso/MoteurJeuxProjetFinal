@@ -1,11 +1,11 @@
-﻿using System.Diagnostics;
-using MoteurJeuxProjetFinal.GameEngine;
-using MoteurJeuxProjetFinal.GameEngine.Components;
-using MoteurJeuxProjetFinal.GameEngine.Managers;
+﻿using Engine;
+using Engine.Components;
+using Engine.Managers;
+using System.Diagnostics;
 
 namespace MoteurJeuxProjetFinal.Platformer2D.script
 {
-    internal class PlayerScript : GameScript
+    public class TestScript : GameScript
     {
         public static PlayerScript instance;
 
@@ -24,14 +24,14 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
                 throw new System.Exception("Can't have multiple instance of the same script.");
         }
 
-        protected internal override void Start(ActionManager actionManager)
+        public override void Start(ActionManager actionManager)
         {
             _actionManager = actionManager;
             player = GetEntity();
             pc = (PhysicsComponent)player.GetComponentOfType(typeof(PhysicsComponent));
         }
 
-        protected internal override void Update()
+        public override void Update()
         {
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
@@ -47,7 +47,6 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
         {
             instance = null;
         }
-
         public override void OnCollision(CollisionEvent collisionEvent)
         {
             // Collision with coin -> collect it

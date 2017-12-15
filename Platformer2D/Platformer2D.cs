@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engine;
+using System;
 
 namespace MoteurJeuxProjetFinal.Platformer2D
 {
@@ -10,10 +11,10 @@ namespace MoteurJeuxProjetFinal.Platformer2D
         public static void Main(string[] args)
         {
             // Create instance of game engine
-            GameEngine.GameEngine gameEngine = new GameEngine.GameEngine();
+            GameEngine gameEngine = new GameEngine();
 
             //FOR XML FILE CONTENT
-            string path = Environment.CurrentDirectory + "\\Platformer2D";
+            string path = Environment.CurrentDirectory;
             gameEngine.imagePath = path + "\\img\\";
             gameEngine.audioPath = path + "\\sound\\";
             gameEngine.inputsPath = path + "\\inputs.json";
