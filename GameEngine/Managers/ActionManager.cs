@@ -122,5 +122,13 @@
                 ActionEditEntity(entity, newEntity);
             }
         }
+
+        /// <summary>
+        /// Quit the game loop and the game
+        /// </summary>
+        public void ActionQuitGame()
+        {
+            _gameEngine.CloseGame();
+        }
     }
 }

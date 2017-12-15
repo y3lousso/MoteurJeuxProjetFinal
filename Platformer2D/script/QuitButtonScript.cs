@@ -36,7 +36,7 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
 
         public override void OnClick(EntityClickEvent entityClickEvent)
         {
-            _actionManager.ActionChangeCurrentScene(2);
+            _actionManager.ActionQuitGame();
         }
     }
 }
