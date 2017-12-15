@@ -1,7 +1,6 @@
 ﻿﻿using System;
- using System.Collections.Generic;
- using System.Diagnostics;
- using System.Drawing;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Numerics;
 using System.Windows.Forms;
 using MoteurJeuxProjetFinal.GameEngine.Components;
@@ -219,7 +218,6 @@ namespace MoteurJeuxProjetFinal.GameEngine
             Panel panel = (Panel) sender;
 
             EntityPanel entityPanel = _entityPanels.Find(ep => ep.Panel == panel);
-            Debug.WriteLine("Click on : " + entityPanel.Entity.GetName());
             _gameEngine.GetEventManager().AddEvent(new EntityClickEvent(entityPanel.Entity));
 
         }
