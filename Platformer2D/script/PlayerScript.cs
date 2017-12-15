@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace MoteurJeuxProjetFinal.Platformer2D.script
 {
-    public class TestScript : GameScript
+    public class PlayerScript : GameScript
     {
         public static PlayerScript instance;
 
@@ -16,7 +16,7 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
         private PhysicsComponent pc;
         private bool CanJump = false;
 
-        protected internal override void Awake()
+        public override void Awake()
         {
             if (instance == null)
                 instance = this;
@@ -35,18 +35,19 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
         {
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
-            pc._forces.Add(new System.Numerics.Vector2(50000 * horizontal,0));
+            pc._forces.Add(new System.Numerics.Vector2(50000 * horizontal, 0));
             if (CanJump)
             {
-                pc._forces.Add(new System.Numerics.Vector2(0, 50000000* vertical));
+                pc._forces.Add(new System.Numerics.Vector2(0, 50000000 * vertical));
                 CanJump = false;
             }
         }
 
-        protected internal override void End()
+        public override void End()
         {
             instance = null;
         }
+
         public override void OnCollision(CollisionEvent collisionEvent)
         {
             // Collision with coin -> collect it
@@ -70,9 +71,11 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
 
         public override void OnClick(EntityClickEvent entityClickEvent)
         {
-
         }
 
-        public int GetCoins() { return _coins; }
+        public int GetCoins()
+        {
+            return _coins;
+        }
     }
 }

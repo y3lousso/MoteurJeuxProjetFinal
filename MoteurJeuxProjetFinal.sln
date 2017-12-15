@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moteur", ".\Engine\Engine.csproj", "{4F2D0C8A-C9F7-4E87-BCD8-6BEBA08C2899}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", ".\Engine\Engine.csproj", "{4F2D0C8A-C9F7-4E87-BCD8-6BEBA08C2899}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platformer2D", ".\Platformer2D\Platformer2D.csproj", "{9B4C17C9-6F64-4936-ADC9-66ACE20E76A6}"
 	ProjectSection(ProjectDependencies) = postProject

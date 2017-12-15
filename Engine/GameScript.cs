@@ -19,7 +19,7 @@ namespace Engine
         /// <summary>
         /// Method called by the ScriptManager to Init the script
         /// </summary>
-        protected internal abstract void Awake();
+        public abstract void Awake();
 
         /// <summary>
         /// Method called by the ScriptManager to Load the script
@@ -35,7 +35,7 @@ namespace Engine
         /// <summary>
         /// Method called by the ScriptManager to End the script
         /// </summary>
-        protected internal abstract void End();
+        public abstract void End();
 
         // The listener methods
         public virtual void OnRegister(IListenerRegister register) { }

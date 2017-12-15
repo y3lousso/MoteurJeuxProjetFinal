@@ -95,9 +95,6 @@
     <Compile Include="Systems\EventSystem.cs" />
     <Compile Include="Systems\ScriptSystem.cs" />
     <Compile Include="ISystem.cs" />
-    <Compile Include="Platformer2D\script\QuitButtonScript.cs" />
-    <Compile Include="Platformer2D\script\StartButtonScript.cs" />
-    <Compile Include="Platformer2D\script\DoorScript.cs">
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DisplayWindow.resx">
       <DependentUpon>DisplayWindow.cs</DependentUpon>
@@ -129,18 +126,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Platformer2D\img\doorLock.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Platformer2D\img\menuBackground.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Platformer2D\img\quitButton.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Platformer2D\img\startButton.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <COMReference Include="MediaPlayer">
       <Guid>{22D6F304-B0F6-11D0-94AB-0080C74C7E95}</Guid>
       <VersionMajor>1</VersionMajor>
