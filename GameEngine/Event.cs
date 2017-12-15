@@ -16,6 +16,8 @@
         void Dispatch(SceneChangeEvent gameEvent);
 
         void Dispatch(NewSceneDisplayedEvent gameEvent);
+
+        void Dispatch(EntityClickEvent gameEvent);
     }
 
     ///////////////////
@@ -89,6 +91,21 @@
         }
 
         void IEvent.OnCall(IEventDispatcher dispatcher)
+        {
+            dispatcher.Dispatch(this);
+        }
+    }
+
+    internal class EntityClickEvent : IEvent
+    {
+        public Entity Entity;
+
+        public EntityClickEvent(Entity entity)
+        {
+            Entity = entity;
+        }
+        
+        public void OnCall(IEventDispatcher dispatcher)
         {
             dispatcher.Dispatch(this);
         }

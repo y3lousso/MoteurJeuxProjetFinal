@@ -28,5 +28,7 @@
         void OnSceneChange(SceneChangeEvent sceneChangeEvent);
 
         void OnNewSceneDisplayed(NewSceneDisplayedEvent sceneChangeEvent);
+
+        void OnClick(EntityClickEvent entityClickEvent);
     }
 }

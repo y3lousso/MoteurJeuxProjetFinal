@@ -1,5 +1,7 @@
-﻿﻿using System.Collections.Generic;
-using System.Drawing;
+﻿﻿using System;
+ using System.Collections.Generic;
+ using System.Diagnostics;
+ using System.Drawing;
 using System.Numerics;
 using System.Windows.Forms;
 using MoteurJeuxProjetFinal.GameEngine.Components;
@@ -39,9 +41,9 @@ namespace MoteurJeuxProjetFinal.GameEngine
             public Vector2 Position;
         }
 
-        public void Init(GameEngine _gameEngine)
+        public void Init(GameEngine gameEngine)
         {
-            this._gameEngine = _gameEngine;
+            _gameEngine = gameEngine;
         }
 
         public void InitFormProperties(string gameName, int width, int height)
@@ -93,13 +95,16 @@ namespace MoteurJeuxProjetFinal.GameEngine
             PositionComponent positionComponent = (PositionComponent) entityToAdd.GetComponentOfType(typeof(PositionComponent));
             
             // Create a panel 
-            Panel panelToAdd = new Panel();
-            panelToAdd.BackgroundImage = Image.FromFile(_gameEngine.imagePath + renderComponent.image);
-            panelToAdd.BackgroundImageLayout = ImageLayout.Stretch;
-            panelToAdd.BackColor = Color.Transparent;
-            panelToAdd.Location = new Point((int)positionComponent.position.X, (int)positionComponent.position.Y);
-            panelToAdd.Size = new Size((int)renderComponent.size.X, (int)renderComponent.size.Y);
-            panelToAdd.TabIndex = 0;
+            Panel panelToAdd = new Panel
+            {
+                BackgroundImage = Image.FromFile(_gameEngine.imagePath + renderComponent.image),
+                BackgroundImageLayout = ImageLayout.Stretch,
+                BackColor = Color.Transparent,
+                Location = new Point((int) positionComponent.position.X, (int) positionComponent.position.Y),
+                Size = new Size((int) renderComponent.size.X, (int) renderComponent.size.Y),
+                TabIndex = 0
+            };
+            panelToAdd.Click += OnImageClick;
 
             // Add the panel
             if (InvokeRequired)
@@ -139,6 +144,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
                     entityPanel.Panel.BackgroundImage = Image.FromFile(_gameEngine.imagePath + renderComponent.image);
                     entityPanel.Panel.Location = new Point((int) positionComponent.position.X, (int) positionComponent.position.Y);
                     entityPanel.Panel.Size = new Size((int) renderComponent.size.X, (int) renderComponent.size.Y);
+                    
                     entityPanel.Image = renderComponent.image;
                     entityPanel.Size = renderComponent.size;
                     entityPanel.Position = positionComponent.position;
@@ -205,6 +211,17 @@ namespace MoteurJeuxProjetFinal.GameEngine
             Controls.Add(DisplayLayer);
 
             Refresh();
+        }
+
+
+        private void OnImageClick(object sender, EventArgs e)
+        {
+            Panel panel = (Panel) sender;
+
+            EntityPanel entityPanel = _entityPanels.Find(ep => ep.Panel == panel);
+            Debug.WriteLine("Click on : " + entityPanel.Entity.GetName());
+            _gameEngine.GetEventManager().AddEvent(new EntityClickEvent(entityPanel.Entity));
+
         }
     }
 }

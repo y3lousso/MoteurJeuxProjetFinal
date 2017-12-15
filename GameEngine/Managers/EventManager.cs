@@ -123,4 +123,14 @@ internal class EventDispatcher : IEventDispatcher
             entityListener.Listener.OnNewSceneDisplayed(gameEvent);
         }
     }
+
+    public void Dispatch(EntityClickEvent gameEvent)
+    {
+        foreach (EventManager.EntityListener entityListener in _entityListeners)
+        {
+            // Dispatch the event only for the concerned entity
+            if (gameEvent.Entity.Equals(entityListener.Entity))
+                entityListener.Listener.OnClick(gameEvent);
+        }
+    }
 }

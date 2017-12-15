@@ -49,5 +49,9 @@ namespace MoteurJeuxProjetFinal.GameEngine
         public virtual void OnNewSceneDisplayed(NewSceneDisplayedEvent sceneChangeEvent)
         {
         }
+
+        public virtual void OnClick(EntityClickEvent entityClickEvent)
+        {
+        }
     }
 }
