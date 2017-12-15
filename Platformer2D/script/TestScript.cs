@@ -1,11 +1,11 @@
-﻿using System.Diagnostics;
-using MoteurJeuxProjetFinal.GameEngine;
-using MoteurJeuxProjetFinal.GameEngine.Components;
-using MoteurJeuxProjetFinal.GameEngine.Managers;
+﻿using Engine;
+using Engine.Components;
+using Engine.Managers;
+using System.Diagnostics;
 
 namespace MoteurJeuxProjetFinal.Platformer2D.script
 {
-    internal class TestScript : GameScript
+    public class TestScript : GameScript
     {
         private static ActionManager _actionManager;
         private int _coins;
@@ -13,14 +13,14 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
         private Entity player;
         private PhysicsComponent pc;
 
-        protected internal override void Start(ActionManager actionManager)
+        public override void Start(ActionManager actionManager)
         {
             _actionManager = actionManager;
             player = GetEntity();
             pc = (PhysicsComponent)player.GetComponentOfType(typeof(PhysicsComponent));
         }
 
-        protected internal override void Update()
+        public override void Update()
         {
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
@@ -29,7 +29,6 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
 
         public override void OnCollision(CollisionEvent collisionEvent)
         {
-
             // Collision with coin -> collect it
             if (collisionEvent.OtherEntity.GetName().Contains("coin"))
             {
