@@ -17,6 +17,11 @@ namespace MoteurJeuxProjetFinal.GameEngine
         }
 
         /// <summary>
+        /// Method called by the ScriptManager to Init the script
+        /// </summary>
+        protected internal abstract void Awake();
+
+        /// <summary>
         /// Method called by the ScriptManager to Load the script
         /// Give an instance of ActionManager to allow the script to act on the game engine
         /// </summary>
@@ -26,6 +31,11 @@ namespace MoteurJeuxProjetFinal.GameEngine
         /// A method update each frame to update the script
         /// </summary>
         protected internal abstract void Update();
+
+        /// <summary>
+        /// Method called by the ScriptManager to End the script
+        /// </summary>
+        protected internal abstract void End();
 
         // The listener methods
         public virtual void OnRegister(IListenerRegister register) { }

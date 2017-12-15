@@ -15,9 +15,17 @@
         /// <summary>
         /// Return an instance of the current scene
         /// </summary>
-        public Scene ActionGetCurentScene()
+        public Scene ActionGetCurrentScene()
         {
             return _gameEngine.GetSceneManager().GetCurrentScene();
+        }
+
+        /// <summary>
+        /// Return an instance of the current scene
+        /// </summary>
+        public int ActionGetCurrentSceneIndex()
+        {
+            return _gameEngine.GetSceneManager().GetCurrentSceneIndex();
         }
 
         /// <summary>

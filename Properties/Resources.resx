@@ -124,7 +124,4 @@
   <data name="mario" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Platformer2D\img\mario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Platformer2D\img\tile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

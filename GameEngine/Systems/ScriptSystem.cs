@@ -67,23 +67,38 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
         public void InitEntities(List<Entity> entities)
         {
+            // End the other script if it exist
+            if (_entities != null)
+            {               
+                foreach (Entity entity in _entities)
+                {
+                    ScriptComponent scriptComponent = (ScriptComponent)entity.GetComponentOfType(typeof(ScriptComponent));
+                    scriptComponent.Script.End();
+                }
+            }
+
+            // Set the new list of entities
             _entities = new List<Entity>();
             foreach (Entity entity in entities)
             {
                 AddEntity(entity);
             }
-            
+
             // Start and register all the scripts
             _gameEngine.GetEventManager().UnregisterAllListeners();
             foreach (Entity entity in _entities)
             {
                 ScriptComponent scriptComponent = (ScriptComponent)entity.GetComponentOfType(typeof(ScriptComponent));
-                // Set the entity :
-                scriptComponent.Script.SetEntity(entity);
-                // Start the script :
-                scriptComponent.Script.Start(_gameEngine.GetActionManager());
-                // Register the script :
-                _gameEngine.GetEventManager().RegisterListener(scriptComponent.Script, entity);
+                if (scriptComponent != null)
+                {
+                    // Set the entity :
+                    scriptComponent.Script.SetEntity(entity);
+                    // Start the script :
+                    scriptComponent.Script.Awake();
+                    scriptComponent.Script.Start(_gameEngine.GetActionManager());
+                    // Register the script :
+                    _gameEngine.GetEventManager().RegisterListener(scriptComponent.Script, entity);
+                }
             }
         }
     }

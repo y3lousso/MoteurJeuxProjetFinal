@@ -7,6 +7,46 @@
   </GameProperties>
   <GameContent>
     <Scenes>
+      <Scene Name="Menu">
+        <BackgroundImage>menuBackground.png</BackgroundImage>
+        <BackgroundSound>marioTheme.wav</BackgroundSound>
+        <Entities>
+          <Entity Name="StartButton">
+            <Components>
+              <Component Type="Position">
+                <posX>250</posX>
+                <posY>300</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>startButton.png</image>
+                <sizeX>300</sizeX>
+                <sizeY>92</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>StartButtonScript</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="ExitButton">
+            <Components>
+              <Component Type="Position">
+                <posX>650</posX>
+                <posY>300</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>quitButton.png</image>
+                <sizeX>300</sizeX>
+                <sizeY>92</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>QuitButtonScript</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+        </Entities>
+      </Scene>
       <Scene Name="Scene1">
         <BackgroundImage>background.png</BackgroundImage>
         <BackgroundSound>marioTheme.wav</BackgroundSound>
@@ -38,7 +78,7 @@
                 <sizeY>80</sizeY>
               </Component>
               <Component Type="Script">
-                <scriptName>TestScript</scriptName>
+                <scriptName>PlayerScript</scriptName>
               </Component>
             </Components>
           </Entity>
@@ -215,6 +255,9 @@
                 <sizeX>70</sizeX>
                 <sizeY>100</sizeY>
               </Component>
+              <Component Type="Script">
+                <scriptName>DoorScript</scriptName>
+              </Component>
             </Components>
           </Entity>
           <Entity Name="coin1">
@@ -375,7 +418,7 @@
                 <sizeY>80</sizeY>
               </Component>
               <Component Type="Script">
-                <scriptName>TestScript</scriptName>
+                <scriptName>PlayerScript</scriptName>
               </Component>
             </Components>
           </Entity>

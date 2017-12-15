@@ -70,6 +70,14 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         }
 
         /// <summary>
+        /// Get the current scene displayed in the game
+        /// </summary>
+        public int GetCurrentSceneIndex()
+        {
+            return _currentSceneIndex;
+        }
+
+        /// <summary>
         /// Change the current scene displayed
         /// </summary>
         public void ChangeCurrentScene(Scene scene)

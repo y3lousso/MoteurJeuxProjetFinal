@@ -95,7 +95,10 @@
     <Compile Include="GameEngine\Systems\ScriptSystem.cs" />
     <Compile Include="Platformer2D\Platformer2D.cs" />
     <Compile Include="GameEngine\ISystem.cs" />
-    <Compile Include="Platformer2D\script\TestScript.cs">
+    <Compile Include="Platformer2D\script\PlayerScript.cs" />
+    <Compile Include="Platformer2D\script\QuitButtonScript.cs" />
+    <Compile Include="Platformer2D\script\StartButtonScript.cs" />
+    <Compile Include="Platformer2D\script\DoorScript.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,6 +138,15 @@
     <None Include="Platformer2D\img\doorLock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Platformer2D\img\menuBackground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Platformer2D\img\quitButton.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Platformer2D\img\startButton.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Platformer2D\sound\marioTheme.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -151,9 +163,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Platformer2D\img\mario.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Platformer2D\img\tile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Platformer2D\img\floorTile.png">
