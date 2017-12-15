@@ -34,7 +34,7 @@ namespace MoteurJeuxProjetFinal.GameEngine.Managers
         {
             String fullPath = _gameEngine.audioPath + soundPath;
             SoundPlayer soundPlayer = new SoundPlayer(fullPath); // TODO sound not play parallely of the background music
-            soundPlayer.PlaySync();
+            soundPlayer.Play();
         }
         
     }
