@@ -87,11 +87,15 @@ namespace MoteurJeuxProjetFinal.GameEngine
 
                 _systemManager.Update(deltaTime);
             }
+            // Throw a GameFinishEvent
+            _eventManager.AddEvent(new GameFinishEvent());
+            // Stop song
+            _soundManager.StopBackgroundSound();
+              
+            
             // Game engine exit
             Debug.WriteLine("Game engine exited correctly.");
 
-            // Throw a GameFinishEvent
-            _eventManager.AddEvent(new GameFinishEvent());
         }
 
         public void CloseGame()

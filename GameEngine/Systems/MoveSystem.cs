@@ -25,14 +25,25 @@ namespace MoteurJeuxProjetFinal.GameEngine.Systems
 
                 // Windows collision tweak
                 if (positionComponent.position.X < 0)
+                {
                     positionComponent.position.X = 0;
+                    velocityComponent.velocity.X = 0;
+                }
                 if (positionComponent.position.Y < 0)
+                {
                     positionComponent.position.Y = 0;
+                    velocityComponent.velocity.Y = 0;
+                }
                 if (positionComponent.position.X > _gameEngine.GetDisplayWindow().GetForm().Width - 50)
+                {
                     positionComponent.position.X = _gameEngine.GetDisplayWindow().GetForm().Width - 50;
+                    velocityComponent.velocity.X = 0;
+                }
                 if (positionComponent.position.Y > _gameEngine.GetDisplayWindow().GetForm().Height - 50)
-                    positionComponent.position.Y = _gameEngine.GetDisplayWindow().GetForm().Height - 50;
-
+                {
+                    positionComponent.position.X = _gameEngine.GetDisplayWindow().GetForm().Height - 50;
+                    velocityComponent.velocity.Y = 0;
+                }
                 positionComponent.orientation += velocityComponent.angularVelocity * deltaTime;
             }
         }

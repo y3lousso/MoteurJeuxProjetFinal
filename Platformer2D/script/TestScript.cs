@@ -1,4 +1,5 @@
-﻿using MoteurJeuxProjetFinal.GameEngine;
+﻿using System.Diagnostics;
+using MoteurJeuxProjetFinal.GameEngine;
 using MoteurJeuxProjetFinal.GameEngine.Components;
 using MoteurJeuxProjetFinal.GameEngine.Managers;
 
@@ -28,39 +29,13 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
 
         public override void OnCollision(CollisionEvent collisionEvent)
         {
-            /**
-            switch (collisionEvent.CollisionSide)
-            {
-                case CollisionSide.FROM_LEFT_SIDE:
-                    Debug.WriteLine("Player collides " + collisionEvent.OtherEntity.GetName() + " from left side !");
-                    break;
-
-                case CollisionSide.FROM_RIGHT_SIDE:
-                    Debug.WriteLine("Player collides " + collisionEvent.OtherEntity.GetName() + " from right side !");
-                    break;
-
-                case CollisionSide.FROM_TOP_SIDE:
-                    Debug.WriteLine("Player collides " + collisionEvent.OtherEntity.GetName() + " from top side !");
-                    break;
-
-                case CollisionSide.FROM_BOTTOM_SIDE:
-                    Debug.WriteLine("Player collides " + collisionEvent.OtherEntity.GetName() + " from bottom side !");
-                    break;
-
-                case CollisionSide.UNKNOWN:
-                    Debug.WriteLine("Player collides " + collisionEvent.OtherEntity.GetName() + " from unknown side !");
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            */
 
             // Collision with coin -> collect it
             if (collisionEvent.OtherEntity.GetName().Contains("coin"))
             {
                 _coins++;
                 _actionManager.ActionRemoveEntity(collisionEvent.OtherEntity);
+                _actionManager.ActionPlaySound("coinGetSound.wav");
                 if (_coins == 5)
                 {
                     Entity door = _actionManager.ActionGetCurentScene().findEntityWithName("door");
@@ -72,6 +47,11 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
             {
                 _actionManager.ActionChangeCurrentScene(1);
             }
+        }
+
+        public override void OnClick(EntityClickEvent entityClickEvent)
+        {
+            Debug.WriteLine("Player clicked !");
         }
     }
 }
