@@ -53,12 +53,13 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _systemManager.Init(this);
             // Need to add them in the order they will be executed
 
-            _systemManager.AddSystem(new MoveSystem());
-            _systemManager.AddSystem(new PhysicsSystem());
-            _systemManager.AddSystem(new CollisionSystem());
-            _systemManager.AddSystem(new RenderSystem());
             _systemManager.AddSystem(new EventSystem());
             _systemManager.AddSystem(new ScriptSystem());
+            _systemManager.AddSystem(new PhysicsSystem());
+            _systemManager.AddSystem(new CollisionSystem());
+            _systemManager.AddSystem(new MoveSystem());
+            _systemManager.AddSystem(new RenderSystem());
+            
         }
 
         /// <summary>
