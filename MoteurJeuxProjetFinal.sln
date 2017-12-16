@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoteurJeuxProjetFinal", "MoteurJeuxProjetFinal.csproj", "{4F2D0C8A-C9F7-4E87-BCD8-6BEBA08C2899}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", ".\Engine\Engine.csproj", "{4F2D0C8A-C9F7-4E87-BCD8-6BEBA08C2899}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platformer2D", ".\Platformer2D\Platformer2D.csproj", "{9B4C17C9-6F64-4936-ADC9-66ACE20E76A6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4F2D0C8A-C9F7-4E87-BCD8-6BEBA08C2899} = {4F2D0C8A-C9F7-4E87-BCD8-6BEBA08C2899}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +20,15 @@ Global
 		{4F2D0C8A-C9F7-4E87-BCD8-6BEBA08C2899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F2D0C8A-C9F7-4E87-BCD8-6BEBA08C2899}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F2D0C8A-C9F7-4E87-BCD8-6BEBA08C2899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B4C17C9-6F64-4936-ADC9-66ACE20E76A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B4C17C9-6F64-4936-ADC9-66ACE20E76A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B4C17C9-6F64-4936-ADC9-66ACE20E76A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B4C17C9-6F64-4936-ADC9-66ACE20E76A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48A9A0C1-B173-434C-A953-1E7ADC0E0533}
 	EndGlobalSection
 EndGlobal
