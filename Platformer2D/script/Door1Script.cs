@@ -1,5 +1,5 @@
-﻿using MoteurJeuxProjetFinal.GameEngine;
-using MoteurJeuxProjetFinal.GameEngine.Managers;
+﻿using Engine;
+using Engine.Managers;
 
 namespace MoteurJeuxProjetFinal.Platformer2D.script
 {
@@ -8,22 +8,22 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
         private static ActionManager _actionManager;
 
 
-        protected internal override void Awake()
+        public override void Awake()
         {
 
         }
 
-        protected internal override void Start(ActionManager actionManager)
+        public override void Start(ActionManager actionManager)
         {
             _actionManager = actionManager;
         }
 
-        protected internal override void Update()
+        public override void Update()
         {
 
         }
 
-        protected internal override void End()
+        public override void End()
         {
             
         }
