@@ -48,16 +48,16 @@ namespace Engine
             _displayWindow.InitFormProperties(gameProperties.GameName, gameProperties.ScreenWidth, gameProperties.ScreenHeight);
 
             // Loas all the scenes and set the current scene
-            _sceneManager.InitScenes(2);
+            _sceneManager.InitScenes(0);
 
             _systemManager.Init(this);
             // Need to add them in the order they will be executed
 
             _systemManager.AddSystem(new EventSystem());
             _systemManager.AddSystem(new ScriptSystem());
+            _systemManager.AddSystem(new MoveSystem());
             _systemManager.AddSystem(new PhysicsSystem());
             _systemManager.AddSystem(new CollisionSystem());
-            _systemManager.AddSystem(new MoveSystem());
             _systemManager.AddSystem(new RenderSystem());
             
         }
