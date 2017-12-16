@@ -1,6 +1,8 @@
 ﻿﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+ using System.ComponentModel;
+ using System.Diagnostics;
+ using System.Drawing;
 using System.Numerics;
 using System.Windows.Forms;
 using MoteurJeuxProjetFinal.GameEngine.Components;
@@ -94,16 +96,14 @@ namespace MoteurJeuxProjetFinal.GameEngine
             PositionComponent positionComponent = (PositionComponent) entityToAdd.GetComponentOfType(typeof(PositionComponent));
             
             // Create a panel 
-            Panel panelToAdd = new Panel
+            Panel panelToAdd = new EntityImagePanel(_gameEngine.imagePath + renderComponent.image)
             {
-                BackgroundImage = Image.FromFile(_gameEngine.imagePath + renderComponent.image),
-                BackgroundImageLayout = ImageLayout.Stretch,
-                BackColor = Color.Transparent,
                 Location = new Point((int) positionComponent.position.X, (int) positionComponent.position.Y),
-                Size = new Size((int) renderComponent.size.X, (int) renderComponent.size.Y),
-                TabIndex = 0
+                Size = new Size((int) renderComponent.size.X, (int) renderComponent.size.Y)
             };
             panelToAdd.Click += OnImageClick;
+            CreateParams cp = CreateParams;
+            cp.ExStyle = cp.ExStyle | 0;
 
             // Add the panel
             if (InvokeRequired)
@@ -210,6 +210,40 @@ namespace MoteurJeuxProjetFinal.GameEngine
             Controls.Add(DisplayLayer);
 
             Refresh();
+        }
+
+        private sealed class EntityImagePanel : Panel
+        {
+            public EntityImagePanel(string imagePath)
+            {
+                BackgroundImage = Image.FromFile(imagePath);
+                BackgroundImageLayout = ImageLayout.Stretch;
+                BackColor = Color.Transparent;
+                TabIndex = 0;
+            }
+            
+            private int opacity = 50;
+            [DefaultValue(50)]
+            public int Opacity
+            {
+                get => opacity;
+                set
+                {
+                    if (value < 0 || value > 100)
+                        throw new ArgumentException("value must be between 0 and 100");
+                    opacity = value;
+                }
+            }
+            protected override CreateParams CreateParams
+            {
+                get
+                {
+                    CreateParams cp = base.CreateParams;
+                    cp.ExStyle = cp.ExStyle;
+                    return cp;
+                }
+            }
+            
         }
 
 
