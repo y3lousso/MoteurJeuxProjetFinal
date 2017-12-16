@@ -1,17 +1,16 @@
-﻿using System.Diagnostics;
-using System.Numerics;
+﻿using System.Numerics;
 using Engine;
-using Engine.Managers;
 using Engine.Components;
+using Engine.Managers;
 
-namespace MoteurJeuxProjetFinal.Platformer2D.script
+namespace Platformer2D.script
 {
     class EnemyScript : GameScript
     {
         private ActionManager _actionManager;
         private Vector2 _speed = new Vector2(100,0);
         private VelocityComponent _velocityComponent;
-        
+
         public override void Awake()
         {
         }

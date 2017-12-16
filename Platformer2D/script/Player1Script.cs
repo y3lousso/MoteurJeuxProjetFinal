@@ -2,7 +2,8 @@
 using Engine.Managers;
 using Engine.Components;
 
-namespace MoteurJeuxProjetFinal.Platformer2D.script
+
+namespace Platformer2D.script
 {
     class Player1Script : GameScript
     {

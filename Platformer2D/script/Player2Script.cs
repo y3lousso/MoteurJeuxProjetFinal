@@ -4,9 +4,10 @@ using Engine;
 using Engine.Managers;
 using Engine.Components;
 
-namespace MoteurJeuxProjetFinal.Platformer2D.script
+
+namespace Platformer2D.script
 {
-    internal class Player2Script : GameScript
+    public class Player2Script : GameScript
     {
         public static Player2Script instance;
 

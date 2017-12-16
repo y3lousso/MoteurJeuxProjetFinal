@@ -1,7 +1,8 @@
 ﻿using Engine;
 using Engine.Managers;
+using Platformer2D.script;
 
-namespace MoteurJeuxProjetFinal.Platformer2D.script
+namespace Platformer2D.script
 {
     class Door2Script : GameScript
          {
