@@ -42,10 +42,11 @@ namespace Platformer2D.script
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
             _pc._forces.Add(new Vector2(50000 * horizontal,0));
-            if (_canJump)
+            if (_canJump && vertical < 0)
             {
                 _pc._forces.Add(new Vector2(0, 50000000* vertical));
                 _canJump = false;
+                _actionManager.ActionPlaySound("playerJump.wav");
             }
 
             if (!_canBeHurt)
@@ -79,6 +80,7 @@ namespace Platformer2D.script
                 (collisionEvent.CollisionSide == CollisionSide.FROM_RIGHT_SIDE || 
                 collisionEvent.CollisionSide == CollisionSide.FROM_LEFT_SIDE))
             {
+                // Lost a life
                 _life--;
                 if (_life > 0 && collisionEvent.CollisionSide != CollisionSide.FROM_TOP_SIDE)
                 {
@@ -86,7 +88,8 @@ namespace Platformer2D.script
 
                     Entity life = _actionManager.ActionGetCurrentScene().findEntityWithName("life");
                     ((RenderComponent) life.GetComponentOfType(typeof(RenderComponent))).image =  "life" + _life + ".png";
-                    ((RenderComponent) GetEntity().GetComponentOfType(typeof(RenderComponent))).image = "floorTile.png";
+                    ((RenderComponent) GetEntity().GetComponentOfType(typeof(RenderComponent))).image = "marioHurt.png";
+                    _actionManager.ActionPlaySound("lostAlife.wav");
                     if (collisionEvent.CollisionSide == CollisionSide.FROM_RIGHT_SIDE)
                     {
                         _pc._forces.Add(new Vector2(1000000, 0));
@@ -96,8 +99,10 @@ namespace Platformer2D.script
                         _pc._forces.Add(new Vector2(-1000000, 0));
                     }
                 }
+                // dead 
                 else
                 {
+                    _actionManager.ActionPlaySound("playerDead.wav");
                     _life = 3;
                     Entity life = _actionManager.ActionGetCurrentScene().findEntityWithName("life");
                     ((RenderComponent) life.GetComponentOfType(typeof(RenderComponent))).image =  "life3.png";
@@ -107,14 +112,18 @@ namespace Platformer2D.script
                     ((PositionComponent) GetEntity().GetComponentOfType(typeof(PositionComponent))).position = new Vector2(0,550);
                 }
             }
+            // Kill an ennemy
             if (collisionEvent.OtherEntity.GetName().Contains("Enemy") && collisionEvent.CollisionSide == CollisionSide.FROM_TOP_SIDE)
             {
+                _pc._forces.Add(new Vector2(0, -1000000));
                 _actionManager.ActionRemoveEntity(collisionEvent.OtherEntity);
                 _enemyKilled++;
+                _actionManager.ActionPlaySound("enemyDead.wav");
                 if (_enemyKilled == 2)
                 {
                     Entity door = _actionManager.ActionGetCurrentScene().findEntityWithName("door");
                     ((RenderComponent)door.GetComponentOfType(typeof(RenderComponent))).image = "door.png";
+                    _actionManager.ActionPlaySound("doorOpen.wav");
                 }
             }
         }

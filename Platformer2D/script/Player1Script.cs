@@ -40,6 +40,7 @@ namespace Platformer2D.script
             {
                 pc._forces.Add(new System.Numerics.Vector2(0, 50000000 * vertical));
                 CanJump = false;
+                _actionManager.ActionPlaySound("playerJump.wav");
             }
         }
 
@@ -60,6 +61,7 @@ namespace Platformer2D.script
                 {
                     Entity door = _actionManager.ActionGetCurrentScene().findEntityWithName("door");
                     ((RenderComponent)door.GetComponentOfType(typeof(RenderComponent))).image = "door.png";
+                    _actionManager.ActionPlaySound("doorOpen.wav");
                 }
             }
             // Collision with coin -> collect it
