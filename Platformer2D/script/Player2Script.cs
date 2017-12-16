@@ -10,7 +10,7 @@ namespace Platformer2D.script
 {
     public class Player2Script : GameScript
     {
-        public static Player2Script instance;
+        public static Player2Script Instance;
 
         private static ActionManager _actionManager;
         
@@ -26,8 +26,8 @@ namespace Platformer2D.script
 
         public override void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 throw new Exception("Can't have multiple instance of the same script.");
         }
@@ -42,13 +42,18 @@ namespace Platformer2D.script
         {
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
-            _pc._forces.Add(new Vector2(50000 * horizontal,0));
-            if (_canJump && Math.Abs(vertical) > 0.01)
+            _pc._forces.Add(new Vector2(50000 * horizontal,0)); // hozitontal move
+            if (_canJump && vertical < 0)
             {
+                // Jump up
                 _pc._forces.Add(new Vector2(0, 50000000* vertical));
                 _canJump = false;
                 _actionManager.ActionPlaySound("playerJump.wav");
             }
+            else if (vertical > 0)
+                // Jump down
+                _pc._forces.Add(new Vector2(0, 10000000* vertical));
+
 
             if (!_canBeHurt)
             {
@@ -64,7 +69,7 @@ namespace Platformer2D.script
 
         public override void End()
         {
-            instance = null;
+            Instance = null;
         }
 
         public override void OnCollision(CollisionEvent collisionEvent)

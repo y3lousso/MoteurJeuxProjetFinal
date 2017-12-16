@@ -31,7 +31,7 @@ namespace Platformer2D.script
         public override void OnCollision(CollisionEvent collisionEvent)
         {
             // Collision with door -> change scene if enought coins
-            if (collisionEvent.OtherEntity.GetName().Equals("Player") && Player1Script.instance.GetCoins() == 5)
+            if (collisionEvent.OtherEntity.GetName().Equals("Player") && Player1Script.Instance.GetCoins() == 5)
             {
                 _actionManager.ActionChangeCurrentScene(_actionManager.ActionGetCurrentSceneIndex() + 1);
             }

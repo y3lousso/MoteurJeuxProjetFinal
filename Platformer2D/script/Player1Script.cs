@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Numerics;
 using Engine;
 using Engine.Managers;
 using Engine.Components;
@@ -8,19 +8,18 @@ namespace Platformer2D.script
 {
     class Player1Script : GameScript
     {
-        public static Player1Script instance;
+        public static Player1Script Instance;
 
         private static ActionManager _actionManager;
         private int _coins;
 
-        private Entity player;
-        private PhysicsComponent pc;
-        private bool CanJump = false;
+        private PhysicsComponent _pc;
+        private bool _canJump;
 
         public override void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 throw new System.Exception("Can't have multiple instance of the same script.");
         }
@@ -28,26 +27,27 @@ namespace Platformer2D.script
         public override void Start(ActionManager actionManager)
         {
             _actionManager = actionManager;
-            player = GetEntity();
-            pc = (PhysicsComponent)player.GetComponentOfType(typeof(PhysicsComponent));
+            _pc = (PhysicsComponent) GetEntity().GetComponentOfType(typeof(PhysicsComponent));
         }
 
         public override void Update()
         {
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
-            pc._forces.Add(new System.Numerics.Vector2(50000 * horizontal, 0));
-            if (CanJump && Math.Abs(vertical) > 0.01)
+            _pc._forces.Add(new Vector2(50000 * horizontal,0)); // hozitontal move
+            if (_canJump && vertical < 0)
             {
-                pc._forces.Add(new System.Numerics.Vector2(0, 50000000 * vertical));
-                CanJump = false;
+                _pc._forces.Add(new Vector2(0, 50000000* vertical));
+                _canJump = false;
                 _actionManager.ActionPlaySound("playerJump.wav");
             }
+            else if (vertical > 0)
+                _pc._forces.Add(new Vector2(0, 10000000* vertical));
         }
 
         public override void End()
         {
-            instance = null;
+            Instance = null;
         }
 
         public override void OnCollision(CollisionEvent collisionEvent)
@@ -68,7 +68,7 @@ namespace Platformer2D.script
             // Collision with coin -> collect it
             if (collisionEvent.OtherEntity.GetName().Contains("Floor"))
             {
-                CanJump = true;
+                _canJump = true;
             }
         }
 
