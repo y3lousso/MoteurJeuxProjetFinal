@@ -2,7 +2,7 @@
 using Engine;
 using Engine.Managers;
 
-namespace MoteurJeuxProjetFinal.Platformer2D.script
+namespace Platformer2D.script
 {
     public class StartButtonScript : GameScript
     {

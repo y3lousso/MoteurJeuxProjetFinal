@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Numerics;
-using MoteurJeuxProjetFinal.GameEngine;
-using MoteurJeuxProjetFinal.GameEngine.Components;
-using MoteurJeuxProjetFinal.GameEngine.Managers;
+using Engine;
+using Engine.Components;
+using Engine.Managers;
 
-namespace MoteurJeuxProjetFinal.Platformer2D.script
+namespace Platformer2D.script
 {
-    internal class Player2Script : GameScript
+    public class Player2Script : GameScript
     {
         public static Player2Script instance;
 
@@ -22,7 +22,7 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
         private PhysicsComponent _pc;
         private bool _canJump;
 
-        protected internal override void Awake()
+        public override void Awake()
         {
             if (instance == null)
                 instance = this;
@@ -30,13 +30,13 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
                 throw new Exception("Can't have multiple instance of the same script.");
         }
 
-        protected internal override void Start(ActionManager actionManager)
+        public override void Start(ActionManager actionManager)
         {
             _actionManager = actionManager;
             _pc = (PhysicsComponent) GetEntity().GetComponentOfType(typeof(PhysicsComponent));
         }
 
-        protected internal override void Update()
+        public override void Update()
         {
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
@@ -59,7 +59,7 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
             }
         }
 
-        protected internal override void End()
+        public override void End()
         {
             instance = null;
         }

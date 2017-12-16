@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-
+﻿
 namespace Engine.Components
 {
     public class BoxCollisionComponent : IComponent

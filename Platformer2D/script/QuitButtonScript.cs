@@ -1,8 +1,7 @@
-﻿using System;
-using Engine;
+﻿using Engine;
 using Engine.Managers;
 
-namespace MoteurJeuxProjetFinal.Platformer2D.script
+namespace Platformer2D.script
 {
     public class QuitButtonScript : GameScript
     {

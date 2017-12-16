@@ -52,12 +52,11 @@
   <ItemGroup>
     <Compile Include="Platformer2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="script\DoorScript.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="script\PlayerScript.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    <Compile Include="script\Door1Script.cs" />
+    <Compile Include="script\Door2Script.cs" />
+    <Compile Include="script\EnemyScript.cs" />
+    <Compile Include="script\Player1Script.cs" />
+    <Compile Include="script\Player2Script.cs" />
     <Compile Include="script\QuitButtonScript.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
