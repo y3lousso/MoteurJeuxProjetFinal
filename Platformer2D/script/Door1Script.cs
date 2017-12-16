@@ -1,11 +1,9 @@
-﻿using System.Diagnostics;
-using MoteurJeuxProjetFinal.GameEngine;
-using MoteurJeuxProjetFinal.GameEngine.Components;
+﻿using MoteurJeuxProjetFinal.GameEngine;
 using MoteurJeuxProjetFinal.GameEngine.Managers;
 
 namespace MoteurJeuxProjetFinal.Platformer2D.script
 {
-    internal class DoorScript : GameScript
+    internal class Door1Script : GameScript
     {
         private static ActionManager _actionManager;
 
@@ -33,7 +31,7 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
         public override void OnCollision(CollisionEvent collisionEvent)
         {
             // Collision with door -> change scene if enought coins
-            if (collisionEvent.OtherEntity.GetName().Equals("Player") && PlayerScript.instance.GetCoins() == 5)
+            if (collisionEvent.OtherEntity.GetName().Equals("Player") && Player1Script.instance.GetCoins() == 5)
             {
                 _actionManager.ActionChangeCurrentScene(_actionManager.ActionGetCurrentSceneIndex() + 1);
             }

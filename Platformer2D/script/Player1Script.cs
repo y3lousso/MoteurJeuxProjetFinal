@@ -1,13 +1,12 @@
-﻿using System.Diagnostics;
-using MoteurJeuxProjetFinal.GameEngine;
+﻿using MoteurJeuxProjetFinal.GameEngine;
 using MoteurJeuxProjetFinal.GameEngine.Components;
 using MoteurJeuxProjetFinal.GameEngine.Managers;
 
 namespace MoteurJeuxProjetFinal.Platformer2D.script
 {
-    internal class PlayerScript : GameScript
+    class Player1Script : GameScript
     {
-        public static PlayerScript instance;
+        public static Player1Script instance;
 
         private static ActionManager _actionManager;
         private int _coins;
@@ -35,10 +34,10 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
         {
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
-            pc._forces.Add(new System.Numerics.Vector2(50000 * horizontal,0));
+            pc._forces.Add(new System.Numerics.Vector2(50000 * horizontal, 0));
             if (CanJump)
             {
-                pc._forces.Add(new System.Numerics.Vector2(0, 50000000* vertical));
+                pc._forces.Add(new System.Numerics.Vector2(0, 50000000 * vertical));
                 CanJump = false;
             }
         }
@@ -71,9 +70,11 @@ namespace MoteurJeuxProjetFinal.Platformer2D.script
 
         public override void OnClick(EntityClickEvent entityClickEvent)
         {
-
         }
 
-        public int GetCoins() { return _coins; }
+        public int GetCoins()
+        {
+            return _coins;
+        }
     }
 }

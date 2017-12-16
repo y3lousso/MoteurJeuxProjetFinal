@@ -48,7 +48,7 @@ namespace MoteurJeuxProjetFinal.GameEngine
             _displayWindow.InitFormProperties(gameProperties.GameName, gameProperties.ScreenWidth, gameProperties.ScreenHeight);
 
             // Loas all the scenes and set the current scene
-            _sceneManager.InitScenes(0);
+            _sceneManager.InitScenes(2);
 
             _systemManager.Init(this);
             // Need to add them in the order they will be executed

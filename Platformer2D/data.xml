@@ -78,7 +78,7 @@
                 <sizeY>80</sizeY>
               </Component>
               <Component Type="Script">
-                <scriptName>PlayerScript</scriptName>
+                <scriptName>Player1Script</scriptName>
               </Component>
             </Components>
           </Entity>
@@ -256,7 +256,7 @@
                 <sizeY>100</sizeY>
               </Component>
               <Component Type="Script">
-                <scriptName>DoorScript</scriptName>
+                <scriptName>Door1Script</scriptName>
               </Component>
             </Components>
           </Entity>
@@ -388,7 +388,7 @@
         </Entities>
       </Scene>
       <Scene Name="Scene2">
-        <BackgroundImage>background3.png</BackgroundImage>
+        <BackgroundImage>background.png</BackgroundImage>
         <BackgroundSound>marioTheme.wav</BackgroundSound>
         <Entities>
           <Entity Name="Player">
@@ -402,7 +402,7 @@
               <Component Type="BoxCollision">
                 <sizeX>60</sizeX>
                 <sizeY>80</sizeY>
-                <isTrigger>true</isTrigger>
+                <isTrigger>false</isTrigger>
               </Component>
               <Component Type="Position">
                 <posX>0</posX>
@@ -418,7 +418,286 @@
                 <sizeY>80</sizeY>
               </Component>
               <Component Type="Script">
-                <scriptName>PlayerScript</scriptName>
+                <scriptName>Player2Script</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="FloorTile">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>1280</sizeX>
+                <sizeY>50</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>0</posX>
+                <posY>670</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>floorTile.png</image>
+                <sizeX>1280</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="FloorTile2">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>250</posX>
+                <posY>620</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>floorTile.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="FloorTile3">
+          <Components>
+            <Component Type="Physics">
+              <masse>99999</masse>
+              <useGravity>false</useGravity>
+              <useAirFriction>true</useAirFriction>
+              <airFrictionTweaker>9</airFrictionTweaker>
+            </Component>
+            <Component Type="BoxCollision">
+              <sizeX>50</sizeX>
+              <sizeY>50</sizeY>
+              <isTrigger>false</isTrigger>
+            </Component>
+            <Component Type="Position">
+              <posX>300</posX>
+              <posY>570</posY>
+              <orientation>0</orientation>
+            </Component>
+            <Component Type="Render">
+              <image>floorTile.png</image>
+              <sizeX>50</sizeX>
+              <sizeY>50</sizeY>
+            </Component>
+          </Components>
+        </Entity>
+          <Entity Name="FloorTile4">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>300</posX>
+                <posY>620</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>floorTile.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="FloorTile5">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>850</posX>
+                <posY>570</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>floorTile.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="FloorTile6">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>850</posX>
+                <posY>620</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>floorTile.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="FloorTile6">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>900</posX>
+                <posY>620</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>floorTile.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+        <Entity Name="Enemy">
+          <Components>
+            <Component Type="Physics">
+              <masse>99999</masse>
+              <useGravity>false</useGravity>
+              <useAirFriction>false</useAirFriction>
+              <airFrictionTweaker>9</airFrictionTweaker>
+            </Component>
+            <Component Type="BoxCollision">
+              <sizeX>50</sizeX>
+              <sizeY>70</sizeY>
+              <isTrigger>false</isTrigger>
+            </Component>
+            <Component Type="Velocity">
+              <maxVelocity>100</maxVelocity>
+            </Component>
+            <Component Type="Position">
+              <posX>600</posX>
+              <posY>600</posY>
+              <orientation>0</orientation>
+            </Component>
+            <Component Type="Render">
+              <image>goomba_right.png</image>
+              <sizeX>50</sizeX>
+              <sizeY>70</sizeY>
+            </Component>
+            <Component Type="Script">
+              <scriptName>EnemyScript</scriptName>
+            </Component>
+          </Components>
+        </Entity>
+          <Entity Name="Enemy2">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>false</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>70</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Velocity">
+                <maxVelocity>100</maxVelocity>
+              </Component>
+              <Component Type="Position">
+                <posX>400</posX>
+                <posY>600</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>goomba_right.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>70</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>EnemyScript</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="door">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+                <isTrigger>true</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>1080</posX>
+                <posY>570</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>doorLock.png</image>
+                <sizeX>70</sizeX>
+                <sizeY>100</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>Door2Script</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="life">
+            <Components>
+              <Component Type="Position">
+                <posX>50</posX>
+                <posY>50</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>life3.png</image>
+                <sizeX>200</sizeX>
+                <sizeY>50</sizeY>
               </Component>
             </Components>
           </Entity>
