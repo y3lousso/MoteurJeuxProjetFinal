@@ -42,7 +42,7 @@ namespace Platformer2D.script
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
             _pc._forces.Add(new Vector2(50000 * horizontal,0));
-            if (_canJump && vertical < 0)
+            if (_canJump && Math.Abs(vertical) > 0.01)
             {
                 _pc._forces.Add(new Vector2(0, 50000000* vertical));
                 _canJump = false;

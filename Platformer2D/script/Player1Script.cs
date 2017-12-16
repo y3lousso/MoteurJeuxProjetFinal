@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using System;
+using Engine;
 using Engine.Managers;
 using Engine.Components;
 
@@ -36,7 +37,7 @@ namespace Platformer2D.script
             float vertical = InputManager.GetAxis("Vertical");
             float horizontal = InputManager.GetAxis("Horizontal");
             pc._forces.Add(new System.Numerics.Vector2(50000 * horizontal, 0));
-            if (CanJump)
+            if (CanJump && Math.Abs(vertical) > 0.01)
             {
                 pc._forces.Add(new System.Numerics.Vector2(0, 50000000 * vertical));
                 CanJump = false;
