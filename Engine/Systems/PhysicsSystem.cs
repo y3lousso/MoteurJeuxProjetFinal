@@ -23,7 +23,7 @@ namespace Engine.Systems
                 VelocityComponent velocityComponent = (VelocityComponent)entity.GetComponentOfType(typeof(VelocityComponent));
                 if (physicsComponent.useGravity)
                 {
-                    physicsComponent._forces.Add(new Vector2(0, 500 * physicsComponent.masse));
+                    physicsComponent._forces.Add(new Vector2(0, 1000 * physicsComponent.masse));
                 }
 
                 // CalculateSumForces
