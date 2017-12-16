@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Numerics;
 using Engine;
 using Engine.Managers;
@@ -94,7 +93,6 @@ namespace Platformer2D.script
                     _canBeHurt = false;
 
                     Entity life = _actionManager.ActionGetCurrentScene().findEntityWithName("life");
-                    Debug.WriteLine("Life : " + _life);
                     ((RenderComponent) life.GetComponentOfType(typeof(RenderComponent))).image =  "life" + _life + ".png";
                     ((RenderComponent) GetEntity().GetComponentOfType(typeof(RenderComponent))).image = "marioHurt.png";
                     _actionManager.ActionPlaySound("lostAlife.wav");
@@ -113,7 +111,6 @@ namespace Platformer2D.script
                     _actionManager.ActionPlaySound("playerDead.wav");
                     _life = 3;
                     Entity life = _actionManager.ActionGetCurrentScene().findEntityWithName("life");
-                    Debug.WriteLine("Life : " + _life);
                     ((RenderComponent) life.GetComponentOfType(typeof(RenderComponent))).image =  "life3.png";
                     _actionManager.ActionRemoveEntity(life);
                     _actionManager.ActionAddEntity(life);
