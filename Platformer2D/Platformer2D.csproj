@@ -52,11 +52,15 @@
   <ItemGroup>
     <Compile Include="Platformer2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="script\BowserScript.cs" />
     <Compile Include="script\Door1Script.cs" />
     <Compile Include="script\Door2Script.cs" />
     <Compile Include="script\EnemyScript.cs" />
+    <Compile Include="script\FireballScript.cs" />
+    <Compile Include="script\LavaScript.cs" />
     <Compile Include="script\Player1Script.cs" />
     <Compile Include="script\Player2Script.cs" />
+    <Compile Include="script\Player3Script.cs" />
     <Compile Include="script\QuitButtonScript.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -76,12 +80,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="sound\*.wav">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
+  <ItemGroup>
+    <Content Include="sound\*.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="data.xml">
       <SubType>Designer</SubType>

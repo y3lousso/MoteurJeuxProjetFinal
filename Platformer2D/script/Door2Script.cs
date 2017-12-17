@@ -35,7 +35,7 @@ namespace Platformer2D.script
                  // Collision with door -> change scene if enought coins
                  if (collisionEvent.OtherEntity.GetName().Equals("Player") && Player2Script.Instance.GetEnnemyKilled() == 2)
                  {
-                     _actionManager.ActionChangeCurrentScene(0);
+                     _actionManager.ActionChangeCurrentScene(3);
                  }
              }
 

@@ -14,7 +14,7 @@
           <Entity Name="StartButton">
             <Components>
               <Component Type="Position">
-                <posX>250</posX>
+                <posX>270</posX>
                 <posY>300</posY>
                 <orientation>0</orientation>
               </Component>
@@ -31,7 +31,7 @@
           <Entity Name="ExitButton">
             <Components>
               <Component Type="Position">
-                <posX>650</posX>
+                <posX>670</posX>
                 <posY>300</posY>
                 <orientation>0</orientation>
               </Component>
@@ -642,7 +642,7 @@
                 <isTrigger>false</isTrigger>
               </Component>
               <Component Type="Velocity">
-                <maxVelocity>100</maxVelocity>
+                <maxVelocity>60</maxVelocity>
               </Component>
               <Component Type="Position">
                 <posX>400</posX>
@@ -698,6 +698,473 @@
                 <image>life3.png</image>
                 <sizeX>200</sizeX>
                 <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+        </Entities>
+      </Scene>
+      <Scene Name="Scene3">
+        <BackgroundImage>background.png</BackgroundImage>
+        <BackgroundSound>bowserTheme.wav</BackgroundSound>
+        <Entities>
+          <Entity Name="Player">
+            <Components>
+              <Component Type="Physics">
+                <masse>60</masse>
+                <useGravity>true</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>1</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>60</sizeX>
+                <sizeY>80</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>50</posX>
+                <posY>350</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Velocity">
+                <maxVelocity>500</maxVelocity>
+              </Component>
+              <Component Type="Render">
+                <image>mario.png</image>
+                <sizeX>60</sizeX>
+                <sizeY>80</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>Player3Script</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Tile1">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>150</sizeX>
+                <sizeY>250</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>0</posX>
+                <posY>470</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>baseTile.png</image>
+                <sizeX>150</sizeX>
+                <sizeY>250</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Tile2">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>250</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>300</posX>
+                <posY>470</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>verticalTile.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>250</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Tile3">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>250</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>500</posX>
+                <posY>470</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>verticalTile.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>250</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Tile3">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>250</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>700</posX>
+                <posY>470</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>verticalTile.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>250</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Tile4">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>250</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>900</posX>
+                <posY>470</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>verticalTile.png</image>
+                <sizeX>50</sizeX>
+                <sizeY>250</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Tile5">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>200</sizeX>
+                <sizeY>50</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>950</posX>
+                <posY>470</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>mediumTileLight.png</image>
+                <sizeX>200</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Tile6">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>150</sizeX>
+                <sizeY>250</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>1150</posX>
+                <posY>470</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>baseTile.png</image>
+                <sizeX>150</sizeX>
+                <sizeY>250</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Lava1">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>150</sizeX>
+                <sizeY>150</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>150</posX>
+                <posY>570</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>lava.png</image>
+                <sizeX>150</sizeX>
+                <sizeY>150</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>LavaScript</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Lava2">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>150</sizeX>
+                <sizeY>150</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>350</posX>
+                <posY>570</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>lava.png</image>
+                <sizeX>150</sizeX>
+                <sizeY>150</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>LavaScript</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Lava3">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>150</sizeX>
+                <sizeY>150</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>550</posX>
+                <posY>570</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>lava.png</image>
+                <sizeX>150</sizeX>
+                <sizeY>150</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>LavaScript</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Lava4">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>150</sizeX>
+                <sizeY>150</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>750</posX>
+                <posY>570</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>lava.png</image>
+                <sizeX>150</sizeX>
+                <sizeY>150</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>LavaScript</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Lava5">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>200</sizeX>
+                <sizeY>150</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>950</posX>
+                <posY>570</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>lava.png</image>
+                <sizeX>200</sizeX>
+                <sizeY>150</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Bowser">
+            <Components>
+              <Component Type="Physics">
+                <masse>5</masse>
+                <useGravity>true</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>0.5</airFrictionTweaker>
+              </Component>
+              <Component Type="Velocity">
+                <maxVelocity>500</maxVelocity>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>125</sizeX>
+                <sizeY>150</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>990</posX>
+                <posY>320</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>bowser.png</image>
+                <sizeX>125</sizeX>
+                <sizeY>150</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>BowserScript</scriptName>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="Hammer">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>30</sizeX>
+                <sizeY>50</sizeY>
+                <isTrigger>false</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>910</posX>
+                <posY>420</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>marteau.png</image>
+                <sizeX>30</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="life">
+            <Components>
+              <Component Type="Position">
+                <posX>50</posX>
+                <posY>50</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>life3.png</image>
+                <sizeX>200</sizeX>
+                <sizeY>50</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+          <Entity Name="door">
+            <Components>
+              <Component Type="Physics">
+                <masse>99999</masse>
+                <useGravity>false</useGravity>
+                <useAirFriction>true</useAirFriction>
+                <airFrictionTweaker>9</airFrictionTweaker>
+              </Component>
+              <Component Type="BoxCollision">
+                <sizeX>50</sizeX>
+                <sizeY>50</sizeY>
+                <isTrigger>true</isTrigger>
+              </Component>
+              <Component Type="Position">
+                <posX>1180</posX>
+                <posY>370</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>doorLock.png</image>
+                <sizeX>70</sizeX>
+                <sizeY>100</sizeY>
+              </Component>
+            </Components>
+          </Entity>
+      </Entities>
+      </Scene>
+      <Scene Name="End">
+        <BackgroundImage>endBackground.png</BackgroundImage>
+        <BackgroundSound>marioTheme.wav</BackgroundSound>
+        <Entities>
+          <Entity Name="ExitButton">
+            <Components>
+              <Component Type="Position">
+                <posX>470</posX>
+                <posY>300</posY>
+                <orientation>0</orientation>
+              </Component>
+              <Component Type="Render">
+                <image>quitButton.png</image>
+                <sizeX>300</sizeX>
+                <sizeY>92</sizeY>
+              </Component>
+              <Component Type="Script">
+                <scriptName>QuitButtonScript</scriptName>
               </Component>
             </Components>
           </Entity>
