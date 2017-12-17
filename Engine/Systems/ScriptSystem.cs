@@ -16,7 +16,7 @@ namespace Engine.Systems
 
         public void Update(float deltaTime)
         {
-            foreach (Entity entity in _entities)
+            foreach (Entity entity in _entities.ToArray())
             {
                 ScriptComponent scriptComponent = (ScriptComponent)entity.GetComponentOfType(typeof(ScriptComponent));
                 scriptComponent.Script.Update();
@@ -37,6 +37,17 @@ namespace Engine.Systems
             if (IsCompatible(entity))
             {
                 _entities.Add(entity);
+
+                ScriptComponent scriptComponent = (ScriptComponent) entity.GetComponentOfType(typeof(ScriptComponent));
+
+                // Set the entity :
+                scriptComponent.Script.SetEntity(entity);
+                // Start the script :
+                scriptComponent.Script.Awake();
+                scriptComponent.Script.Start(_gameEngine.GetActionManager());
+                // Register the script :
+                _gameEngine.GetEventManager().RegisterListener(scriptComponent.Script, entity);
+
             }
         }
 
@@ -70,7 +81,7 @@ namespace Engine.Systems
             // End the other script if it exist
             if (_entities != null)
             {               
-                foreach (Entity entity in _entities)
+                foreach (Entity entity in _entities.ToArray())
                 {
                     ScriptComponent scriptComponent = (ScriptComponent)entity.GetComponentOfType(typeof(ScriptComponent));
                     scriptComponent.Script.End();
@@ -82,23 +93,6 @@ namespace Engine.Systems
             foreach (Entity entity in entities)
             {
                 AddEntity(entity);
-            }
-
-            // Start and register all the scripts
-            _gameEngine.GetEventManager().UnregisterAllListeners();
-            foreach (Entity entity in _entities)
-            {
-                ScriptComponent scriptComponent = (ScriptComponent)entity.GetComponentOfType(typeof(ScriptComponent));
-                if (scriptComponent != null)
-                {
-                    // Set the entity :
-                    scriptComponent.Script.SetEntity(entity);
-                    // Start the script :
-                    scriptComponent.Script.Awake();
-                    scriptComponent.Script.Start(_gameEngine.GetActionManager());
-                    // Register the script :
-                    _gameEngine.GetEventManager().RegisterListener(scriptComponent.Script, entity);
-                }
             }
         }
     }

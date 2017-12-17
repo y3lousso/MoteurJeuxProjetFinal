@@ -83,7 +83,7 @@ public class EventDispatcher : IEventDispatcher
 
     public void Dispatch(GameStartEvent gameEvent)
     {
-        foreach (EventManager.EntityListener entityListener in _entityListeners)
+        foreach (EventManager.EntityListener entityListener in _entityListeners.ToArray())
         {
             entityListener.Listener.OnGameStart(gameEvent);
         }
@@ -91,7 +91,7 @@ public class EventDispatcher : IEventDispatcher
 
     public void Dispatch(GameFinishEvent gameEvent)
     {
-        foreach (EventManager.EntityListener entityListener in _entityListeners)
+        foreach (EventManager.EntityListener entityListener in _entityListeners.ToArray())
         {
             entityListener.Listener.OnGameFinish(gameEvent);
         }
@@ -99,7 +99,7 @@ public class EventDispatcher : IEventDispatcher
 
     public void Dispatch(CollisionEvent gameEvent)
     {
-        foreach (EventManager.EntityListener entityListener in _entityListeners)
+        foreach (EventManager.EntityListener entityListener in _entityListeners.ToArray())
         {
             // Dispatch the event only for the concerned entity
             if (gameEvent.Entity.Equals(entityListener.Entity))
@@ -109,7 +109,7 @@ public class EventDispatcher : IEventDispatcher
 
     public void Dispatch(SceneChangeEvent gameEvent)
     {
-        foreach (EventManager.EntityListener entityListener in _entityListeners)
+        foreach (EventManager.EntityListener entityListener in _entityListeners.ToArray())
         {
             entityListener.Listener.OnSceneChange(gameEvent);
         }
@@ -117,7 +117,7 @@ public class EventDispatcher : IEventDispatcher
 
     public void Dispatch(NewSceneDisplayedEvent gameEvent)
     {
-        foreach (EventManager.EntityListener entityListener in _entityListeners)
+        foreach (EventManager.EntityListener entityListener in _entityListeners.ToArray())
         {
             entityListener.Listener.OnNewSceneDisplayed(gameEvent);
         }
@@ -125,7 +125,7 @@ public class EventDispatcher : IEventDispatcher
 
     public void Dispatch(EntityClickEvent gameEvent)
     {
-        foreach (EventManager.EntityListener entityListener in _entityListeners)
+        foreach (EventManager.EntityListener entityListener in _entityListeners.ToArray())
         {
             // Dispatch the event only for the concerned entity
             if (gameEvent.Entity.Equals(entityListener.Entity))
