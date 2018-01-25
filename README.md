@@ -5,7 +5,7 @@ This game engine is develloped in C#, such as the scripts.
 
 With this engine, you can create and run small 2D games. It handles sprite rendering, audio, input personalisation and includes a very simple scripting system. You can also personalize physics and collisions.
 
-This engine is compatible with our ([editor](https://github.com/y3lousso/GameEngineEditor)) to create all the scenes of your game. The editor exports your game as an xml file. You also have to write scripts in C# (see below to have instructions).
+This engine is compatible with our [editor](https://github.com/y3lousso/GameEngineEditor) to create all the scenes of your game. The editor exports your game as an xml file. You also have to write scripts in C# (see below to have instructions).
 
 
 ## Authors
@@ -93,7 +93,7 @@ You can find a example of a game create with this engine for more help.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [license](LICENSE) file for details
 
 ## Build with
 
