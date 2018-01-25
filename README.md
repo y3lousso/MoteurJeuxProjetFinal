@@ -89,7 +89,7 @@ The game engine handles sprites and audio files. To add those files in your game
 
 With the game engine, you can create all the scenes of your game. This editor exports your game scenes in a xml file.
 
-You can find a example of a game create with this engine for more help.
+You can find a [example](https://github.com/y3lousso/MoteurJeuxProjetFinal/releases/download/v1.0/Platformer2D.v1.0.rar) of a game create with this engine for more help.
 
 ## License
 
