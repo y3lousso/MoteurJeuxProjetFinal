@@ -10,7 +10,7 @@ This engine is compatible with our [editor](https://github.com/y3lousso/GameEngi
 
 ## Authors
 
-* **Yannick Lounssou**
+* **Yannick Loussouarn**
 * **Thomas Faget**
 * **Malek El Ouerghi**
 * **Félix Lecate**
